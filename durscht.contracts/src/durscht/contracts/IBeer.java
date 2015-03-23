@@ -1,7 +1,7 @@
 package durscht.contracts;
 
 public interface IBeer {
-	String getName();
+	String getName(); //jlkadjfasjf
 	void setName(String newValue);
 	
 	String getManufactur();
