@@ -1,5 +1,5 @@
 package durscht.data;
 
-public class abc {
+public class ToBeDeleted {
 
 }

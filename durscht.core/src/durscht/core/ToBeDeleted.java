@@ -1,5 +1,5 @@
 package durscht.core;
 
-public class bcd {
+public class ToBeDeleted {
 
 }
