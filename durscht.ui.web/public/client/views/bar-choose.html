@@ -1,0 +1,6 @@
+<div ng-controller="BarChooserController as barCtrl">
+	<h1 class="text-center">{{barCtrl.caption}}</h1>
+	
+		<a class="btn btn-lg btn-default btn-block" ng-repeat="bar in barCtrl.bars" href="#/bar/{{bar.id}}">{{bar.name}} <small>({{bar.distance}})</small></a>
+		<a class="btn btn-lg btn-default btn-block" href="#/bar/create">Nö, ganz woanders</a>
+</div>

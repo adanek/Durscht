@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 
-<html>
-    <head>
-        <title>Durscht App</title>
-        <meta charset="utf-8"/> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-        <link rel="stylesheet" href="/assets/css/bootstrap.css"/>
-        <link rel="stylesheet" href="/assets/css/main.css"/>       
-    </head>
-    <body>
-      	<section>
-      	<h1>Hab i an Dürscht!</h1>
-      	<a class="btn btn-default" href="#"><span class="glyphicon glyphicon-envelope"> </span>Durscht</a>
-      	</section>
-        
-        <section>
-        	<script src="/assets/js/hello.js")" type="text/javascript"></script>
-        </section>
-    </body>
+<html ng-app="durscht">
+	<head ng-controller="TitleController as main">
+		<title>{{main.title}}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/client/css/bootstrap.css"/>
+	</head>
+	<body class="container">
+		<div ng-view></div>
+
+
+	<section id="scripts">
+		<script type="text/javascript" src="/assets/client/lib/angular.min.js"></script>
+		<script type="text/javascript" src="/assets/client/lib/angular-route.min.js"></script>
+		<script type="text/javascript" src="/assets/client/controller/durscht.js"></script>		
+	</section>
+</body>
 </html>
