@@ -7,6 +7,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import durscht.contracts.IBar;
+import durscht.contracts.IUser;
+
 @Entity
 @Table(name = "BeerPost")
 public class BeerPost {
@@ -22,15 +25,15 @@ public class BeerPost {
 	@Lob
 	private String description;
 
-	public int getid() {
+	public int getId() {
 		return id;
 	}
 
-	public void setid(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public SavedUser getUser() {
+	public IUser getUser() {
 		return user;
 	}
 
@@ -46,7 +49,7 @@ public class BeerPost {
 		this.beer = beer;
 	}
 
-	public Bar getBar() {
+	public IBar getBar() {
 		return bar;
 	}
 

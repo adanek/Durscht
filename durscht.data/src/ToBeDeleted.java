@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import durscht.contracts.IDataHandler;
+import durscht.contracts.IUser;
 import durscht.model.Bar;
 import durscht.model.Beer;
 import durscht.model.BeerPost;
@@ -23,13 +24,16 @@ public class ToBeDeleted {
 			IDataHandler handler  = DataHandler.getHandler();
 			
 			//create new user
-			handler.createUser("testUser", "test.user@gmx.at", "test1234");
+			int userid = handler.createUser("testUser3", "test.user3@gmx.at", "test12345678");
 
 			//create new beer
 			handler.createBeer("TestBier", "Das ist nur ein Testbier");
 
+			IUser user = handler.getUserLogin("testUser3", "test12345678");
+			
+			System.out.println(user.getName() + " " + user.getEmail() + " " + user.getId() + user.getJoinedDate()  + " " + user.getPassword());
 
-
+			handler.closeDatabaseConnection();
 //			Bar bar1 = new Bar();
 //			bar1.setName("Gössers");
 //			Bar bar2 = new Bar();

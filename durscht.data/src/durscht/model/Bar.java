@@ -11,9 +11,11 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import durscht.contracts.IBar;
+
 @Entity
 @Table(name = "Bar")
-public class Bar {
+public class Bar implements IBar {
 
 	@Id
 	@GeneratedValue
@@ -30,14 +32,16 @@ public class Bar {
 	@OneToMany(mappedBy = "bar")
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 
-	public int getid() {
+	@Override
+	public int getId() {
 		return id;
 	}
 
-	public void setid(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -46,6 +50,7 @@ public class Bar {
 		this.name = name;
 	}
 
+	@Override
 	public String getUrl() {
 		return url;
 	}
@@ -54,6 +59,7 @@ public class Bar {
 		this.url = url;
 	}
 
+	@Override
 	public double getLatitude() {
 		return latitude;
 	}
@@ -62,6 +68,7 @@ public class Bar {
 		this.latitude = latitude;
 	}
 
+	@Override
 	public double getLongitude() {
 		return longitude;
 	}
@@ -70,6 +77,7 @@ public class Bar {
 		this.longitude = longitude;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}

@@ -10,9 +10,11 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import durscht.contracts.IAchievement;
+
 @Entity
 @Table(name = "Achievement")
-public class Achievement {
+public class Achievement implements IAchievement {
 	@Id
 	@GeneratedValue
 	private int id;
@@ -22,14 +24,16 @@ public class Achievement {
 	@ManyToMany(mappedBy = "achievements")
 	private Collection<SavedUser> users = new LinkedList<>();
 
-	public int getid() {
+	@Override
+	public int getId() {
 		return id;
 	}
 
-	public void setUid(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -38,6 +42,7 @@ public class Achievement {
 		this.name = name;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}

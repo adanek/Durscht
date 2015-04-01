@@ -10,23 +10,25 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import durscht.contracts.IBeer;
+
 @Entity
 @Table(name = "Beer")
-public class Beer {
+public class Beer implements IBeer{
 	@Id
 	@GeneratedValue
 	private int id;
 	private String name;
 	@Lob
 	private String description;
-	@OneToMany(mappedBy = "beer")
+	@OneToMany
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 
-	public int getid() {
+	public int getId() {
 		return id;
 	}
 
-	public void setUid(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

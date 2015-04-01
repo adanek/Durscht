@@ -14,9 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import durscht.contracts.IUser;
+
 @Entity
 @Table(name = "SavedUser")
-public class SavedUser {
+public class SavedUser implements IUser {
 
 	@Id
 	@GeneratedValue
@@ -25,18 +27,19 @@ public class SavedUser {
 	@Column(name = "e_mail")
 	private String email;
 	@Column(name = "password")
+	private String password;
 	@Temporal(TemporalType.DATE)
-	private Date joinedDate;
+	private Date joinedDate = new Date();
 	@OneToMany(mappedBy = "user")
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 	@ManyToMany
 	private Collection<Achievement> achievements = new LinkedList<>();
 
-	public int getid() {
+	public int getId() {
 		return id;
 	}
 
-	public void setid(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -54,6 +57,14 @@ public class SavedUser {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Date getJoinedDate() {
