@@ -24,9 +24,7 @@ public class SavedUser implements IUser {
 	@GeneratedValue
 	private int id;
 	private String name;
-	@Column(name = "e_mail")
 	private String email;
-	@Column(name = "password")
 	private String password;
 	@Temporal(TemporalType.DATE)
 	private Date joinedDate = new Date();

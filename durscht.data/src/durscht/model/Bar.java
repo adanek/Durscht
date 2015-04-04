@@ -21,11 +21,8 @@ public class Bar implements IBar {
 	@GeneratedValue
 	private int id;
 	private String name;
-	@Column(name = "web_url")
 	private String url;
-	@Column(name = "pos_lat")
 	private double latitude;
-	@Column(name = "pos_long")
 	private double longitude;
 	@Lob
 	private String description;

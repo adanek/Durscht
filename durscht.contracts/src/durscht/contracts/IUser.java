@@ -11,7 +11,5 @@ public interface IUser {
 	public String getEmail();
 
 	public Date getJoinedDate();
-	
-	public String getPassword();
 
 }

@@ -3,7 +3,10 @@ import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -15,11 +18,13 @@ import org.hibernate.criterion.Restrictions;
 import durscht.contracts.IAchievement;
 import durscht.contracts.IBar;
 import durscht.contracts.IBeer;
+import durscht.contracts.IBeerPost;
 import durscht.contracts.IDataHandler;
 import durscht.contracts.IUser;
 import durscht.model.Achievement;
 import durscht.model.Bar;
 import durscht.model.Beer;
+import durscht.model.BeerPost;
 import durscht.model.SavedUser;
 
 /**
@@ -165,8 +170,10 @@ public class DataHandler implements IDataHandler {
 
 	}
 
-	@Override
-	public Integer createUser(String name, String email, String password) {
+	/**
+	 * create an new user
+	 */
+	public int createUser(String name, String email, String password) {
 
 		// create user instance
 		SavedUser user = new SavedUser();
@@ -184,8 +191,10 @@ public class DataHandler implements IDataHandler {
 
 	}
 
-	@Override
-	public Integer createBeer(String name, String description) {
+	/**
+	 * create a new beer
+	 */
+	public int createBeer(String name, String description) {
 
 		// create beer instance
 		Beer beer = new Beer();
@@ -206,7 +215,7 @@ public class DataHandler implements IDataHandler {
 	 * @param url
 	 * @return the ID of the created object or null if the creation failed
 	 */
-	public Integer createBar(String name, double latitude, double longitude, String description, String url){
+	public int createBar(String name, double latitude, double longitude, String description, String url){
 		
 		//create bar instance
 		Bar bar = new Bar();
@@ -226,7 +235,7 @@ public class DataHandler implements IDataHandler {
 	 * @param description
 	 * @return the ID of the created object or null if the creation failed
 	 */
-	public Integer createAchievement(String name, String description){
+	public int createAchievement(String name, String description){
 		//create achievement instance
 		Achievement ach = new Achievement();
 		ach.setName(name);
@@ -278,10 +287,18 @@ public class DataHandler implements IDataHandler {
 	}
 	
 	/**
+	 * search for a user by ID
+	 * @return User or null when no user exists in the database with this ID
+	 */
+	private SavedUser getUserByID(int id){
+		return this.<SavedUser>searchForID(id, SavedUser.class);
+	}
+	
+	/**
 	 * search for a bar by ID
 	 * @return Bar or null when no user exists in the database with this ID
 	 */
-	public IBar getBarByID(int id){
+	private Bar getBarByID(int id){
 		return this.<Bar>searchForID(id, Bar.class);
 	}
 	
@@ -289,7 +306,7 @@ public class DataHandler implements IDataHandler {
 	 * search for a beer by ID
 	 * @return Beer or null when no user exists in the database with this ID
 	 */
-	public IBeer getBeerByID(int id){
+	private Beer getBeerByID(int id){
 		return this.<Beer>searchForID(id, Beer.class);
 	}
 	
@@ -297,8 +314,222 @@ public class DataHandler implements IDataHandler {
 	 * search for a achievement by ID
 	 * @return Achievement or null when no user exists in the database with this ID
 	 */
-	public IAchievement getAchievementByID(int id){
+	private Achievement getAchievementByID(int id){
 		return this.<Achievement>searchForID(id, Achievement.class);
 	}
+	
+	/**
+	 * get all beers that are saved in the database
+	 * @return all beers
+	 */
+	public Collection<IBeer> getAllBeers(){
+		Session session = openSession();
 
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Beer.class);
+			List<IBeer> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+
+			return null;
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+	
+	/**
+	 * get all bars that are between the longitude and latitude coordinates
+	 * @param fromLatitude
+	 * @param toLatitude
+	 * @param fromLongitude
+	 * @param toLongitude
+	 * @return	list of all matched bars or null when it is no bar between the coordinates
+	 */
+	public Collection<IBar> getBarsCoordinates(double fromLatitude, double toLatitude, double fromLongitude, double toLongitude){
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			cr.add(Restrictions.between("latitude", fromLatitude, toLatitude));
+			cr.add(Restrictions.between("longitude", fromLongitude, toLongitude));
+			List<IBar> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+
+			return null;
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+	
+	/**
+	 * get all beers that are in this bar available
+	 * @param barID
+	 * @return	list of beers or null if no beers are available
+	 */
+	public Collection<IBeer> getAllBeersFromBar(int barID){
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			cr.add(Restrictions.eq("id", barID));
+			List<Bar> results = cr.list();
+
+			if(results == null)
+				return null;	//bar not found with this id
+	
+			
+			Collection<BeerPost> posts = results.get(0).getBeerPosts();
+			Collection<IBeer> beers = new ArrayList<>();
+			
+			for(BeerPost post : posts){
+				beers.add(post.getBeer());
+			}
+			
+			// commit
+			session.getTransaction().commit();
+			
+			return beers;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+
+			return null;
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	/**
+	 * get all posts from a bar
+	 * @param barID
+	 * @return a list of posts or null if no post is in the database
+	 */
+	public Collection<IBeerPost> getAllPostsFromBar(int barID){
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			cr.add(Restrictions.eq("id", barID));
+			List<Bar> results = cr.list();
+
+			if(results == null)
+				return null;	//bar not found with this id
+	
+			
+			Collection<BeerPost> posts = results.get(0).getBeerPosts();
+			
+			Collection<IBeerPost> ret = new LinkedList<>(posts);
+						
+			// commit
+			session.getTransaction().commit();
+			
+			return ret;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+
+			return null;
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+	/**
+	 * create a new Post
+	 * @param barID
+	 * @param beerID
+	 * @param userID
+	 * @param descripton
+	 * @return ID of post or 0 when creation failed
+	 */
+	public int createPost(int barID, int beerID, int userID, String descripton){
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			cr.add(Restrictions.eq("id", barID));
+			Bar bar = (Bar) cr.list().get(0);
+			
+			cr = session.createCriteria(Beer.class);
+			cr.add(Restrictions.eq("id", beerID));
+			Beer beer = (Beer) cr.list().get(0);
+			
+			cr = session.createCriteria(SavedUser.class);
+			cr.add(Restrictions.eq("id", userID));
+			SavedUser user = (SavedUser) cr.list().get(0);
+			
+			BeerPost post = new BeerPost();
+			
+			post.setBar(bar);
+			post.setBeer(beer);
+			post.setUser(user);
+			post.setDescription(descripton);
+			
+			// save post
+			int id = (int) session.save(post);
+			
+			bar.getBeerPosts().add(post);
+			beer.getBeerPosts().add(post);
+			user.getBeerPosts().add(post);
+			
+			//update all other objects with post
+			session.update(bar);
+			session.update(beer);
+			session.update(user);
+
+			// commit
+			session.getTransaction().commit();
+
+			return id;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			
+			return 0;
+		} finally {
+			// close session
+			session.close();
+		}
+	}
 }

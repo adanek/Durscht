@@ -8,11 +8,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import durscht.contracts.IBar;
+import durscht.contracts.IBeerPost;
 import durscht.contracts.IUser;
 
 @Entity
 @Table(name = "BeerPost")
-public class BeerPost {
+public class BeerPost implements IBeerPost{
 	@Id
 	@GeneratedValue
 	private int id;

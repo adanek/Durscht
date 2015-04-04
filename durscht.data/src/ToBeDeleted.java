@@ -3,12 +3,14 @@ import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Date;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import durscht.contracts.IBeer;
 import durscht.contracts.IDataHandler;
 import durscht.contracts.IUser;
 import durscht.model.Bar;
@@ -24,14 +26,26 @@ public class ToBeDeleted {
 			IDataHandler handler  = DataHandler.getHandler();
 			
 			//create new user
-			int userid = handler.createUser("testUser3", "test.user3@gmx.at", "test12345678");
+			int userid = handler.createUser("testUser4", "test.user3@gmx.at", "test12345678");
 
 			//create new beer
-			handler.createBeer("TestBier", "Das ist nur ein Testbier");
+			int beerid = handler.createBeer("TestBier2", "Das ist nur ein Testbier");
+			//create new beer
+			int beerid2 = handler.createBeer("TestBier3", "Das ist nur ein Testbier");
 
-			IUser user = handler.getUserLogin("testUser3", "test12345678");
+			IUser user = handler.getUserLogin("testUser4", "test12345678");
 			
-			System.out.println(user.getName() + " " + user.getEmail() + " " + user.getId() + user.getJoinedDate()  + " " + user.getPassword());
+			int barid = handler.createBar("TheresienBräu", 13.0, 14.0, "", "");
+			
+			handler.createPost(barid, beerid, user.getId(), "hallo du");
+			handler.createPost(barid, beerid2, user.getId(), "hallo er");
+			
+			Collection<IBeer> beers = handler.getAllBeersFromBar(barid);
+			
+			for(IBeer beer : beers){
+				System.out.println(beer.getName());
+			}
+			
 
 			handler.closeDatabaseConnection();
 //			Bar bar1 = new Bar();
