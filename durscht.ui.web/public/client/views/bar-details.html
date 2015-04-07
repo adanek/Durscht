@@ -1,4 +1,7 @@
 <div ng-controller="BarDetailsController as barCtrl">
 	<h1>{{barCtrl.bar.name}}</h1>
 	<p>{{barCtrl.bar.id}}</p>
+	<ul>
+		<li ng-repeat="beer in barCtrl.bar.beers">{{beer.brand}} - {{beer.type}}</li>
+	</ul>
 </div>

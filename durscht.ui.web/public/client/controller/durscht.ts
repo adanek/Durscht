@@ -1,13 +1,7 @@
-/// <reference path="../lib/typings/angular/angular.d.ts"/>
-	interface Bar {
-		id:number;
-		name: string;
-		distance: string;		
-	}
-	
+/// <reference path="../_references.ts"/>
 	
 (function(){
-	var app = angular.module("durscht", ["ngRoute"]);
+	var app = angular.module("durscht-core", ["ngRoute"]);
 	
 	var config = function($routeProvider){
 		
@@ -19,31 +13,6 @@
 			.otherwise({redirectTo: "/"});
 	};
 	
-	app.config(config);
-	
-	var titleController = function(){
-		this.title = "Durscht App V0.1";
-	};
-	
-	app.controller("TitleController", titleController);
-	
-	app.controller("BarChooserController", function($routeParams){
-		this.caption = "Bist du da?";
-			
-		var bars:Array<Bar> = [
-			{id:1, name: "GigaBar", distance:"1.2km"},
-			{id:2, name:"SegaBar", distance:"0.8km"}				
-		];
-		
-		this.bars = bars;
-		});
-	
-	
-	app.controller("BarDetailsController", function($routeParams){
-		
-		var id = $routeParams.id;
-		
-		var b:Bar = {id: id, name: "Selected Bar", distance:"0.0km"};
-		this.bar = b;
-	});	
+	app.config(config);			
+
 })();
