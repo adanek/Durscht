@@ -1,8 +1,8 @@
 /// <reference path="../_references.ts"/>
 (function () {
-    var app = angular.module("durscht-core", ["ngRoute"]);
+    var app = angular.module("durscht-core", ["ngRoute", "ui.bootstrap"]);
     var config = function ($routeProvider) {
-        $routeProvider.when("/", { templateUrl: "/assets/client/views/index.html" }).when("/bar/choose", { templateUrl: "/assets/client/views/bar-choose.html" }).when("/bar/create", { templateUrl: "/assets/client/views/bar-create.html" }).when("/bar/:id", { templateUrl: "/assets/client/views/bar-details.html" }).otherwise({ redirectTo: "/" });
+        $routeProvider.when("/", { templateUrl: "/assets/client/views/index.html" }).when("/share/bar/choose", { templateUrl: "/assets/client/views/share-choose-bar.html" }).when("/share/beer/choose", { templateUrl: "/assets/client/views/share-choose-beer.html" }).when("/share/details", { templateUrl: "/assets/client/views/share-details.html" }).when("/share/bar/create", { templateUrl: "/assets/client/views/bar-create.html" }).when("/share/beer/create", { templateUrl: "/assets/client/views/share-beer-create.html" }).otherwise({ redirectTo: "/" });
     };
     app.config(config);
 })();

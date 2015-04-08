@@ -1,4 +1,6 @@
 /// <reference path="./lib/typings/angular/angular.d.ts"/>
+/// <reference path="./lib/typings/jquery/jquery.d.ts"/>
+
 /// <reference path="./services/barService.ts"/>
 
 
@@ -18,4 +20,13 @@ interface Bar {
 interface BarService {
 	getBars: () => Array<Bar>;
 	getBar: (id:number) => Bar;	
+}
+
+interface Posting {
+	bar: Bar;
+	beer: Beer;
+	remark: string;
+	price: number;
+	
+	reset: () => void;
 }

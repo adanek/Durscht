@@ -1,3 +1,23 @@
-body {
-	background-color:lightblue;
+
+.rating {
+	display: block;
+	border: 1px solid #ccc;
+  	border-radius: 4px;
+  	padding: 0.5em;
+  	text-align: center;
+}
+
+.rating i {
+  width: 80px;
+  height: 80px;
+}
+
+.rating-enable {	
+	background-image: url("../media/beer-full.png");
+	background-size: 100% 100%;
+}
+
+.rating-disable {	
+	background-image: url("../media/beer-empty.png");
+	background-size: 100% 100%;
 }

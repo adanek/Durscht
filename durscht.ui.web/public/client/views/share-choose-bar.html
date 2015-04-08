@@ -1,0 +1,13 @@
+<div ng-controller="ShareChooseBarController as barCtrl">
+	<h1 class="text-center">{{barCtrl.caption}}</h1>
+	
+		<div class="list-group">
+			<a class="list-group-item" ng-repeat="bar in barCtrl.bars" ng-click="barCtrl.setBar(bar)">
+				{{bar.name}} <small>({{bar.distance}})</small>
+			</a>
+		</div>
+		
+		<div class="list-group">
+			<a class="list-group-item" ng-click="barCtrl.createBar()">Nö, ganz woanders</a>
+		</div>		
+</div>

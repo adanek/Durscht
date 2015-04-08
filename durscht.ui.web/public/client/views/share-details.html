@@ -1,0 +1,30 @@
+<div ng-controller="ShareDetailsController as ctrl">
+	<h1>Details:</h1>
+	<p>Bar: {{ ctrl.posting.bar.name }}</p>
+	<p>Beer: {{ ctrl.posting.beer.brand }} {{ ctrl.posting.beer.type }}</p>
+	
+	<form novalidate>
+	
+		<div class="form-group">
+			<label for="remark">Anmerkung:</label>
+			<textarea id="remark" class="form-control" placeholder="Dein Senf" ng-model="ctrl.posting.remark"></textarea>
+		</div>
+	
+		<div class="form-group">
+			<label for="price">Preis:</label>
+			<input id="price" type="number" class="form-control" ng-model="ctrl.posting.price"/>
+		</div>
+		
+		<div class=form-group>
+			<label for="ranking">Bewertung:</label>
+			<rating ng-model="ctrl.posting.ranking" max="5" state-on="'rating-enable'" state-off="'rating-disable'" class="rating"></rating>
+		</div>
+		
+		<div>
+			<input type="submit" value="Fertisch!" class="form-control"/>
+		</div>
+		
+	</form>
+	
+	<div>{{ ctrl.posting.remark }}</div>
+</div>

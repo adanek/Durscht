@@ -1,0 +1,13 @@
+<div ng-controller="ShareChooseBeerController as barCtrl">
+	
+	<h1>Soso, {{barCtrl.bar.name}} also.</h1>
+	<p>Hat dieses Bier deinen Durscht gelöscht?</p>
+	
+	<ul class="list-group">
+		<a class="list-group-item" ng-repeat="beer in barCtrl.bar.beers" ng-click="barCtrl.setBeer(beer)">{{beer.brand}} - {{beer.type}}</a>
+	</ul>
+	
+	<ul class="list-group">
+		<a class="list-group-item" ng-click="barCtrl.createBar()">Nö, a ganz a anders</a>
+	</ul>
+</div>
