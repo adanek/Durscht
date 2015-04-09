@@ -19,7 +19,8 @@ interface Bar {
 
 interface BarService {
 	getBars: () => Array<Bar>;
-	getBar: (id:number) => Bar;	
+	getBar: (id:number) => Bar;
+	getNearBars;	
 }
 
 interface Posting {

@@ -17,6 +17,8 @@
 			.otherwise({redirectTo: "/"});
 	};
 	
-	app.config(config);			
+	app.config(config);
+	
+	app.constant("barApiUrl","/bars/");			
 
 })();

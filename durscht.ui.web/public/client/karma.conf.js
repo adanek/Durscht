@@ -12,18 +12,15 @@ module.exports = function(config) {
 				// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
 				frameworks : [ 'jasmine' ],
 
-				// 'lib/angular.min.js',
-				// 'lib/angular-mocks.js',
-				// 'lib/angular-route.min.js',
-
 				// list of files / patterns to load in the browser
 				files : [ 'lib/angular.min.js', 
 				          'lib/angular-mocks.js',
 						  'lib/angular-route.min.js',
 						  'lib/ui-bootstrap-tpls-0.12.1.min.js',
-				          'controller/test.js', 
-				          'controller/durscht.js',
-				          'controller/ShareChooseBarController.js', 
+						  'controller/DemoController.js',
+						  'controller/durscht.js',
+						  'services/*.js',
+						  'controller/*.js',
 				          'test/spec/**/*.js' ],
 
 				// list of files to exclude

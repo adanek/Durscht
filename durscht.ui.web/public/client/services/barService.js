@@ -1,6 +1,6 @@
 /// <reference path="../_references.ts"/>
 (function (app) {
-    app.factory('barService', function () {
+    app.factory('barService', function (barApiUrl, $http) {
         var getBars = function () {
             return [
                 { id: 1, name: "Testbar", distance: "0.0 km", beers: [
@@ -18,9 +18,13 @@
             ] };
             return bar;
         };
+        var getNearBars = function () {
+            return $http.get(barApiUrl + "near");
+        };
         return {
             getBars: getBars,
-            getBar: getBar
+            getBar: getBar,
+            getNearBars: getNearBars
         };
     });
 })(angular.module('durscht-core'));

@@ -2,7 +2,7 @@
 
 (function(app){
 	
-	app.factory('barService', function() : BarService {		
+	app.factory('barService', function(barApiUrl, $http) : BarService {		
 	
 		var getBars : () => Array<Bar> = function(){
 			return [
@@ -25,10 +25,15 @@
 			return bar;
 		}
 		
-		return {
-			getBars: getBars,
-			getBar: getBar
-		};
+      	var getNearBars = function(){
+        	return $http.get(barApiUrl + "near");
+        };
+        
+        return {
+            getBars: getBars,
+            getBar: getBar,
+            getNearBars: getNearBars
+        };
 	});
 	
 })(angular.module('durscht-core'));

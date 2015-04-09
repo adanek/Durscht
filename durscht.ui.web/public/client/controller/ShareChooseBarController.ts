@@ -3,9 +3,14 @@
 (function(app){
 	
 	var controller = function(barService : BarService, posting, $location) {
-		
-		this.caption = "Wo gesch denn um?"
-		this.bars = barService.getBars();
+        var self = this;        
+        
+        this.caption = "Wo gesch denn um?";
+        
+        self.bars = [];        
+        barService.getNearBars().success(function (data){        	
+        	self.bars = data;
+        });
 		
 		var createBarText : string = "";
 		if(this.bars.length <= 0){
