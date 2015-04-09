@@ -10,13 +10,15 @@
 		posting.bar = { id:-1, name:"", distance:"0.0 km", beers:[]};
 		posting.beer = {brand:"", type:"", description:""};
 		posting.remark = "";
-		posting.price = 0.0;	
+		posting.price = 0.0;
+		posting.rating = 0;		
 			
 		posting.reset = function () {
 			posting.bar = { id:-1, name:"", distance:"0.0 km", beers:[]};
 			posting.beer = {brand:"", type:"", description:""};	
 			posting.remark = "";
-			posting.price = 0.0;				
+			posting.price = 0.0;
+			posting.rating = 0;				
 		};	
 	});
 	

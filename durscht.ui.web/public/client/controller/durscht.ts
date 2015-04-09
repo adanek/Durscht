@@ -12,7 +12,7 @@
 			.when("/share/details", {templateUrl: "/assets/client/views/share-details.html"})
 				
 			.when("/share/bar/create",{templateUrl: "/assets/client/views/bar-create.html"})			
-			.when("/share/beer/create", {templateUrl: "/assets/client/views/share-beer-create.html"})
+			.when("/share/beer/create", {templateUrl: "/assets/client/views/share-create-beer.html"})
 			
 			.otherwise({redirectTo: "/"});
 	};

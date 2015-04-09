@@ -27,6 +27,7 @@ interface Posting {
 	beer: Beer;
 	remark: string;
 	price: number;
+	rating: number;
 	
 	reset: () => void;
 }

@@ -1,5 +1,5 @@
 <div ng-controller="ShareDetailsController as ctrl">
-	<h1>Details:</h1>
+	<h1>{{ ctrl.title }}</h1>
 	<p>Bar: {{ ctrl.posting.bar.name }}</p>
 	<p>Beer: {{ ctrl.posting.beer.brand }} {{ ctrl.posting.beer.type }}</p>
 	
@@ -17,11 +17,11 @@
 		
 		<div class=form-group>
 			<label for="ranking">Bewertung:</label>
-			<rating ng-model="ctrl.posting.ranking" max="5" state-on="'rating-enable'" state-off="'rating-disable'" class="rating"></rating>
+			<rating ng-model="ctrl.posting.rating" max="5" state-on="'rating-enable'" state-off="'rating-disable'" class="rating"></rating>
 		</div>
 		
 		<div>
-			<input type="submit" value="Fertisch!" class="form-control"/>
+			<input type="submit" value="Fertisch!" ng-click="ctrl.posting.reset()" class="form-control"/>
 		</div>
 		
 	</form>
