@@ -3,33 +3,35 @@
 
 (function() {
 
-	describe('Unit: MainController', function() {
-
-		beforeEach(function (){
-			module('durscht-core');
-		});
-				
+	describe('Unit: ShareChooseBarController', function() {
 
 		var ctrl, scope;
 
+		// Load the module
+		beforeEach(module('durscht-core'));
+
+		// Initialize variables
 		beforeEach(inject(function($controller, $rootScope) {
 
-			
 			scope = $rootScope.$new();
 
 			ctrl = $controller('ShareChooseBarController', {
 				$scope : scope
 			});
+
 		}));
 
-		it('should work', function() {
+		it('suite is running correct', function() {
 			expect(true).toBe(true);
 		});
 
-		it('should create $scope.greeting when calling sayHello', function() {
-			
+		it('should have caption equal to "Wo gesch denn um?"', function() {
+
 			expect(ctrl.caption).toEqual("Wo gesch denn um?");
 		});
 
+		it("should have a property bars", function() {
+			expect(ctrl.bars).toBeDefined();
+		});
 	});
 })();
