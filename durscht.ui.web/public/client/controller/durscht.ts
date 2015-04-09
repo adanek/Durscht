@@ -1,7 +1,7 @@
 /// <reference path="../_references.ts"/>
 	
 (function(){
-	var app = angular.module("durscht-core", ["ngRoute", "ui.bootstrap"]);
+	var app = angular.module("durscht-core", ['ngRoute', "ui.bootstrap"]);
 	
 	var config = function($routeProvider){
 		
