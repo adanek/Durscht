@@ -1,3 +1,4 @@
+package durscht.handler;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -12,8 +13,10 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.service.ServiceRegistry;
 
 import durscht.contracts.data.IAchievement;
 import durscht.contracts.data.IBar;
@@ -40,6 +43,7 @@ public class DataHandler implements IDataHandler {
 	private static IDataHandler instance;
 	// session factory
 	private SessionFactory sessionFactory;
+	private static ServiceRegistry serviceRegistry;
 
 	// constructor
 	private DataHandler() {
@@ -49,8 +53,11 @@ public class DataHandler implements IDataHandler {
 			connectToDatabase();
 
 			// create session factory
-			sessionFactory = new Configuration().configure()
-					.buildSessionFactory();
+			Configuration configuration = new Configuration();
+		    configuration.configure();
+		    serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
+		            configuration.getProperties()).build();
+		    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		} catch (Exception e) {
 			System.out.println("Connection to Database failed");
 			e.printStackTrace();
@@ -306,7 +313,7 @@ public class DataHandler implements IDataHandler {
 	 * search for a beer by ID
 	 * @return Beer or null when no user exists in the database with this ID
 	 */
-	private Beer getBeerByID(int id){
+	public Beer getBeerByID(int id){
 		return this.<Beer>searchForID(id, Beer.class);
 	}
 	

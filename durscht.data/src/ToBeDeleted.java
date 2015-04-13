@@ -13,6 +13,7 @@ import org.hibernate.cfg.Configuration;
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
+import durscht.handler.DataHandler;
 import durscht.model.Bar;
 import durscht.model.Beer;
 import durscht.model.BeerPost;

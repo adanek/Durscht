@@ -2,6 +2,8 @@ package durscht.contracts.data;
 
 import java.util.Collection;
 
+import durscht.contracts.data.IBeer;
+
 public interface IDataHandler {
 
 	public int createUser(String name, String email, String password);
@@ -53,4 +55,10 @@ public interface IDataHandler {
 	 */
 	public void closeDatabaseConnection();
 	
+	/** 
+	 * get beer by id
+	 * @param id Beer ID
+	 * @return
+	 */
+	public IBeer getBeerByID(int id);	
 }
