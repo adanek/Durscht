@@ -10,7 +10,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import durscht.contracts.IAchievement;
+import durscht.contracts.data.IAchievement;
 
 @Entity
 @Table(name = "Achievement")

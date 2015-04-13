@@ -1,4 +1,4 @@
-package durscht.contracts;
+package durscht.contracts.data;
 
 import java.util.Date;
 

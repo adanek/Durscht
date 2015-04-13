@@ -10,7 +10,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import durscht.contracts.IBeer;
+import durscht.contracts.data.IBeer;
 
 @Entity
 @Table(name = "Beer")

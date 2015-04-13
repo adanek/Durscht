@@ -15,12 +15,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
-import durscht.contracts.IAchievement;
-import durscht.contracts.IBar;
-import durscht.contracts.IBeer;
-import durscht.contracts.IBeerPost;
-import durscht.contracts.IDataHandler;
-import durscht.contracts.IUser;
+import durscht.contracts.data.IAchievement;
+import durscht.contracts.data.IBar;
+import durscht.contracts.data.IBeer;
+import durscht.contracts.data.IBeerPost;
+import durscht.contracts.data.IDataHandler;
+import durscht.contracts.data.IUser;
 import durscht.model.Achievement;
 import durscht.model.Bar;
 import durscht.model.Beer;

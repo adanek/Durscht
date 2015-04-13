@@ -11,7 +11,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import durscht.contracts.IBar;
+import durscht.contracts.data.IBar;
 
 @Entity
 @Table(name = "Bar")

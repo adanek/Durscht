@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import durscht.contracts.IUser;
+import durscht.contracts.data.IUser;
 
 @Entity
 @Table(name = "SavedUser")

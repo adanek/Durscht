@@ -10,9 +10,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import durscht.contracts.IBeer;
-import durscht.contracts.IDataHandler;
-import durscht.contracts.IUser;
+import durscht.contracts.data.IBeer;
+import durscht.contracts.data.IDataHandler;
+import durscht.contracts.data.IUser;
 import durscht.model.Bar;
 import durscht.model.Beer;
 import durscht.model.BeerPost;

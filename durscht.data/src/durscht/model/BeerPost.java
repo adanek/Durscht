@@ -7,9 +7,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import durscht.contracts.IBar;
-import durscht.contracts.IBeerPost;
-import durscht.contracts.IUser;
+import durscht.contracts.data.IBar;
+import durscht.contracts.data.IBeerPost;
+import durscht.contracts.data.IUser;
 
 @Entity
 @Table(name = "BeerPost")
