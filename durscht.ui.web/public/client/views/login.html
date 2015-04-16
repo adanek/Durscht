@@ -1,3 +1,26 @@
 <div ng-controller="LoginController as ctrl">
-	Hier wirst du dich bald anmelden können
+	<h1 class="text-center">{{ctrl.title}}</h1>
+	
+	<form novalidate>
+	
+		<div class="form-group">
+			<label for="username">Benutzername:</label>
+			<textarea id="username" class="form-control" placeholder="Dein Name" ng-model="ctrl.login.username"></textarea>
+		</div>
+		
+		<div class="form-group">
+			<label for="password">Passwort:</label>
+			<input id="password" class="form-control" placeholder="Dein Passwort" type="PASSWORD" ng-model="ctrl.login.password"/>
+		</div>
+		
+		<div>
+			<input type="submit" value="Login" ng-click="ctrl.login.reset()" class="form-control"/>
+		</div>
+		
+		<div class="list-group">
+			<a class="list-group-item disabled" >Register</a>
+		</div>
+		
+	</form>
+	
 </div>

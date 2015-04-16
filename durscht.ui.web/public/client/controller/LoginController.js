@@ -2,7 +2,7 @@
 (function (app) {
 	
     var controller = function (barService, posting, $location) {
-        this.title = "Title";
+        this.title = "Login";
     };
     
     app.controller("LoginController", controller);
