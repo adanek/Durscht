@@ -46,7 +46,7 @@ public class DataHandler implements IDataHandler {
 	private static ServiceRegistry serviceRegistry;
 
 	// constructor
-	private DataHandler() {
+	public DataHandler() {
 
 		try {
 			// connect to db

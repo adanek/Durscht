@@ -124,7 +124,7 @@ public class PostHandler implements IPostHandler {
 	}
 
 	@Override
-	public int putPosting(int barID, int beerID, int userID, String description) {
+	public Integer putPosting(int barID, int beerID, int userID, String description) {
 		IDataHandler dataHandler = getDataHandler();
 		
 		int returnID;
@@ -132,27 +132,20 @@ public class PostHandler implements IPostHandler {
 			// Exception
 		}
 		
-		awardAlgorithm(userID);
+		achievementAlgorithm(userID);
 		
 		return returnID; 
 	}
 	
-	private void awardAlgorithm(int userID) {
+	private void achievementAlgorithm(int userID) {
 		
 	}
 
 	@Override
-	public int createNewBar(String name, double latitude, double longitude, String description, String url) {
+	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) {
 		IDataHandler dataHandler = getDataHandler();
 		
 		return dataHandler.createBar(name, latitude, longitude, description, url);
-	}
-
-	@Override
-	public int createNewBeer(String name, String description) {
-		IDataHandler dataHandler = getDataHandler();
-		
-		return dataHandler.createBeer(name, description);
 	}
 
 }

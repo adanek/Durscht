@@ -7,9 +7,7 @@ public interface IPostHandler {
 	
 	public IBar[] getNearBars(double longitude, double latitude);
 	
-	public int putPosting(int barID, int beerID, int userID, String description);
+	public Integer putPosting(int barID, int beerID, int userID, String description);
 	
-	public int createNewBar(String name, double latitude, double longitude, String description, String url);
-	
-	public int createNewBeer(String name, String description);
+	public Integer createNewBar(String name, double latitude, double longitude, String description, String url);
 }
