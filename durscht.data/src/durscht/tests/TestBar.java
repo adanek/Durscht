@@ -16,7 +16,7 @@ public class TestBar {
 	public static void BeforeClass(){
 		
 	  //get data handler
-	  dataHandler = DataHandler.getHandler();
+	  dataHandler = new DataHandler();
 	  
 	}
 	

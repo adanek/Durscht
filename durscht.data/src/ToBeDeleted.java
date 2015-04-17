@@ -24,7 +24,7 @@ public class ToBeDeleted {
 	public static void main(String args[]) {
 
 			//get handler
-			IDataHandler handler  = DataHandler.getHandler();
+			IDataHandler handler  = new DataHandler();
 			
 			//create new user
 			int userid = handler.createUser("testUser4", "test.user3@gmx.at", "test12345678");
