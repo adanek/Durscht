@@ -1,3 +1,4 @@
+package durscht.handler;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -12,8 +13,10 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.service.ServiceRegistry;
 
 import durscht.contracts.data.IAchievement;
 import durscht.contracts.data.IBar;
@@ -36,38 +39,29 @@ import durscht.model.SavedUser;
  */
 public class DataHandler implements IDataHandler {
 
-	// handler instance
-	private static IDataHandler instance;
-	// session factory
 	private SessionFactory sessionFactory;
+	private ServiceRegistry serviceRegistry;
+	private Connection connection;
 
-	// constructor
-	private DataHandler() {
+	/**
+	 * Constructor for Databasehandler, it is important that only one instance of this class will be created
+	 */
+	public DataHandler() {
 
 		try {
 			// connect to db
-			connectToDatabase();
+			connection = connectToDatabase();
 
 			// create session factory
-			sessionFactory = new Configuration().configure()
-					.buildSessionFactory();
+			Configuration configuration = new Configuration();
+		    configuration.configure();
+		    serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
+		            configuration.getProperties()).build();
+		    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		} catch (Exception e) {
 			System.out.println("Connection to Database failed");
 			e.printStackTrace();
 		}
-	}
-
-	// get instance handler
-	public static IDataHandler getHandler() {
-
-		// create instance
-		if (instance == null) {
-			instance = new DataHandler();
-		}
-
-		// return instance
-		return instance;
-
 	}
 
 	/**
@@ -75,10 +69,20 @@ public class DataHandler implements IDataHandler {
 	 */
 	public void closeDatabaseConnection() {
 		sessionFactory.close();
-		instance = null;
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.out.println("No Connection to database");
+			e.printStackTrace();
+		}
 	}
 
-	// get database connection
+	/**
+	 * connect to the database
+	 * @return the Connection to the database
+	 * @throws URISyntaxException, throw this exception when the URI to the database is wrong
+	 * @throws SQLException
+	 */
 	private Connection connectToDatabase() throws URISyntaxException,
 			SQLException {
 
@@ -97,13 +101,20 @@ public class DataHandler implements IDataHandler {
 		return DriverManager.getConnection(dbUrl, username, password);
 	}
 
-	// open a new session
+	/**
+	 * open a new Session
+	 * @return the session
+	 */
 	private Session openSession() {
 
 		return sessionFactory.openSession();
 	}
 
-	// save a new object in the database
+	/**
+	 * save an object to the database, when it is an entity
+	 * @param the object of an entity
+	 * @return the ID of the entity
+	 */
 	private Integer saveObjectToDb(Object obj) {
 
 		Session session = openSession();
@@ -172,8 +183,9 @@ public class DataHandler implements IDataHandler {
 
 	/**
 	 * create an new user
+	 * @return the ID of the created object or null if the creation failed
 	 */
-	public int createUser(String name, String email, String password) {
+	public Integer createUser(String name, String email, String password) {
 
 		// create user instance
 		SavedUser user = new SavedUser();
@@ -193,8 +205,9 @@ public class DataHandler implements IDataHandler {
 
 	/**
 	 * create a new beer
+	 * @return the ID of the created object or null if the creation failed
 	 */
-	public int createBeer(String name, String description) {
+	public Integer createBeer(String name, String description) {
 
 		// create beer instance
 		Beer beer = new Beer();
@@ -208,14 +221,13 @@ public class DataHandler implements IDataHandler {
 	
 	/**
 	 * create a new bar in the database
-	 * @param name
-	 * @param latitude
+	 * @param latitude 
 	 * @param longitude
 	 * @param description
-	 * @param url
+	 * @param url optional, if no url is given then add "" to the method
 	 * @return the ID of the created object or null if the creation failed
 	 */
-	public int createBar(String name, double latitude, double longitude, String description, String url){
+	public Integer createBar(String name, double latitude, double longitude, String description, String url){
 		
 		//create bar instance
 		Bar bar = new Bar();
@@ -235,7 +247,7 @@ public class DataHandler implements IDataHandler {
 	 * @param description
 	 * @return the ID of the created object or null if the creation failed
 	 */
-	public int createAchievement(String name, String description){
+	public Integer createAchievement(String name, String description){
 		//create achievement instance
 		Achievement ach = new Achievement();
 		ach.setName(name);
@@ -306,7 +318,7 @@ public class DataHandler implements IDataHandler {
 	 * search for a beer by ID
 	 * @return Beer or null when no user exists in the database with this ID
 	 */
-	private Beer getBeerByID(int id){
+	public Beer getBeerByID(int id){
 		return this.<Beer>searchForID(id, Beer.class);
 	}
 	
@@ -470,15 +482,57 @@ public class DataHandler implements IDataHandler {
 			session.close();
 		}
 	}
+	
+	/**
+	 * get all posts from a user
+	 * @param userID
+	 * @return a list of posts or null if no post is in the database
+	 */
+	public Collection<IBeerPost> getAllPostsFromUser(int userID){
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(SavedUser.class);
+			cr.add(Restrictions.eq("id", userID));
+			List<SavedUser> results = cr.list();
+
+			if(results == null)
+				return null;	//bar not found with this id
+	
+			
+			Collection<BeerPost> posts = results.get(0).getBeerPosts();
+			
+			Collection<IBeerPost> ret = new LinkedList<>(posts);
+						
+			// commit
+			session.getTransaction().commit();
+			
+			return ret;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+
+			return null;
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+	
 	/**
 	 * create a new Post
 	 * @param barID
 	 * @param beerID
 	 * @param userID
 	 * @param descripton
-	 * @return ID of post or 0 when creation failed
+	 * @return ID of post or null when creation failed
 	 */
-	public int createPost(int barID, int beerID, int userID, String descripton){
+	public Integer createPost(int barID, int beerID, int userID, String descripton){
 		Session session = openSession();
 
 		try {
@@ -526,7 +580,7 @@ public class DataHandler implements IDataHandler {
 			// Exception -> rollback
 			session.getTransaction().rollback();
 			
-			return 0;
+			return null;
 		} finally {
 			// close session
 			session.close();

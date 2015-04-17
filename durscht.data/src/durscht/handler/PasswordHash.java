@@ -1,3 +1,4 @@
+package durscht.handler;
 import java.security.SecureRandom;
 
 import javax.crypto.SecretKey;

@@ -13,6 +13,7 @@ import org.hibernate.cfg.Configuration;
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
+import durscht.handler.DataHandler;
 import durscht.model.Bar;
 import durscht.model.Beer;
 import durscht.model.BeerPost;
@@ -23,7 +24,7 @@ public class ToBeDeleted {
 	public static void main(String args[]) {
 
 			//get handler
-			IDataHandler handler  = DataHandler.getHandler();
+			IDataHandler handler  = new DataHandler();
 			
 			//create new user
 			int userid = handler.createUser("testUser4", "test.user3@gmx.at", "test12345678");
