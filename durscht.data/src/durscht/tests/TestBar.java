@@ -5,26 +5,29 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import durscht.contracts.data.IBar;
 import durscht.contracts.data.IDataHandler;
 import durscht.handler.DataHandler;
 
-public class TestBar {
+public class TestBar extends TestBase {
 
-	private static IDataHandler dataHandler;
-	
-	@BeforeClass
-	public static void BeforeClass(){
-		
-	  //get data handler
-	  dataHandler = new DataHandler();
-	  
-	}
-	
 	@Test
 	public void createBar() {
-		
-		assertTrue(true);
-		
+
+		//create bar
+		int id = dataHandler.createBar("Gössers", 47.266619, 11.392206, "Bar",
+				"www.goessers.at");
+
+		//get created bar
+		IBar bar = dataHandler.getBarByID(id);
+
+		assertEquals(id, bar.getId());
+		assertEquals("Gössers", bar.getName());
+		assertEquals(47.266619, bar.getLatitude(), 1e-15);
+		assertEquals(11.392206, bar.getLongitude(), 1e-15);
+		assertEquals("Bar", bar.getDescription());
+		assertEquals("www.goessers.at", bar.getUrl());
+
 	}
 
 }

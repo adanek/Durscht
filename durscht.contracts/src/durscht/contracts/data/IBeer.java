@@ -4,5 +4,7 @@ public interface IBeer {
 		
 	String getName(); 
 	
-	String getDescription();	
+	String getDescription();
+	
+	int getId();
 }

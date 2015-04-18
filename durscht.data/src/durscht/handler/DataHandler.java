@@ -302,7 +302,7 @@ public class DataHandler implements IDataHandler {
 	 * search for a user by ID
 	 * @return User or null when no user exists in the database with this ID
 	 */
-	private SavedUser getUserByID(int id){
+	public SavedUser getUserByID(int id){
 		return this.<SavedUser>searchForID(id, SavedUser.class);
 	}
 	
@@ -310,7 +310,7 @@ public class DataHandler implements IDataHandler {
 	 * search for a bar by ID
 	 * @return Bar or null when no user exists in the database with this ID
 	 */
-	private Bar getBarByID(int id){
+	public Bar getBarByID(int id){
 		return this.<Bar>searchForID(id, Bar.class);
 	}
 	
@@ -326,7 +326,7 @@ public class DataHandler implements IDataHandler {
 	 * search for a achievement by ID
 	 * @return Achievement or null when no user exists in the database with this ID
 	 */
-	private Achievement getAchievementByID(int id){
+	public Achievement getAchievementByID(int id){
 		return this.<Achievement>searchForID(id, Achievement.class);
 	}
 	
