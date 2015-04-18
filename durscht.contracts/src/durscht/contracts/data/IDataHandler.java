@@ -19,6 +19,8 @@ public interface IDataHandler {
 	
 	public Integer createPost(int barID, int beerID, int userID, String description);
 	
+	public Integer createAchievement(String name, String description);
+	
 	/**
 	 * search for a User by name and password
 	 * @return User or null when no user exists in the database with this name and password
@@ -73,4 +75,25 @@ public interface IDataHandler {
 	 * @return
 	 */
 	public IBeer getBeerByID(int id);	
+	
+	/** 
+	 * get bar by id
+	 * @param id Bar ID
+	 * @return
+	 */
+	public IBar getBarByID(int id);	
+	
+	/** 
+	 * get achievement by id
+	 * @param id Achievement ID
+	 * @return
+	 */
+	public IAchievement getAchievementByID(int id);
+	
+	/** 
+	 * get user by id
+	 * @param id User ID
+	 * @return
+	 */
+	public IUser getUserByID(int id);
 }

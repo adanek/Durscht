@@ -9,23 +9,15 @@ import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IDataHandler;
 import durscht.handler.*;
 
-public class TestBeer {
+public class TestBeer extends TestBase {
 
-	private static IDataHandler dataHandler;
-	
-	@BeforeClass
-	public static void BeforeClass(){
-		
-	  //get data handler
-	  dataHandler = new DataHandler();
-	  
-	}
-	
 	@Test
 	public void createBeer() {
 		
+		//create beer
 		int id = dataHandler.createBeer("Zipfer", "teuer!");
 		
+		//get created beer
 		IBeer beer = dataHandler.getBeerByID(id);
 		
 		assertEquals("Zipfer", beer.getName());
