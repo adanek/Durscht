@@ -1,2 +1,6 @@
 /.metadata/
 /.recommenders/
+npm-debug.log
+.gitignore
+node_modules
+durscht.ui.client/bower_components

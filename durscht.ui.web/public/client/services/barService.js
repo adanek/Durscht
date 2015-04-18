@@ -28,3 +28,4 @@
         };
     });
 })(angular.module('durscht-core'));
+//# sourceMappingURL=barService.js.map
