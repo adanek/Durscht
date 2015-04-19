@@ -16,3 +16,4 @@
     };
     app.controller("ShareChooseBeerController", controller);
 })(angular.module("durscht-core"));
+//# sourceMappingURL=ShareChooseBeerController.js.map

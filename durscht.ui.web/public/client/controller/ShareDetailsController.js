@@ -6,3 +6,4 @@
     };
     app.controller("ShareDetailsController", controller);
 })(angular.module('durscht-core'));
+//# sourceMappingURL=ShareDetailsController.js.map

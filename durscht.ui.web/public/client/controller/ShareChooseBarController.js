@@ -25,3 +25,4 @@
     };
     app.controller("ShareChooseBarController", controller);
 })(angular.module('durscht-core'));
+//# sourceMappingURL=ShareChooseBarController.js.map

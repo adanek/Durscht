@@ -26,6 +26,8 @@ interface Posting {
 	remark: string;
 	price: number;
 	rating: number;
-	
+	longitude: number;
+    latitude: number;
+
 	reset: () => void;
 }

@@ -16,3 +16,4 @@
         };
     });
 })(angular.module('durscht-core'));
+//# sourceMappingURL=PostingDataService.js.map
