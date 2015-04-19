@@ -26,12 +26,26 @@ public class PostHandlerTest {
 		postHandler = new PostHandler();
 	}
 	
-	
 	@Test (expected = IllegalArgumentException.class)
-	public void getBarsInvalidArgumentTest() {
-		postHandler.getNearBars(100, 100);
+	public void getBarsTooLargeLatitudeTest() {
+		postHandler.getNearBars(91, 20);
 	}
-	
+
+	@Test (expected = IllegalArgumentException.class)
+	public void getBarsTooSmallLatitudeTest() {
+		postHandler.getNearBars(-91, 20);
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void getBarsTooLargeLongitudeTest() {
+		postHandler.getNearBars(20, 191);
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void getBarsTooSmallLongitudeTest() {
+		postHandler.getNearBars(20, -191);
+	}
+
 	@Test (expected = NoSuchElementException.class)
 	public void getBarsNoSuchElementTest() {
 		IDataHandler dataHandler = Mockito.mock(IDataHandler.class);
