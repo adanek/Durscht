@@ -11,7 +11,7 @@
             createBarText = "Du bist der erste hier!";
         }
         else {
-            createBarText = "N�, ganz wo anders";
+            createBarText = "Nö, ganz wo anders";
         }
         $scope.createBarText = createBarText;
         $scope.setBar = function (bar) {
@@ -22,6 +22,6 @@
             $location.path("/share/bar/create").replace();
         };
     };
-    app.controller('ShareChooseBarCtrl', ctrl);
+    app.controller('ShareBarChooseCtrl', ctrl);
 })(angular.module('durschtApp'));
-//# sourceMappingURL=ShareChooseBar.js.map
+//# sourceMappingURL=ShareBarChoose.js.map

@@ -26,7 +26,7 @@
                     $scope.lng = lng;
                 });
                 // redirect to choose bar
-                $location.path("/share/chooseBar").replace();
+                $location.path("/share/bar/choose").replace();
                 $scope.$apply();
             }, function (error) {
                 var msg;
@@ -54,6 +54,6 @@
             $scope.errorMessage = "Tut leid, aber ohne deine aktulle Position kommst du hier nicht rein";
         }
     };
-    app.controller('ShareCtrl', ctrl);
+    app.controller('ShareLocationCtrl', ctrl);
 })(angular.module('durschtApp'));
-//# sourceMappingURL=share.js.map
+//# sourceMappingURL=ShareLocation.js.map

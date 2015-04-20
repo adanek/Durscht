@@ -8,22 +8,19 @@
         }).when('/about', {
             templateUrl: 'views/about.html',
             controller: 'AboutCtrl'
-        }).when('/settings', {
-            templateUrl: 'views/settings.html',
-            controller: 'SettingsCtrl'
-        }).when('/ShareChooseBarCtrl', {
-            templateUrl: '/views/share-choose-bar.html',
-            controller: ''
-        }).when('/share/position', {
-            templateUrl: 'views/share.html',
-            controller: 'ShareCtrl'
-        }).when('/share/chooseBar', {
-            templateUrl: 'views/share-choose-bar.html',
-            controller: 'ShareChooseBarCtrl'
+        }).when('/share/location', {
+            templateUrl: 'views/share-location.html',
+            controller: 'ShareLocationCtrl'
+        }).when('/share/bar/choose', {
+            templateUrl: '/views/share-bar-choose.html',
+            controller: 'ShareBarChooseCtrl'
+        }).when('/share/beer/choose', {
+            templateUrl: 'views/share-beer-choose.html',
+            controller: 'ShareBeerChooseCtrl'
         }).otherwise({
             redirectTo: '/'
         });
     });
-    app.constant("barApiUrl", "/bars/");
+    app.constant("barApiUrl", "http://localhost:9000/bars/");
 })();
 //# sourceMappingURL=app.js.map

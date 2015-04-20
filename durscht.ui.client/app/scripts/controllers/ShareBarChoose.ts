@@ -16,7 +16,7 @@
             createBarText = "Du bist der erste hier!";
         }
         else {
-            createBarText = "Nö, ganz wo anders";
+            createBarText = "NÃ¶, ganz wo anders";
         }
         $scope.createBarText = createBarText;
 
@@ -30,6 +30,6 @@
         };
     };
 
-    app.controller('ShareChooseBarCtrl', ctrl);
+    app.controller('ShareBarChooseCtrl', ctrl);
 
 })(angular.module('durschtApp'));

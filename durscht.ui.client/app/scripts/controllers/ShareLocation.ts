@@ -35,7 +35,7 @@
                 });
 
                 // redirect to choose bar
-                $location.path("/share/chooseBar").replace();
+                $location.path("/share/bar/choose").replace();
                 $scope.$apply();
 
             }, function (error) {
@@ -67,7 +67,7 @@
         }
     };
 
-    app.controller('ShareCtrl', ctrl);
+    app.controller('ShareLocationCtrl', ctrl);
 
 })(angular.module('durschtApp'));
 

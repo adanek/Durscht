@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import controllers.mock.Bar;
 import controllers.mock.Beer;
-//import durscht.contracts.IBar;
-//import durscht.contracts.IBeer;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -30,6 +28,7 @@ public class BarController extends Controller{
 		bars[2] = new Bar(2, "Sonderbar", 1.2, beers);		
 		
 		JsonNode data = Json.toJson(bars);
+		response().setHeader("Access-Control-Allow-Origin", "*");
 		return ok(data);
 	}
 

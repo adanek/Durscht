@@ -7,7 +7,7 @@
 		
 		$routeProvider
 			.when("/", {templateUrl:"/assets/client/views/index.html"})			
-			.when("/share/bar/choose", {templateUrl: "/assets/client/views/share-choose-bar.html"})
+			.when("/share/bar/choose", {templateUrl: "/assets/client/views/share-bar-choose.html"})
 			.when("/share/beer/choose", {templateUrl: "/assets/client/views/share-choose-beer.html"})
 			.when("/share/details", {templateUrl: "/assets/client/views/share-details.html"})
 				
