@@ -32,3 +32,8 @@ interface Posting {
 	
 	reset: () => void;
 }
+
+interface AuthenticationService {
+
+	login: (user:string, passwd:string) => void;
+}

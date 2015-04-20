@@ -1,8 +1,17 @@
 /// <reference path="../_references.ts"/>
 (function (app) {
 	
-    var controller = function (barService, posting, $location) {
-        this.title = "Login";
+    var controller = function ($scope, authentication) {
+
+
+        $scope.title = "Login";
+
+        $scope.username = "";
+        $scope.password = "";
+
+        $scope.login = function(){
+            authentication.login($scope.username, $scope.password);
+        }
     };
     
     app.controller("LoginController", controller);
