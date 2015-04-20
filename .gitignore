@@ -5,3 +5,4 @@ npm-debug.log
 node_modules
 durscht.ui.client/bower_components
 .project
+.tmp
