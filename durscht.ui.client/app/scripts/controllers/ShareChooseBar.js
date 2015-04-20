@@ -11,7 +11,7 @@
             createBarText = "Du bist der erste hier!";
         }
         else {
-            createBarText = "Nö, ganz wo anders";
+            createBarText = "N�, ganz wo anders";
         }
         $scope.createBarText = createBarText;
         $scope.setBar = function (bar) {

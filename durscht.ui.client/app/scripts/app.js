@@ -1,6 +1,6 @@
 /// <reference path="_references.ts"/>
 (function () {
-    var app = angular.module("durschtApp", ['ngRoute', "ui.bootstrap"]);
+    var app = angular.module("durschtApp", ["ngRoute", "ui.bootstrap"]);
     app.config(function ($routeProvider) {
         $routeProvider.when('/', {
             templateUrl: 'views/main.html',
