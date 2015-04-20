@@ -34,8 +34,9 @@ public class PostHandler implements IPostHandler {
 	 */
 	@Override
 	public Bar[] getNearBars(double latitude, double longitude) throws IllegalArgumentException, NoSuchElementException {
-		if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180 )
+		if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180 ) {
 			throw new IllegalArgumentException("invalid latitude or longitude");
+		}
 		
 		IDataHandler dataHandler = getDataHandler();
 		
@@ -43,8 +44,9 @@ public class PostHandler implements IPostHandler {
 		double longitudeOffset = calcLatitudeOffset(5);
 		
 		Collection<IBar> nearIBarsList = dataHandler.getBarsCoordinates(latitude - latitudeOffset, latitude + latitudeOffset, longitude - longitudeOffset, longitude + longitudeOffset);
-		if (nearIBarsList == null)
+		if (nearIBarsList == null) {
 			throw new NoSuchElementException("no bar found");
+		}
 		
 		Collection<Bar> nearBarsList = new ArrayList<Bar>();
 		
@@ -78,8 +80,9 @@ public class PostHandler implements IPostHandler {
 	 * @throws IllegalArgumentException invalid latitude data: latitude outside [-90,90]
 	 */
 	private double calcLongitudeOffset(double latitude, double distance) throws IllegalArgumentException {
-		if (Math.abs(latitude) > 90)
+		if (Math.abs(latitude) > 90) {
 			throw new IllegalArgumentException("invalid latitude");
+		}
 		
 		final double earthRadius = 6371; // [km]
 		
@@ -110,8 +113,9 @@ public class PostHandler implements IPostHandler {
 	 * @throws IllegalArgumentException invalid longitude or latitude data: longitude outside [-180,180] or latitude outside [-90,90]
 	 */
 	private double calcDistanceBetweenPoints(double lat1, double lon1, double lat2, double lon2) throws IllegalArgumentException {
-		if (Math.abs(lat1) > 90 || Math.abs(lat2) > 90 || Math.abs(lon1) > 180 || Math.abs(lon2) > 180 )
+		if (Math.abs(lat1) > 90 || Math.abs(lat2) > 90 || Math.abs(lon1) > 180 || Math.abs(lon2) > 180 ) {
 			throw new IllegalArgumentException("invalid latitude or longitude");
+		}
 		
 		final double earthRadius = 6371; // average radius of the earth in km
 	    double dLat = Math.toRadians(lat2 - lat1);
@@ -127,8 +131,8 @@ public class PostHandler implements IPostHandler {
 	public Integer putPosting(int barID, int beerID, int userID, String description) {
 		IDataHandler dataHandler = getDataHandler();
 		
-		int returnID;
-		if ((returnID = dataHandler.createPost(barID, beerID, userID, description)) == 0){
+		Integer returnID;
+		if ((returnID = dataHandler.createPost(barID, beerID, userID, description)) == 0) {
 			// Exception
 		}
 		
@@ -145,7 +149,12 @@ public class PostHandler implements IPostHandler {
 	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) {
 		IDataHandler dataHandler = getDataHandler();
 		
-		return dataHandler.createBar(name, latitude, longitude, description, url);
+		Integer returnID;
+		if ((returnID = dataHandler.createBar(name, latitude, longitude, description, url)) == 0) {
+			// Exception
+		}
+		
+		return returnID;
 	}
 
 }
