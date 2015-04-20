@@ -17,6 +17,9 @@
         }).when('/share/beer/choose', {
             templateUrl: 'views/share-beer-choose.html',
             controller: 'ShareBeerChooseCtrl'
+        }).when('/share/details', {
+            templateUrl: 'views/share-details.html',
+            controller: 'ShareDetailsCtrl'
         }).otherwise({
             redirectTo: '/'
         });
