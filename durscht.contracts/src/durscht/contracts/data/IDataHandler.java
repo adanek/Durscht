@@ -4,15 +4,22 @@ import java.util.Collection;
 
 import durscht.contracts.data.IBeer;
 
+/**
+ * interface for communication with logic
+ * @author Witsch Daniel. Deutsch Patrick
+ *
+ */
 public interface IDataHandler {
 
-	public int createUser(String name, String email, String password);
+	public Integer createUser(String name, String email, String password);
 	
-	public int createBeer(String name, String description);
+	public Integer createBeer(String name, String description);
 	
-	public int createBar(String name, double latitude, double longitude, String description, String url);
+	public Integer createBar(String name, double latitude, double longitude, String description, String url);
 	
-	public int createPost(int barID, int beerID, int userID, String descripton);
+	public Integer createPost(int barID, int beerID, int userID, String description);
+	
+	public Integer createAchievement(String name, String description);
 	
 	/**
 	 * search for a User by name and password
@@ -51,6 +58,13 @@ public interface IDataHandler {
 	public Collection<IBeerPost> getAllPostsFromBar(int barID);
 	
 	/**
+	 * get all posts from a a user
+	 * @param userID
+	 * @return a list of posts or null if no post is in the database
+	 */
+	public Collection<IBeerPost> getAllPostsFromUser(int userID);
+	
+	/**
 	 * disconnect database connection
 	 */
 	public void closeDatabaseConnection();
@@ -61,4 +75,25 @@ public interface IDataHandler {
 	 * @return
 	 */
 	public IBeer getBeerByID(int id);	
+	
+	/** 
+	 * get bar by id
+	 * @param id Bar ID
+	 * @return
+	 */
+	public IBar getBarByID(int id);	
+	
+	/** 
+	 * get achievement by id
+	 * @param id Achievement ID
+	 * @return
+	 */
+	public IAchievement getAchievementByID(int id);
+	
+	/** 
+	 * get user by id
+	 * @param id User ID
+	 * @return
+	 */
+	public IUser getUserByID(int id);
 }

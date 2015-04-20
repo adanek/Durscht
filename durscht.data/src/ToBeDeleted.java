@@ -3,6 +3,7 @@ import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -24,7 +25,7 @@ public class ToBeDeleted {
 	public static void main(String args[]) {
 
 			//get handler
-			IDataHandler handler  = DataHandler.getHandler();
+			IDataHandler handler  = new DataHandler();
 			
 			//create new user
 			int userid = handler.createUser("testUser4", "test.user3@gmx.at", "test12345678");
