@@ -49,7 +49,7 @@ public class ToBeDeleted {
 			int achid3 = handler.createAchievement("100 posts", "The user will get this achievement when he drinks 100 beers and add a post to the app");
 			
 			IUser user = handler.getUserLogin("user2", "user2");
-			
+
 			handler.closeDatabaseConnection();
 	}
 

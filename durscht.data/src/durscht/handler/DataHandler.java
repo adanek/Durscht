@@ -164,14 +164,14 @@ public class DataHandler implements IDataHandler {
 			List<T> results = cr.list();
 
 			// commit
-			session.getTransaction().commit();
+			//session.getTransaction().commit();
 
 			//only one element in the list because the id is unique
 			return results.get(0);
 
 		} catch (Exception e) {
 			// Exception -> rollback
-			session.getTransaction().rollback();
+			//session.getTransaction().rollback();
 
 			return null;
 		} finally {
@@ -599,7 +599,7 @@ public class DataHandler implements IDataHandler {
 	 * deletes an object from the database, when it is an entity
 	 * @param the object of an entity
 	 */
-	private void deleteObjectFromDb(Object obj) {
+	private boolean deleteObjectFromDb(Object obj) {
 
 		Session session = openSession();
 
@@ -613,14 +613,20 @@ public class DataHandler implements IDataHandler {
 
 			// commit
 			session.getTransaction().commit();
-
+			
 		} catch (Exception e) {
 			// Exception -> rollback
 			session.getTransaction().rollback();
+			
+			//deletion failed
+			return false;
 		} finally {
 			// close session
 			session.close();
 		}
+		
+		//deletion ok
+		return true;
 
 	}
 	
@@ -628,18 +634,18 @@ public class DataHandler implements IDataHandler {
 	 * deletes a bar from the database
 	 * @param barID 
 	 */
-	public void deleteBar(int barID){
+	public boolean deleteBar(int barID){
 		
 		//get bar
 		Bar bar = getBarByID(barID);
 		
 		//bar was not found
 		if(bar == null){
-			return;
+			return false;
 		}
 		
 		//delete bar from database
-		deleteObjectFromDb(bar);
+		return deleteObjectFromDb(bar);
 		
 	}
 	
@@ -647,18 +653,18 @@ public class DataHandler implements IDataHandler {
 	 * deletes a user from the database
 	 * @param userID
 	 */
-	public void deleteUser(int userID){
+	public boolean deleteUser(int userID){
 		
 		//get user
 		SavedUser user = getUserByID(userID);
 		
 		//user was not found
 		if(user == null){
-			return;
+			return false;
 		}
 		
 		//delete user from database
-		deleteObjectFromDb(user);
+		return deleteObjectFromDb(user);
 		
 	}
 	
@@ -666,18 +672,18 @@ public class DataHandler implements IDataHandler {
 	 * deletes a beer from the database
 	 * @param beerID
 	 */
-	public void deleteBeer(int beerID){
+	public boolean deleteBeer(int beerID){
 		
 		//get beer
 		Beer beer = getBeerByID(beerID);
 		
 		//user was not found
 		if(beer == null){
-			return;
+			return false;
 		}
 		
 		//delete beer from database
-		deleteObjectFromDb(beer);
+		return deleteObjectFromDb(beer);
 		
 	}
 	
@@ -685,18 +691,18 @@ public class DataHandler implements IDataHandler {
 	 * deletes a beer post from the database
 	 * @param postID
 	 */
-	public void deletePost(int postID){
+	public boolean deletePost(int postID){
 		
 		//get beer post
 		BeerPost post = getPostByID(postID);
 		
 		//post was not found
 		if(post == null){
-			return;
+			return false;
 		}
 		
 		//delete beer post from database
-		deleteObjectFromDb(post);
+		return deleteObjectFromDb(post);
 		
 	}
 	
@@ -704,18 +710,18 @@ public class DataHandler implements IDataHandler {
 	 * deletes an achievement from the database
 	 * @param aID
 	 */
-	public void deleteAchievement(int aID){
+	public boolean deleteAchievement(int aID){
 		
 		//get achievement
 		Achievement ach = getAchievementByID(aID);
 		
 		//achievement was not found
 		if(ach == null){
-			return;
+			return false;
 		}
 		
 		//delete achievement from database
-		deleteObjectFromDb(ach);
+		return deleteObjectFromDb(ach);
 		
 	}
 	

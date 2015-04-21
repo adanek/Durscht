@@ -21,7 +21,7 @@ public interface IDataHandler {
 	 * deletes a user from the database
 	 * @param userID
 	 */
-	public void deleteUser(int userID);
+	public boolean deleteUser(int userID);
 	
 	/**
 	 * create a new beer
@@ -33,7 +33,7 @@ public interface IDataHandler {
 	 * deletes a beer from the database
 	 * @param beerID
 	 */
-	public void deleteBeer(int beerID);
+	public boolean deleteBeer(int beerID);
 	
 	/**
 	 * create a new bar in the database
@@ -49,7 +49,7 @@ public interface IDataHandler {
 	 * deletes a bar from the database
 	 * @param barID
 	 */
-	public void deleteBar(int barID);
+	public boolean deleteBar(int barID);
 	
 	/**
 	 * create a new Post
@@ -65,7 +65,7 @@ public interface IDataHandler {
 	 * deletes a beer post
 	 * @param postID
 	 */
-	public void deletePost(int postID);
+	public boolean deletePost(int postID);
 	
 	/**
 	 * create a new achievement in the database
@@ -79,7 +79,7 @@ public interface IDataHandler {
 	 * deletes an achievement
 	 * @param aID
 	 */
-	public void deleteAchievement(int aID);
+	public boolean deleteAchievement(int aID);
 	
 	/**
 	 * search for a User by name and password
