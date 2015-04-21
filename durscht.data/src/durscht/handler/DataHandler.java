@@ -316,10 +316,18 @@ public class DataHandler implements IDataHandler {
 	
 	/**
 	 * search for a beer by ID
-	 * @return Beer or null when no user exists in the database with this ID
+	 * @return Beer or null when no beer exists in the database with this ID
 	 */
 	public Beer getBeerByID(int id){
 		return this.<Beer>searchForID(id, Beer.class);
+	}
+	
+	/**
+	 * search for a beer post by ID
+	 * @return BeerPost or null when no beer post exists in the database with this ID
+	 */
+	public BeerPost getPostByID(int id){
+		return this.<BeerPost>searchForID(id, BeerPost.class);
 	}
 	
 	/**
@@ -586,4 +594,129 @@ public class DataHandler implements IDataHandler {
 			session.close();
 		}
 	}
+	
+	/**
+	 * deletes an object from the database, when it is an entity
+	 * @param the object of an entity
+	 */
+	private void deleteObjectFromDb(Object obj) {
+
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			// save an object
+			session.delete(obj);
+
+			// commit
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+		} finally {
+			// close session
+			session.close();
+		}
+
+	}
+	
+	/**
+	 * deletes a bar from the database
+	 * @param barID 
+	 */
+	public void deleteBar(int barID){
+		
+		//get bar
+		Bar bar = getBarByID(barID);
+		
+		//bar was not found
+		if(bar == null){
+			return;
+		}
+		
+		//delete bar from database
+		deleteObjectFromDb(bar);
+		
+	}
+	
+	/**
+	 * deletes a user from the database
+	 * @param userID
+	 */
+	public void deleteUser(int userID){
+		
+		//get user
+		SavedUser user = getUserByID(userID);
+		
+		//user was not found
+		if(user == null){
+			return;
+		}
+		
+		//delete user from database
+		deleteObjectFromDb(user);
+		
+	}
+	
+	/**
+	 * deletes a beer from the database
+	 * @param beerID
+	 */
+	public void deleteBeer(int beerID){
+		
+		//get beer
+		Beer beer = getBeerByID(beerID);
+		
+		//user was not found
+		if(beer == null){
+			return;
+		}
+		
+		//delete beer from database
+		deleteObjectFromDb(beer);
+		
+	}
+	
+	/**
+	 * deletes a beer post from the database
+	 * @param postID
+	 */
+	public void deletePost(int postID){
+		
+		//get beer post
+		BeerPost post = getPostByID(postID);
+		
+		//post was not found
+		if(post == null){
+			return;
+		}
+		
+		//delete beer post from database
+		deleteObjectFromDb(post);
+		
+	}
+	
+	/**
+	 * deletes an achievement from the database
+	 * @param aID
+	 */
+	public void deleteAchievement(int aID){
+		
+		//get achievement
+		Achievement ach = getAchievementByID(aID);
+		
+		//achievement was not found
+		if(ach == null){
+			return;
+		}
+		
+		//delete achievement from database
+		deleteObjectFromDb(ach);
+		
+	}
+	
 }

@@ -18,10 +18,22 @@ public interface IDataHandler {
 	public Integer createUser(String name, String email, String password);
 	
 	/**
+	 * deletes a user from the database
+	 * @param userID
+	 */
+	public void deleteUser(int userID);
+	
+	/**
 	 * create a new beer
 	 * @return the ID of the created object or null if the creation failed
 	 */
 	public Integer createBeer(String name, String description);
+	
+	/**
+	 * deletes a beer from the database
+	 * @param beerID
+	 */
+	public void deleteBeer(int beerID);
 	
 	/**
 	 * create a new bar in the database
@@ -34,6 +46,12 @@ public interface IDataHandler {
 	public Integer createBar(String name, double latitude, double longitude, String description, String url);
 	
 	/**
+	 * deletes a bar from the database
+	 * @param barID
+	 */
+	public void deleteBar(int barID);
+	
+	/**
 	 * create a new Post
 	 * @param barID
 	 * @param beerID
@@ -44,12 +62,24 @@ public interface IDataHandler {
 	public Integer createPost(int barID, int beerID, int userID, String description);
 	
 	/**
+	 * deletes a beer post
+	 * @param postID
+	 */
+	public void deletePost(int postID);
+	
+	/**
 	 * create a new achievement in the database
 	 * @param name
 	 * @param description
 	 * @return the ID of the created object or null if the creation failed
 	 */
 	public Integer createAchievement(String name, String description);
+	
+	/**
+	 * deletes an achievement
+	 * @param aID
+	 */
+	public void deleteAchievement(int aID);
 	
 	/**
 	 * search for a User by name and password
