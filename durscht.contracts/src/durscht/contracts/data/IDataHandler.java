@@ -6,19 +6,49 @@ import durscht.contracts.data.IBeer;
 
 /**
  * interface for communication with logic
- * @author Witsch Daniel. Deutsch Patrick
+ * @author Witsch Daniel, Deutsch Patrick
  *
  */
 public interface IDataHandler {
 
+	/**
+	 * create an new user
+	 * @return the ID of the created object or null if the creation failed
+	 */
 	public Integer createUser(String name, String email, String password);
 	
+	/**
+	 * create a new beer
+	 * @return the ID of the created object or null if the creation failed
+	 */
 	public Integer createBeer(String name, String description);
 	
+	/**
+	 * create a new bar in the database
+	 * @param latitude 
+	 * @param longitude
+	 * @param description
+	 * @param url optional, if no url is given then add "" to the method
+	 * @return the ID of the created object or null if the creation failed
+	 */
 	public Integer createBar(String name, double latitude, double longitude, String description, String url);
 	
+	/**
+	 * create a new Post
+	 * @param barID
+	 * @param beerID
+	 * @param userID
+	 * @param descripton
+	 * @return ID of post or null when creation failed, one possibility is that one of the IDs (bar,beer,user) doesn't exists 
+	 */
 	public Integer createPost(int barID, int beerID, int userID, String description);
 	
+	/**
+	 * create a new achievement in the database
+	 * @param name
+	 * @param description
+	 * @return the ID of the created object or null if the creation failed
+	 */
 	public Integer createAchievement(String name, String description);
 	
 	/**
@@ -57,18 +87,6 @@ public interface IDataHandler {
 	 */
 	public Collection<IBeerPost> getAllPostsFromBar(int barID);
 	
-	/**
-	 * get all posts from a a user
-	 * @param userID
-	 * @return a list of posts or null if no post is in the database
-	 */
-	public Collection<IBeerPost> getAllPostsFromUser(int userID);
-	
-	/**
-	 * disconnect database connection
-	 */
-	public void closeDatabaseConnection();
-	
 	/** 
 	 * get beer by id
 	 * @param id Beer ID
@@ -96,4 +114,10 @@ public interface IDataHandler {
 	 * @return
 	 */
 	public IUser getUserByID(int id);
+	
+	
+	/**
+	 * disconnect database connection
+	 */
+	public void closeDatabaseConnection();
 }

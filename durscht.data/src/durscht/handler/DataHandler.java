@@ -530,7 +530,7 @@ public class DataHandler implements IDataHandler {
 	 * @param beerID
 	 * @param userID
 	 * @param descripton
-	 * @return ID of post or null when creation failed
+	 * @return ID of post or null when creation failed, one possibility is that one of the IDs (bar,beer,user) doesn't exists
 	 */
 	public Integer createPost(int barID, int beerID, int userID, String descripton){
 		Session session = openSession();
