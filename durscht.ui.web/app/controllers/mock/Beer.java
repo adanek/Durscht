@@ -1,6 +1,6 @@
 package controllers.mock;
 
-import durscht.contracts.IBeer;
+import durscht.contracts.ui.IBeer;
 
 public class Beer implements IBeer {
 

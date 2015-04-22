@@ -1,7 +1,7 @@
 package controllers.mock;
 
-import durscht.contracts.IBar;
-import durscht.contracts.IBeer;
+import durscht.contracts.ui.IBar;
+import durscht.contracts.ui.IBeer;
 
 public class Bar implements IBar {
 
