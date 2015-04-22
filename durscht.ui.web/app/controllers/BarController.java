@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import controllers.mock.Bar;
 import controllers.mock.Beer;
+import durscht.contracts.logic.IPostHandler;
+import durscht.core.config.ServiceLocator;
+import model.Location;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -13,6 +16,10 @@ public class BarController extends Controller{
 	
 	// GET /bars/near
 	public static Result getNear(){
+		
+		Form<Location> form = Form.form(Location.class);
+		Location loc = form.bindFromRequest().get();
+		
 		
 		// Create mock beers 
 		Beer[] noBeer = new Beer[0];
