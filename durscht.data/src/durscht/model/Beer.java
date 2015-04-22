@@ -21,7 +21,7 @@ public class Beer implements IBeer{
 	private String name;
 	@Lob
 	private String description;
-	@OneToMany
+	@OneToMany (mappedBy = "beer")
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 
 	public int getId() {
