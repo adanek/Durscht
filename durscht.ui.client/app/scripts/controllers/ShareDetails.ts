@@ -2,9 +2,10 @@
 
 (function (app){
     var controller = function ($scope, $location, posting:Posting){
-        $scope.caption = "Aha!";
+        $scope.caption = "Und wie hat's dir gemundet?";
         $scope.remark = "";
         $scope.price = 0.0;
+        $scope.rating = 0;
 
 
         $scope.sentPost = function(){

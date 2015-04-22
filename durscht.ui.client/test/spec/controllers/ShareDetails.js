@@ -26,4 +26,12 @@ describe('Controller: ShareDetailsCtrl', function () {
     it('should have a price field', function(){
         expect(scope.price).toBeDefined();
     });
+
+    it('should have a rating field', function(){
+        expect(scope.rating).toBeDefined();
+    });
+
+    it('should have a function to sent the post', function(){
+        expect(scope.sentPost).toBeDefined();
+    });
 });

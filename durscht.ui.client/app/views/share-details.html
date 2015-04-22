@@ -1,7 +1,5 @@
 <div>
     <h1>{{ caption }}</h1>
-    <p>Bar: {{ ctrl.posting.bar.name }}</p>
-    <p>Beer: {{ ctrl.posting.beer.brand }} {{ ctrl.posting.beer.type }}</p>
 
     <form novalidate>
 
@@ -12,12 +10,13 @@
 
         <div class="form-group">
             <label for="price">Preis:</label>
-            <input id="price" type="number" class="form-control" ng-model="ctrl.posting.price"/>
+            <input id="price" type="number" class="form-control" ng-model="price"/>
         </div>
 
         <div class=form-group>
             <label for="ranking">Bewertung:</label>
-            <rating id="ranking" ng-model="ctrl.posting.rating" max="5" state-on="'rating-enable'" state-off="'rating-disable'" class="rating"></rating>
+            <rating id="ranking" ng-model="rating" max="5" state-on="'rating-enable'"
+                    state-off="'rating-disable'" class="rating"></rating>
         </div>
 
         <div>

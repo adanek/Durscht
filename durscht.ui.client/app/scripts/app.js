@@ -8,6 +8,9 @@
         }).when('/about', {
             templateUrl: 'views/about.html',
             controller: 'AboutCtrl'
+        }).when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'LoginCtrl'
         }).when('/share/location', {
             templateUrl: 'views/share-location.html',
             controller: 'ShareLocationCtrl'
@@ -25,5 +28,6 @@
         });
     });
     app.constant("barApiUrl", "http://localhost:9000/bars/");
+    app.constant('authenticationUrl', 'http://localhost:9000/auth');
 })();
 //# sourceMappingURL=app.js.map
