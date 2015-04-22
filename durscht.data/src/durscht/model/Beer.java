@@ -10,6 +10,9 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import durscht.contracts.data.IBeer;
 
 @Entity
@@ -22,6 +25,7 @@ public class Beer implements IBeer{
 	@Lob
 	private String description;
 	@OneToMany (mappedBy = "beer")
+	@Cascade({CascadeType.DELETE})
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 
 	public int getId() {

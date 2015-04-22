@@ -11,6 +11,9 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import durscht.contracts.data.IBar;
 
 @Entity
@@ -27,6 +30,7 @@ public class Bar implements IBar {
 	@Lob
 	private String description;
 	@OneToMany(mappedBy = "bar")
+	@Cascade({CascadeType.DELETE})
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 
 	@Override
