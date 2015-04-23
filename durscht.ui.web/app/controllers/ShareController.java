@@ -37,4 +37,10 @@ public class ShareController extends Controller{
         response().setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:9100");
         return ok(data);
     }
+
+    public static Result createPost(){
+
+        response().setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:9100");
+        return created();
+    }
 }

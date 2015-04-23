@@ -5,8 +5,9 @@
 # Home page
 GET            /                      controllers.Application.index()
 POST           /share/nearBars        controllers.ShareController.getNearBars()
+POST           /share/createPost      controllers.ShareController.createPost()
 
-# Options for CORS
+# Options for CORS Cross Origin Resource Sharing
 OPTIONS        /                      controllers.Application.CorsOptions(url: String ?= "root")
 OPTIONS        /*url                  controllers.Application.CorsOptions(url: String)
 
