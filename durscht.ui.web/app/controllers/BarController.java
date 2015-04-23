@@ -41,29 +41,20 @@ public class BarController extends Controller{
 		return ok(data);
 	}
 	
-	public static Result getNear2(){
+	public static Result getNear2(double lng, double lat){
 		
 //		double lng = Double.parseDouble(request().body().asFormUrlEncoded().get("longidute")[0]);
 //		double lat = Double.parseDouble(request().body().asFormUrlEncoded().get("latidute")[0]);
-//		
+//	
+		Location loc = new Location();
+		loc.Longitude = lng;
+		loc.Latiude = lat;
 //		IPostHandler postHandler = ServiceLocator.getPostHandler();
 //		
 //		IBar[] nearBars = postHandler.getNearBars(lng, lat);
+
 		
-		// Create mock beers 
-		Beer[] noBeer = new Beer[0];
-		IBeer[] beers = new Beer[3];
-		beers[0] = new Beer("Zipfer", "Märzen", "");
-		beers[1] = new Beer("Stiegl", "Goldbräu", "");
-		beers[2] = new Beer("Corona", "Extra", "");		
-		
-		// Create mock bars
-		Bar[] bars = new Bar[3];
-		bars[0] = new Bar(0, "Uferbar", 0.0, beers);
-		bars[1] = new Bar(1, "Wunderbar", 0.3, noBeer);
-		bars[2] = new Bar(2, "Sonderbar", 1.2, beers);		
-		
-		JsonNode data = Json.toJson(bars);
+		JsonNode data = Json.toJson(loc);
 		response().setHeader("Access-Control-Allow-Origin", "*");
 		return ok(data);
 	}

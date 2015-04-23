@@ -5,7 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET		/bars/near					controllers.BarController.getNear()
-POST	/bars/near					controllers.BarController.getNear2()
+POST	/bars/near					controllers.BarController.getNear2(double lng, double lat)
 
 
 # Map static resources from the /public folder to the /assets URL path
