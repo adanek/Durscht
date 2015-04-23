@@ -1,4 +1,5 @@
 package durscht.handler;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -7,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -164,14 +164,14 @@ public class DataHandler implements IDataHandler {
 			List<T> results = cr.list();
 
 			// commit
-			session.getTransaction().commit();
+			//session.getTransaction().commit();
 
 			//only one element in the list because the id is unique
 			return results.get(0);
 
 		} catch (Exception e) {
 			// Exception -> rollback
-			session.getTransaction().rollback();
+			//session.getTransaction().rollback();
 
 			return null;
 		} finally {
@@ -316,10 +316,18 @@ public class DataHandler implements IDataHandler {
 	
 	/**
 	 * search for a beer by ID
-	 * @return Beer or null when no user exists in the database with this ID
+	 * @return Beer or null when no beer exists in the database with this ID
 	 */
 	public Beer getBeerByID(int id){
 		return this.<Beer>searchForID(id, Beer.class);
+	}
+	
+	/**
+	 * search for a beer post by ID
+	 * @return BeerPost or null when no beer post exists in the database with this ID
+	 */
+	public BeerPost getPostByID(int id){
+		return this.<BeerPost>searchForID(id, BeerPost.class);
 	}
 	
 	/**
@@ -465,7 +473,7 @@ public class DataHandler implements IDataHandler {
 			
 			Collection<BeerPost> posts = results.get(0).getBeerPosts();
 			
-			Collection<IBeerPost> ret = new LinkedList<>(posts);
+			Collection<IBeerPost> ret = new ArrayList<>(posts);
 						
 			// commit
 			session.getTransaction().commit();
@@ -506,7 +514,7 @@ public class DataHandler implements IDataHandler {
 			
 			Collection<BeerPost> posts = results.get(0).getBeerPosts();
 			
-			Collection<IBeerPost> ret = new LinkedList<>(posts);
+			Collection<IBeerPost> ret = new ArrayList<>(posts);
 						
 			// commit
 			session.getTransaction().commit();
@@ -529,10 +537,12 @@ public class DataHandler implements IDataHandler {
 	 * @param barID
 	 * @param beerID
 	 * @param userID
+	 * @param price
+	 * @param rating
 	 * @param descripton
-	 * @return ID of post or null when creation failed
+	 * @return ID of post or null when creation failed, one possibility is that one of the IDs (bar,beer,user) doesn't exists
 	 */
-	public Integer createPost(int barID, int beerID, int userID, String descripton){
+	public Integer createPost(int barID, int beerID, int userID, double price, int rating, String descripton){
 		Session session = openSession();
 
 		try {
@@ -557,6 +567,8 @@ public class DataHandler implements IDataHandler {
 			post.setBar(bar);
 			post.setBeer(beer);
 			post.setUser(user);
+			post.setPrice(price);
+			post.setRating(rating);
 			post.setDescription(descripton);
 			
 			// save post
@@ -586,4 +598,135 @@ public class DataHandler implements IDataHandler {
 			session.close();
 		}
 	}
+	
+	/**
+	 * deletes an object from the database, when it is an entity
+	 * @param the object of an entity
+	 */
+	private boolean deleteObjectFromDb(Object obj) {
+
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			// save an object
+			session.delete(obj);
+
+			// commit
+			session.getTransaction().commit();
+			
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			
+			//deletion failed
+			return false;
+		} finally {
+			// close session
+			session.close();
+		}
+		
+		//deletion ok
+		return true;
+
+	}
+	
+	/**
+	 * deletes a bar from the database
+	 * @param barID 
+	 */
+	public boolean deleteBar(int barID){
+		
+		//get bar
+		Bar bar = getBarByID(barID);
+		
+		//bar was not found
+		if(bar == null){
+			return false;
+		}
+		
+		//delete bar from database
+		return deleteObjectFromDb(bar);
+		
+	}
+	
+	/**
+	 * deletes a user from the database
+	 * @param userID
+	 */
+	public boolean deleteUser(int userID){
+		
+		//get user
+		SavedUser user = getUserByID(userID);
+		
+		//user was not found
+		if(user == null){
+			return false;
+		}
+		
+		//delete user from database
+		return deleteObjectFromDb(user);
+		
+	}
+	
+	/**
+	 * deletes a beer from the database
+	 * @param beerID
+	 */
+	public boolean deleteBeer(int beerID){
+		
+		//get beer
+		Beer beer = getBeerByID(beerID);
+		
+		//user was not found
+		if(beer == null){
+			return false;
+		}
+		
+		//delete beer from database
+		return deleteObjectFromDb(beer);
+		
+	}
+	
+	/**
+	 * deletes a beer post from the database
+	 * @param postID
+	 */
+	public boolean deletePost(int postID){
+		
+		//get beer post
+		BeerPost post = getPostByID(postID);
+		
+		//post was not found
+		if(post == null){
+			return false;
+		}
+		
+		//delete beer post from database
+		return deleteObjectFromDb(post);
+		
+	}
+	
+	/**
+	 * deletes an achievement from the database
+	 * @param aID
+	 */
+	public boolean deleteAchievement(int aID){
+		
+		//get achievement
+		Achievement ach = getAchievementByID(aID);
+		
+		//achievement was not found
+		if(ach == null){
+			return false;
+		}
+		
+		//delete achievement from database
+		return deleteObjectFromDb(ach);
+		
+	}
+	
 }
