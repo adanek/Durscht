@@ -124,11 +124,13 @@ public class PostHandler implements IPostHandler {
 	}
 
 	@Override
-	public Integer putPosting(int barID, int beerID, int userID, String description) throws NullPointerException {
+	public Integer putPosting(int barID, int beerID, int userID, double prize,
+			int rating, String description) throws NullPointerException {
+		
 		IDataHandler dataHandler = getDataHandler();
 		
 		Integer returnID;
-		if ((returnID = dataHandler.createPost(barID, beerID, userID, description)) == 0) {
+		if ((returnID = dataHandler.createPost(barID, beerID, userID, prize, rating, description)) == null) {
 			throw new NullPointerException("Error while create post in database");
 		}
 		
@@ -146,11 +148,12 @@ public class PostHandler implements IPostHandler {
 		IDataHandler dataHandler = getDataHandler();
 		
 		Integer returnID;
-		if ((returnID = dataHandler.createBar(name, latitude, longitude, description, url)) == 0) {
+		if ((returnID = dataHandler.createBar(name, latitude, longitude, description, url)) == null) {
 			throw new NullPointerException("Error while create bar in database");
 		}
 		
 		return returnID;
 	}
+
 
 }

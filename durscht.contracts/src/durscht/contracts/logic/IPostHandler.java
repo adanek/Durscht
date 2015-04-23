@@ -25,7 +25,7 @@ public interface IPostHandler {
 	 * @param description
 	 * @return index of the created post
 	 */
-	public Integer putPosting(int barID, int beerID, int userID, String description) throws NullPointerException;
+	public Integer putPosting(int barID, int beerID, int userID, double prize, int rating, String description) throws NullPointerException;
 	
 	
 	/**
