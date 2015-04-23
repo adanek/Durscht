@@ -15,7 +15,8 @@ public class BarController extends Controller{
 	
 	// GET /bars/near
 	public static Result getNear(){
-		
+
+
 		// Create mock beers 
 		Beer[] noBeer = new Beer[0];
 		Beer[] beers = new Beer[3];
