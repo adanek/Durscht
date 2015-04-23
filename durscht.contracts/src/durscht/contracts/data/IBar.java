@@ -1,5 +1,7 @@
 package durscht.contracts.data;
 
+import java.util.Collection;
+
 public interface IBar {
 
 	public int getId();
@@ -13,5 +15,4 @@ public interface IBar {
 	public double getLongitude();
 
 	public String getDescription();
-
 }
