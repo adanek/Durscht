@@ -3,10 +3,13 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-GET		/bars/near					controllers.BarController.getNear()
-POST	/bars/near					controllers.BarController.getNear2(double lng, double lat)
+GET            /                      controllers.Application.index()
+POST           /share/nearBars        controllers.ShareController.getNearBars()
+
+# Options for CORS
+OPTIONS        /                      controllers.Application.CorsOptions(url: String ?= "root")
+OPTIONS        /*url                  controllers.Application.CorsOptions(url: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET            /assets/*file          controllers.Assets.at(path="/public", file)
