@@ -1,4 +1,5 @@
 package durscht.handler;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -7,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -473,7 +473,7 @@ public class DataHandler implements IDataHandler {
 			
 			Collection<BeerPost> posts = results.get(0).getBeerPosts();
 			
-			Collection<IBeerPost> ret = new LinkedList<>(posts);
+			Collection<IBeerPost> ret = new ArrayList<>(posts);
 						
 			// commit
 			session.getTransaction().commit();
@@ -514,7 +514,7 @@ public class DataHandler implements IDataHandler {
 			
 			Collection<BeerPost> posts = results.get(0).getBeerPosts();
 			
-			Collection<IBeerPost> ret = new LinkedList<>(posts);
+			Collection<IBeerPost> ret = new ArrayList<>(posts);
 						
 			// commit
 			session.getTransaction().commit();
@@ -537,10 +537,12 @@ public class DataHandler implements IDataHandler {
 	 * @param barID
 	 * @param beerID
 	 * @param userID
+	 * @param price
+	 * @param rating
 	 * @param descripton
 	 * @return ID of post or null when creation failed, one possibility is that one of the IDs (bar,beer,user) doesn't exists
 	 */
-	public Integer createPost(int barID, int beerID, int userID, String descripton){
+	public Integer createPost(int barID, int beerID, int userID, double price, int rating, String descripton){
 		Session session = openSession();
 
 		try {
@@ -565,6 +567,8 @@ public class DataHandler implements IDataHandler {
 			post.setBar(bar);
 			post.setBeer(beer);
 			post.setUser(user);
+			post.setPrice(price);
+			post.setRating(rating);
 			post.setDescription(descripton);
 			
 			// save post

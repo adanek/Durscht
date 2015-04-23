@@ -6,12 +6,15 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
+import durscht.contracts.data.IBeerPost;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
 import durscht.handler.DataHandler;
@@ -48,7 +51,21 @@ public class ToBeDeleted {
 			int achid2 = handler.createAchievement("50 posts", "The user will get this achievement when he drinks 50 beers and add a post to the app");
 			int achid3 = handler.createAchievement("100 posts", "The user will get this achievement when he drinks 100 beers and add a post to the app");
 			
+			/*int post1 = handler.createPost(barid1, beerid1, userid1, 3.0, 2, "Post1");
+			int post2 = handler.createPost(barid1, beerid2, userid2, 3.0, 2, "Post2");
+			int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3");
+			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4");
+			
 			IUser user = handler.getUserLogin("user2", "user2");
+			
+			Collection<IBeer> beers = handler.getAllBeers();
+			Collection<IBeer> bars1 = handler.getAllBeersFromBar(barid1);
+			Collection<IBeer> bars2 = handler.getAllBeersFromBar(barid2);
+
+			Collection<IBeerPost> posts1 = handler.getAllPostsFromBar(barid1);
+			Collection<IBeerPost> posts2 = handler.getAllPostsFromBar(barid2);
+			Collection<IBeerPost> userposts1 = handler.getAllPostsFromUser(userid1);
+			Collection<IBeerPost> userposts2 = handler.getAllPostsFromUser(userid2);*/
 
 			handler.closeDatabaseConnection();
 	}

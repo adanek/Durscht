@@ -59,7 +59,7 @@ public interface IDataHandler {
 	 * @param descripton
 	 * @return ID of post or null when creation failed, one possibility is that one of the IDs (bar,beer,user) doesn't exists 
 	 */
-	public Integer createPost(int barID, int beerID, int userID, String description);
+	public Integer createPost(int barID, int beerID, int userID, double price, int rating, String description);
 	
 	/**
 	 * deletes a beer post
@@ -116,6 +116,13 @@ public interface IDataHandler {
 	 * @return a list of posts or null if no post is in the database
 	 */
 	public Collection<IBeerPost> getAllPostsFromBar(int barID);
+	
+	/**
+	 * get all posts from a user
+	 * @param userID
+	 * @return a list of posts or null if no post is in the database
+	 */
+	public Collection<IBeerPost> getAllPostsFromUser(int userID);
 	
 	/** 
 	 * get beer by id
