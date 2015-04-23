@@ -1,4 +1,4 @@
 /.metadata/
 /.recommenders/
-/.classpath
 *.classpath
+durscht.core/.classpath
