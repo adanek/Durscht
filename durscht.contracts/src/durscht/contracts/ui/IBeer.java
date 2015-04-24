@@ -2,7 +2,7 @@ package durscht.contracts.ui;
 
 public interface IBeer {
 
-    int getId();
+    Integer getId();
 	String getBrand();
 	String getType();
 	String getDescription();	
