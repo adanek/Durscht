@@ -38,4 +38,4 @@
     <mapping class="durscht.model.Achievement" />
     
   </session-factory>
-</hibernate-configuration>
+</hibernate-configuration> 

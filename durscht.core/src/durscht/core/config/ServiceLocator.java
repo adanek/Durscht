@@ -1,21 +1,28 @@
 package durscht.core.config;
 
 import durscht.contracts.data.IDataHandler;
+import durscht.contracts.logic.IBeerHandler;
+import durscht.contracts.logic.ILogicFacade;
 import durscht.contracts.logic.IPostHandler;
+import durscht.core.BeerHandler;
+import durscht.core.LogicFacade;
 import durscht.core.PostHandler;
 import durscht.handler.DataHandler;
 
 public class ServiceLocator {
 	
-	private static IDataHandler dataHandler;
-	private static IPostHandler postHandler;
+	private static ILogicFacade logicFacade;
 	
-	public static IDataHandler getDataHandler() {
+	private static IPostHandler postHandler;
+	private static IBeerHandler beerHandler;
+	
+	private static IDataHandler dataHandler;
+	
+	public static ILogicFacade getLogidFacade() {
+		if (logicFacade == null)
+			logicFacade = new LogicFacade();
 		
-		if (dataHandler == null)
-			dataHandler = new DataHandler();
-		
-		return dataHandler;
+		return logicFacade;
 	}
 	
 	public static IPostHandler getPostHandler() {
@@ -25,6 +32,19 @@ public class ServiceLocator {
 		
 		return postHandler;
 	}
-
 	
+	public static IBeerHandler getBeerHandler() {
+		if (beerHandler == null)
+			beerHandler = new BeerHandler();
+		
+		return beerHandler;
+	}
+	
+	public static IDataHandler getDataHandler() {
+		
+		if (dataHandler == null)
+			dataHandler = new DataHandler();
+		
+		return dataHandler;
+	}
 }

@@ -33,7 +33,7 @@ public class TestBeerPost extends TestBase {
 		IUser user = dataHandler.getUserLogin("TestUser", "Test1234");
 		
 		//create post
-		int id = dataHandler.createPost(bar.getId(), beer.getId(), user.getId(), "Sehr gutes Bier");
+		int id = dataHandler.createPost(bar.getId(), beer.getId(), user.getId(), 3.0, 2, "Sehr gutes Bier");
 		
 		//get all posts for bar
 		Collection<IBeerPost> posts = dataHandler.getAllPostsFromBar(bar.getId());
