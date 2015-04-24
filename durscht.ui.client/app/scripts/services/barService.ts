@@ -2,7 +2,7 @@
 
 (function(app){
 	
-	app.factory('barService', function(barApiUrl, $http) : BarService {		
+	app.factory('barService', function(barApiUrl, $http, posting) : BarService {
 	
 		var getBars : () => Array<Bar> = function(){
 			return [
@@ -26,7 +26,7 @@
 		}
 		
       	var getNearBars = function(){
-        	return $http.get(barApiUrl + "near");
+        	return $http.post(barApiUrl + "nearBars", {latitue: posting.latitude, longitude: posting.longitude});
         };
         
         return {

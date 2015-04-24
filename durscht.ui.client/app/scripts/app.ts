@@ -38,7 +38,7 @@
             });
     });
 
-    app.constant("barApiUrl","http://localhost:9000/bars/");
+    app.constant("barApiUrl","http://localhost:9000/share/");
     app.constant('authenticationUrl', 'http://localhost:9000/auth');
 })();
 
