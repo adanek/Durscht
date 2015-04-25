@@ -83,11 +83,11 @@ public class PostHandlerTest {
 	public void putPostingTest() {
 		
 		IDataHandler dataHandler = Mockito.mock(IDataHandler.class);
-		Mockito.when(dataHandler.createPost(0, 0, 0, "test")).thenReturn(26);
+		Mockito.when(dataHandler.createPost(0, 0, 0, 2.0, 2, "test")).thenReturn(26);
 		postHandler.setDataHandler(dataHandler);
 		
 		int expected = 26;
-		int actual = postHandler.putPosting(0, 0, 0, "test");
+		int actual = postHandler.putPosting(0, 0, 0, 2.0, 2, "test");
 		
 		assertEquals(expected,actual);
 	}
