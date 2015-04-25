@@ -11,7 +11,8 @@ import durscht.core.config.ServiceLocator;
 
 public class PostHandler implements IPostHandler {
 	
-	private final double BAR_SEARCH_RADIUS = 5.0;
+	// Test Purpose!!!
+	private final double BAR_SEARCH_RADIUS = 500.0;
 	
 	private IDataHandler dataHandler;
 	
