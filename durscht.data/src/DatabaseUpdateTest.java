@@ -23,7 +23,7 @@ import durscht.model.Beer;
 import durscht.model.BeerPost;
 import durscht.model.SavedUser;
 
-public class ToBeDeleted {
+public class DatabaseUpdateTest {
 
 	public static void main(String args[]) {
 
