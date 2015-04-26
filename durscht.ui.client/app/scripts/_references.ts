@@ -11,7 +11,7 @@ interface Beer {
 interface Bar {
 	id:number;
 	name: string;
-	distance: string;
+	distance: number;
 	beers: Array<Beer>;		
 }
 

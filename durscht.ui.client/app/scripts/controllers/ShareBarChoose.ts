@@ -8,7 +8,9 @@
 
         //$scope.bars = []; //barService.getBars();
         barService.getNearBars().success(function (data){
-            $scope.bars = data;
+            $scope.bars = data.sort(function(a:Bar, b:Bar){
+                return a.distance - b.distance;
+            });
             setCreateBarText();
             $scope.$apply();
         });

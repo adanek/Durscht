@@ -6,7 +6,9 @@
         $scope.beer = undefined;
         $scope.beers = [];
         barService.getAllBeers().success(function (data) {
-            $scope.beers = data;
+            $scope.beers = data.sort(function (a, b) {
+                return a.brand.localeCompare(b.brand);
+            });
             $scope.$apply();
         });
         $scope.create = function () {

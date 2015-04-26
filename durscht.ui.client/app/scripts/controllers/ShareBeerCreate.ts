@@ -10,7 +10,9 @@
         $scope.beers = [];
 
         barService.getAllBeers().success(function(data){
-            $scope.beers = data;
+            $scope.beers = data.sort(function(a:Beer,b:Beer){
+                return a.brand.localeCompare(b.brand);
+            });
             $scope.$apply();
         })
 

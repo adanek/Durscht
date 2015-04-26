@@ -8,6 +8,10 @@
         $scope.createBeerText = "Nö, ganz a anders";
         $scope.beers = posting.bar.beers || [];
 
+        $scope.beers.sort(function (a:Beer, b:Beer){
+            return a.brand.localeCompare(b.brand);
+        });
+
         if(posting.bar.beers.length <= 0){
             $scope.createBeerText = "Öha! Du bist der erste hier!";
         }

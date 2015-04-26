@@ -4,7 +4,9 @@
         $scope.caption = "Wo gesch denn um?";
         //$scope.bars = []; //barService.getBars();
         barService.getNearBars().success(function (data) {
-            $scope.bars = data;
+            $scope.bars = data.sort(function (a, b) {
+                return a.distance - b.distance;
+            });
             setCreateBarText();
             $scope.$apply();
         });
