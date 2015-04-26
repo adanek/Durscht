@@ -17,6 +17,9 @@
         }).when('/share/bar/choose', {
             templateUrl: '/views/share-bar-choose.html',
             controller: 'ShareBarChooseCtrl'
+        }).when('/share/bar/create', {
+            templateUrl: '/views/share-bar-create.html',
+            controller: 'ShareBarCreateCtrl'
         }).when('/share/beer/choose', {
             templateUrl: 'views/share-beer-choose.html',
             controller: 'ShareBeerChooseCtrl'

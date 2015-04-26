@@ -6,19 +6,25 @@
 
         $scope.caption = "Wo gesch denn um?";
 
-        $scope.bars = barService.getBars();
+        //$scope.bars = []; //barService.getBars();
         barService.getNearBars().success(function (data){
             $scope.bars = data;
+            setCreateBarText();
+            $scope.$apply();
         });
 
-        var createBarText : string = "";
-        if($scope.bars.length <= 0){
-            createBarText = "Du bist der erste hier!";
+        var setCreateBarText = function() {
+            if ($scope.bars) {
+                var createBarText:string = "";
+                if ($scope.bars.length <= 0) {
+                    createBarText = "Du bist der erste hier!";
+                }
+                else {
+                    createBarText = "Nö, ganz wo anders";
+                }
+                $scope.createBarText = createBarText;
+            }
         }
-        else {
-            createBarText = "Nö, ganz wo anders";
-        }
-        $scope.createBarText = createBarText;
 
         $scope.setBar = function(bar){
             posting.bar = bar;
