@@ -20,19 +20,4 @@ describe('Controller: ShareBarCreateCtrl', function () {
         expect(scope.caption).toBeDefined();
     });
 
-    it('should have a function create', function () {
-        expect(scope.create).toBeDefined();
-    });
-
-    it('should have a property name', function () {
-        expect(scope.name).toBeDefined();
-    });
-
-    it('should have a property website', function () {
-        expect(scope.website).toBeDefined();
-    });
-
-    it('should have a property remark', function () {
-        expect(scope.remark).toBeDefined();
-    });
 });

@@ -7,7 +7,7 @@
         <div class="list-group">
             <a class="list-group-item" ng-repeat="bar in bars" ng-click="setBar(bar)">
                 {{bar.name}}
-                <small>({{bar.distance}})</small>
+                <small>({{bar.distance.toFixed(2)}} km)</small>
             </a>
         </div>
 

@@ -28,6 +28,6 @@
             $location.path("/share/bar/create").replace();
         };
     };
-    app.controller('ShareBarChooseCtrl', ctrl);
+    app.controller('ShareBarChooseCtrl', ['$scope', 'barService', 'posting', '$location', ctrl]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=ShareBarChoose.js.map

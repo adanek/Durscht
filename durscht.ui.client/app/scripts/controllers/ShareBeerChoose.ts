@@ -4,9 +4,9 @@
 
     var controller = function($scope, $location, posting:Posting ){
 
-        $scope.name = posting.bar.name;
+        $scope.name = posting.bar.name || "TestBar";
         $scope.createBeerText = "Nö, ganz a anders";
-        $scope.beers = posting.bar.beers;
+        $scope.beers = posting.bar.beers || [];
 
         if(posting.bar.beers.length <= 0){
             $scope.createBeerText = "Öha! Du bist der erste hier!";
@@ -22,6 +22,6 @@
         }
     };
 
-    app.controller("ShareBeerChooseCtrl", controller);
+    app.controller("ShareBeerChooseCtrl", ['$scope', '$location', 'posting', controller]);
 
 })(angular.module("durschtApp"));

@@ -22,6 +22,6 @@
             });
         };
     };
-    app.controller("LoginCtrl", controller);
+    app.controller("LoginCtrl", ['$scope', 'authentication', '$location', controller]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=Login.js.map

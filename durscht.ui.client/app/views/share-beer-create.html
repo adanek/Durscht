@@ -1,0 +1,17 @@
+<div>
+
+    <h1>{{ caption }}</h1>
+
+    <form novalidate ng-submit="create()">
+
+        <div class="form-group">
+            <label for="beer">Marke:</label>
+            <input id="beer" type="text" ng-model="beer" class="form-control"
+                   typeahead="beer as beer.brand + ' - ' + beer.type for beer in beers | filter:$viewValue | limitTo:8" typeahead-append-to-body="false">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="form-control btn btn-default" value="Speichern"/>
+        </div>
+    </form>
+</div>

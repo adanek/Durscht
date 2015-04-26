@@ -9,6 +9,6 @@
         }
     };
     
-    app.factory('authentication', srv);      
+    app.factory('authentication', ['$http', srv]);
 
 })(angular.module('durschtApp'));

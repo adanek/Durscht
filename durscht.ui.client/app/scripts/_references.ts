@@ -2,6 +2,7 @@
 /// <reference path="../../bower_components/typings/angularjs/angular.d.ts"/>
 
 interface Beer {
+    id: number;
 	brand: string;
 	type: string;
 	description: string;
@@ -17,7 +18,10 @@ interface Bar {
 interface BarService {
 	getBars: () => Array<Bar>;
 	getBar: (id:number) => Bar;
-	getNearBars;	
+	getNearBars;
+	createBar: (name:String, url:String, remark:String) => ng.IHttpPromise<Bar>;
+	getAllBeers: () => ng.IHttpPromise<Array<Beer>>;
+    addBeerToBar: (bar: Bar, beer: Beer) => ng.IPromise<void>;
 }
 
 interface Posting {
@@ -30,4 +34,5 @@ interface Posting {
     latitude: number;
 
 	reset: () => void;
+    save: () => ng.IHttpPromise<void>;
 }

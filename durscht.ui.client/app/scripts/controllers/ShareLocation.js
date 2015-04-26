@@ -54,6 +54,6 @@
             $scope.errorMessage = "Tut leid, aber ohne deine aktulle Position kommst du hier nicht rein";
         }
     };
-    app.controller('ShareLocationCtrl', ctrl);
+    app.controller('ShareLocationCtrl', ['posting', '$window', '$scope', '$location', '$rootScope', ctrl]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=ShareLocation.js.map

@@ -23,6 +23,9 @@
         }).when('/share/beer/choose', {
             templateUrl: 'views/share-beer-choose.html',
             controller: 'ShareBeerChooseCtrl'
+        }).when('/share/beer/create', {
+            templateUrl: 'views/share-beer-create.html',
+            controller: 'ShareBeerCreateCtrl'
         }).when('/share/details', {
             templateUrl: 'views/share-details.html',
             controller: 'ShareDetailsCtrl'
@@ -30,7 +33,10 @@
             redirectTo: '/'
         });
     });
-    app.constant("barApiUrl", "http://localhost:9000/share/");
-    app.constant('authenticationUrl', 'http://localhost:9000/auth');
+    app.constant("barApiUrl", 'https://durscht-service.herokuapp.com/share/');
+    app.constant('shareApiUrl', 'https://durscht-service.herokuapp.com/share/');
+    //app.constant("barApiUrl", 'http://192.168.1.11:9000/share/');
+    //app.constant('shareApiUrl', 'http://192.168.1.11:9000/share/');
+    //app.constant('authenticationUrl', 'http://192.168.1.11:9000/auth');
 })();
 //# sourceMappingURL=app.js.map

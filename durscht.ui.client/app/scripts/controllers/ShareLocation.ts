@@ -67,7 +67,7 @@
         }
     };
 
-    app.controller('ShareLocationCtrl', ctrl);
+    app.controller('ShareLocationCtrl', ['posting', '$window', '$scope', '$location', '$rootScope', ctrl]);
 
 })(angular.module('durschtApp'));
 

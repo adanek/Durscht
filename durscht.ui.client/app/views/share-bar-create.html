@@ -1,3 +1,29 @@
 <div>
     <h1>{{ caption }}</h1>
+
+    <form novalidate ng-submit="create()">
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name" type="text" ng-model="name" required class="form-control" placeholder="Schreib hier den Namen des Lokals rein..."/>
+        </div>
+
+        <div class="form-group">
+            <label for="website">Webseite:</label>
+            <input id="website" type="text" ng-model="website" class="form-control" placeholder="... hier die Webadresse fals du sie kennst ..."/>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Anmerkungen:</label>
+            <textarea id="description" ng-model="remark" class="form-control" rows="3" placeholder="... und hier was du schon immer über dieses Lokal los werden wolltest."/>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="form-control btn btn-default" value="Speichern">
+        </div>
+    </form>
+
+    <div ng-show="error != null" class="alert alert-danger" role="alert">
+        <p>{{ error }}</p>
+    </div>
 </div>

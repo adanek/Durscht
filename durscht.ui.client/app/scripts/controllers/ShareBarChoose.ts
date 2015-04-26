@@ -36,6 +36,6 @@
         };
     };
 
-    app.controller('ShareBarChooseCtrl', ctrl);
+    app.controller('ShareBarChooseCtrl', ['$scope', 'barService', 'posting', '$location', ctrl]);
 
 })(angular.module('durschtApp'));
