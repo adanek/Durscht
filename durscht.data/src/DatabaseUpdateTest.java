@@ -30,7 +30,7 @@ public class DatabaseUpdateTest {
 			try{
 				//get handler
 				IDataHandler handler  = new DataHandler();
-				/*
+				
 				//create new users
 				int userid1 = handler.createUser("admin", "admin@gmx.at", "admin");
 				int userid2 = handler.createUser("user2", "user2@gmx.at", "user2");
@@ -58,7 +58,7 @@ public class DatabaseUpdateTest {
 				int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4");
 				
 				IUser user = handler.getUserLogin("user2", "user2");
-				
+				/*
 				Collection<IBeer> beers = handler.getAllBeers();
 				Collection<IBeer> bars1 = handler.getAllBeersFromBar(barid1);
 				Collection<IBeer> bars2 = handler.getAllBeersFromBar(barid2);
@@ -68,7 +68,7 @@ public class DatabaseUpdateTest {
 				Collection<IBeerPost> userposts1 = handler.getAllPostsFromUser(userid1);
 				Collection<IBeerPost> userposts2 = handler.getAllPostsFromUser(userid2);
 				*/
-				Collection<IBar> bars = handler.getBarsCoordinates(47.2639834191332, 47.2639834191332, 11.3450129248849, 11.3450129248849);
+				//Collection<IBar> bars = handler.getBarsCoordinates(47.2639834191332, 47.2639834191332, 11.3450129248849, 11.3450129248849);
 			
 				handler.closeDatabaseConnection();
 			}catch(Exception e){}
