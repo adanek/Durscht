@@ -27,7 +27,7 @@
     <!-- Echo all executed SQL to stdout -->
     <property name="show_sql">true</property>
 
-    <!-- Drop and re-create the database schema on startup -->
+    <!-- Drop and re-create the database schema on startup (for production: validate)-->
     <property name="hbm2ddl.auto">update</property>
     
     <!-- Names the annotations -->
