@@ -30,7 +30,7 @@ public class ShareController extends Controller {
         try {
             ILogicFacade lf = ServiceLocator.getLogidFacade();
             IPostHandler postHandler = lf.getPostHandler();
-            bars = postHandler.getNearBars(longitude, latitude);
+            bars = postHandler.getNearBars(latitude, longitude);
 
         } catch (Exception e) {
             e.printStackTrace();
