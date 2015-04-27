@@ -22,16 +22,16 @@
             $window.navigator.geolocation.getCurrentPosition(function (position) {
 
                 // Save the location the the posting
-                var lat = position.coords.latitude;
-                var lng = position.coords.longitude;
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
 
                 // Save the location to the posting
-                posting.latitude = lat;
-                posting.longitude = lng;
+                posting.latitude = latitude;
+                posting.longitude = longitude;
 
                 $scope.$apply(function () {
-                    $scope.lat = lat;
-                    $scope.lng = lng;
+                    $scope.lat = latitude;
+                    $scope.longitude = longitude;
                 });
 
                 // redirect to choose bar
