@@ -465,9 +465,11 @@ public class DataHandler implements IDataHandler {
 			session.beginTransaction();
 
 			Criteria cr = session.createCriteria(Bar.class);
-			cr.add(Restrictions.between("latitude", fromLatitude, toLatitude));
+			
+			//temporäre Lösung -> soll auf le und ge umgebaut werden
+			cr.add(Restrictions.between("latitude", (fromLatitude - 0.0000000000001), (toLatitude + 0.0000000000001)));
 			cr.add(Restrictions
-					.between("longitude", fromLongitude, toLongitude));
+					.between("longitude", (fromLongitude - 0.0000000000001), (toLongitude + 0.0000000000001)));
 			List<IBar> results = cr.list();
 
 			// commit

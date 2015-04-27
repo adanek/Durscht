@@ -67,9 +67,9 @@ public class DatabaseUpdateTest {
 				Collection<IBeerPost> posts2 = handler.getAllPostsFromBar(barid2);
 				Collection<IBeerPost> userposts1 = handler.getAllPostsFromUser(userid1);
 				Collection<IBeerPost> userposts2 = handler.getAllPostsFromUser(userid2);
-					
-				Collection<IBar> bars = handler.getBarsCoordinates(11.4040792, 11.4040792, 47.269258, 47.269258);
 				*/
+				Collection<IBar> bars = handler.getBarsCoordinates(47.2639834191332, 47.2639834191332, 11.3450129248849, 11.3450129248849);
+			
 				handler.closeDatabaseConnection();
 			}catch(Exception e){}
 	}
