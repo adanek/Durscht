@@ -17,15 +17,15 @@ import durscht.contracts.data.IBeer;
 
 @Entity
 @Table(name = "Beer")
-public class Beer implements IBeer{
+public class Beer implements IBeer {
 	@Id
 	@GeneratedValue
 	private int id;
 	private String name;
 	@Lob
 	private String description;
-	@OneToMany (mappedBy = "beer")
-	@Cascade({CascadeType.DELETE})
+	@OneToMany(mappedBy = "beer")
+	@Cascade({ CascadeType.DELETE })
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 
 	public int getId() {

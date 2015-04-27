@@ -30,7 +30,7 @@ public class Bar implements IBar {
 	@Lob
 	private String description;
 	@OneToMany(mappedBy = "bar")
-	@Cascade({CascadeType.DELETE})
+	@Cascade({ CascadeType.DELETE })
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 
 	@Override

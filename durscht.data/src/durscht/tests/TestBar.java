@@ -14,11 +14,11 @@ public class TestBar extends TestBase {
 	@Test
 	public void createBar() {
 
-		//create bar
-		int id = dataHandler.createBar("Gössers", 47.266619, 11.392206, "Bar",
-				"www.goessers.at");
+		// create bar
+		int id = dataHandler.createBar("Gössers", 47.266619, 11.392206, "Bar", "www.goessers.at")
+				.getId();
 
-		//get created bar
+		// get created bar
 		IBar bar = dataHandler.getBarByID(id);
 
 		assertEquals(id, bar.getId());

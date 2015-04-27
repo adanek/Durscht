@@ -16,49 +16,50 @@ public class TestBeerPost extends TestBase {
 
 	@Test
 	public void createBeerPost() {
-		
-		//get all bars
+
+		// get all bars
 		Collection<IBar> bars = dataHandler.getBarsCoordinates(-90.0, 90.0, -180.0, 180.0);
 
-		//get first bar
+		// get first bar
 		IBar bar = bars.iterator().next();
-		
-		//get all beers
+
+		// get all beers
 		Collection<IBeer> beers = dataHandler.getAllBeers();
-		
-		//get first beer
+
+		// get first beer
 		IBeer beer = beers.iterator().next();
-		
-		//login user
+
+		// login user
 		IUser user = dataHandler.getUserLogin("TestUser", "Test1234");
-		
-		//create post
-		int id = dataHandler.createPost(bar.getId(), beer.getId(), user.getId(), 3.0, 2, "Sehr gutes Bier");
-		
-		//get all posts for bar
+
+		// create post
+		int id = dataHandler.createPost(bar.getId(), beer.getId(), user.getId(), 3.0, 2,
+				"Sehr gutes Bier").getId();
+
+		// get all posts for bar
 		Collection<IBeerPost> posts = dataHandler.getAllPostsFromBar(bar.getId());
-		
+
 		IBeerPost post = null;
-		
+
 		Iterator<IBeerPost> iterator = posts.iterator();
-		while(posts.iterator().hasNext()){
-			
-			//get next post
+		while (posts.iterator().hasNext()) {
+
+			// get next post
 			post = iterator.next();
-			
-			if(post == null){
+
+			if (post == null) {
 				break;
 			}
-			
-			//correct post?
-			if(post.getId() == id){
+
+			// correct post?
+			if (post.getId() == id) {
 				break;
 			}
 		}
-		
+
 		assertNotNull(post);
 		assertEquals(id, post.getId());
-		
+
 	}
 
 }

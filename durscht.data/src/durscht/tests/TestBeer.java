@@ -13,13 +13,13 @@ public class TestBeer extends TestBase {
 
 	@Test
 	public void createBeer() {
-		
-		//create beer
-		int id = dataHandler.createBeer("Zipfer", "teuer!");
-		
-		//get created beer
+
+		// create beer
+		int id = dataHandler.createBeer("Zipfer", "teuer!").getId();
+
+		// get created beer
 		IBeer beer = dataHandler.getBeerByID(id);
-		
+
 		assertEquals("Zipfer", beer.getName());
 		assertEquals("teuer!", beer.getDescription());
 	}

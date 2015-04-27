@@ -32,7 +32,7 @@ public class SavedUser implements IUser {
 	@Temporal(TemporalType.DATE)
 	private Date joinedDate = new Date();
 	@OneToMany(mappedBy = "user")
-	@Cascade({CascadeType.DELETE})
+	@Cascade({ CascadeType.DELETE })
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 	@ManyToMany
 	private Collection<Achievement> achievements = new LinkedList<>();

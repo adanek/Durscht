@@ -13,13 +13,13 @@ import durscht.handler.DataHandler;
 
 public class TestBase {
 
-	//dataHandler instance for all test classes
+	// dataHandler instance for all test classes
 	protected static IDataHandler dataHandler;
 
 	@BeforeClass
 	public static void init() {
 
-		//create only one instance
+		// create only one instance
 		if (dataHandler == null) {
 			dataHandler = new DataHandler();
 		}
