@@ -1,15 +1,27 @@
 <div>
 
     <h1>Soso, {{ name }} also.</h1>
-    <p>Hat dieses Bier deinen Durscht gelöscht?</p>
 
-    <ul class="list-group">
-        <a class="list-group-item" ng-repeat="beer in beers" ng-click="setBeer(beer)">
-            {{ beer.brand }} - {{ beer.type }}
-        </a>
-    </ul>
+    <!-- Before beers are loaded -->
+    <div ng-show="beers == null">
+        <p>Dieses Lokal ist mir wohlbekannt.</p>
+        <p>Lass mich kurz überlegen, was meine Bekannten hier genossen haben...</p>
+    </div>
 
-    <ul class="list-group">
-        <a class="list-group-item" ng-click="createBeer()">{{ createBeerText }}</a>
-    </ul>
+    <!-- After beers are loaded -->
+    <div ng-show="beers != null">
+
+        <p>Hat dieses Bier deinen Durscht gelöscht?</p>
+
+        <ul class="list-group" ng-show="beers != null">
+            <a class="list-group-item" ng-repeat="beer in beers" ng-click="setBeer(beer)">
+                {{ beer.brand }} - {{ beer.type }}
+            </a>
+        </ul>
+
+        <ul class="list-group">
+            <a class="list-group-item" ng-click="createBeer()">{{ createBeerText }}</a>
+        </ul>
+
+    </div>
 </div>

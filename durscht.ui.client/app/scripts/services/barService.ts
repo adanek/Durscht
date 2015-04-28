@@ -40,6 +40,10 @@
 			});
 		}
 
+		var getBeersFromBar = function(bar : Bar){
+			return $http.get(barApiUrl + "beersFromBar/" + bar.id);
+		}
+
         var getAllBeers = function(){
 
             return $http.get(barApiUrl + "getAllBeers");
@@ -57,6 +61,7 @@
             getBar: getBar,
             getNearBars: getNearBars,
 			createBar: createBar,
+			getBeersFromBar: getBeersFromBar,
             getAllBeers: getAllBeers,
             addBeerToBar: addBeerToBar
         };

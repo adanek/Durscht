@@ -2,19 +2,16 @@
 
 (function(app){
 
-    var controller = function($scope, $location, posting:Posting ){
+    var controller = function($scope, $location, posting:Posting, barService: BarService ){
 
         $scope.name = posting.bar.name || "TestBar";
         $scope.createBeerText = "Nö, ganz a anders";
-        $scope.beers = posting.bar.beers || [];
 
-        $scope.beers.sort(function (a:Beer, b:Beer){
-            return a.brand.localeCompare(b.brand);
-        });
-
-        if(posting.bar.beers.length <= 0){
-            $scope.createBeerText = "Öha! Du bist der erste hier!";
-        }
+        barService.getBeersFromBar(posting.bar).success(function(data){
+            $scope.beers = data;
+            posting.bar.beers = data;
+            $scope.$apply();
+        })
 
         $scope.setBeer = function(beer:Beer){
             posting.beer = beer;
@@ -26,6 +23,6 @@
         }
     };
 
-    app.controller("ShareBeerChooseCtrl", ['$scope', '$location', 'posting', controller]);
+    app.controller("ShareBeerChooseCtrl", ['$scope', '$location', 'posting', 'barService', controller]);
 
 })(angular.module("durschtApp"));

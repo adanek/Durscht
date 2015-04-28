@@ -20,6 +20,7 @@ interface BarService {
 	getBar: (id:number) => Bar;
 	getNearBars;
 	createBar: (name:String, url:String, remark:String) => ng.IHttpPromise<Bar>;
+	getBeersFromBar: (bar:Bar) => ng.IHttpPromise<Array<Beer>>;
 	getAllBeers: () => ng.IHttpPromise<Array<Beer>>;
     addBeerToBar: (bar: Bar, beer: Beer) => ng.IPromise<void>;
 }
