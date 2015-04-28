@@ -101,6 +101,19 @@ public class ShareController extends Controller {
         return created();
     }
 
+    public static Result getBeersFromBar(int BarId){
+
+        // Demodata for mocking logic
+        IBeer[] beers = new Beer[3];
+        beers[0] = new Beer(0, "Zipfer", "Märzen", "");
+        beers[1] = new Beer(1, "Stiegl", "Goldbräu", "");
+        beers[2] = new Beer(2, "Corona", "Extra", "");
+
+        JsonNode data = Json.toJson(beers);
+        attachCorsHeaders();
+        return ok(data);
+    }
+
     public static Result getAllBeers() {
 
         IBeer[] beers = new Beer[3];
