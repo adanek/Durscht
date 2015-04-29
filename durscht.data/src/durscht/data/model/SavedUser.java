@@ -1,4 +1,4 @@
-package durscht.model;
+package durscht.data.model;
 
 import java.util.Collection;
 import java.util.Date;

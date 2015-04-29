@@ -1,9 +1,8 @@
-package durscht.model;
+package durscht.data.model;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,26 +13,21 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import durscht.contracts.data.IBar;
+import durscht.contracts.data.IBeer;
 
 @Entity
-@Table(name = "Bar")
-public class Bar implements IBar {
-
+@Table(name = "Beer")
+public class Beer implements IBeer {
 	@Id
 	@GeneratedValue
 	private int id;
 	private String name;
-	private String url;
-	private double latitude;
-	private double longitude;
 	@Lob
 	private String description;
-	@OneToMany(mappedBy = "bar")
+	@OneToMany(mappedBy = "beer")
 	@Cascade({ CascadeType.DELETE })
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 
-	@Override
 	public int getId() {
 		return id;
 	}
@@ -42,7 +36,6 @@ public class Bar implements IBar {
 		this.id = id;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -51,34 +44,6 @@ public class Bar implements IBar {
 		this.name = name;
 	}
 
-	@Override
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	@Override
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	@Override
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
-	@Override
 	public String getDescription() {
 		return description;
 	}

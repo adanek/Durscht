@@ -1,4 +1,4 @@
-package durscht.model;
+package durscht.data.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

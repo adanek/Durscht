@@ -1,4 +1,4 @@
-package durscht.handler;
+package durscht.data.handler;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -24,11 +24,11 @@ import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IBeerPost;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
-import durscht.model.Achievement;
-import durscht.model.Bar;
-import durscht.model.Beer;
-import durscht.model.BeerPost;
-import durscht.model.SavedUser;
+import durscht.data.model.Achievement;
+import durscht.data.model.Bar;
+import durscht.data.model.Beer;
+import durscht.data.model.BeerPost;
+import durscht.data.model.SavedUser;
 
 /**
  * communication interface between the core and the data layer of our project

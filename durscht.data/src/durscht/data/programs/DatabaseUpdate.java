@@ -1,3 +1,5 @@
+package durscht.data.programs;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -17,13 +19,13 @@ import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IBeerPost;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
-import durscht.handler.DataHandler;
-import durscht.model.Bar;
-import durscht.model.Beer;
-import durscht.model.BeerPost;
-import durscht.model.SavedUser;
+import durscht.data.handler.DataHandler;
+import durscht.data.model.Bar;
+import durscht.data.model.Beer;
+import durscht.data.model.BeerPost;
+import durscht.data.model.SavedUser;
 
-public class DatabaseUpdateTest {
+public class DatabaseUpdate {
 
 	public static void main(String args[]) {
 
@@ -38,7 +40,7 @@ public class DatabaseUpdateTest {
 			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3").getId();
 
 			// create new beers
-			int beerid1 = handler.createBeer("GÃ¶sser", "Herbes Ã¶sterreichisches Bier").getId();
+			int beerid1 = handler.createBeer("Gösser", "Herbes österreichisches Bier").getId();
 			int beerid2 = handler.createBeer("Stiegl", "Originales traditionelles Salzburger Bier")
 					.getId();
 			int beerid3 = handler.createBeer("Ottakringer", "Traditionelles Wiener Bier").getId();
@@ -60,7 +62,7 @@ public class DatabaseUpdateTest {
 							"Stadtcafe",
 							11.395963,
 							47.268785,
-							"Bekanntestes Nachtlokal in Innsbruck, das hauptsÃ¤chlich von der Studentenszene besucht wird.",
+							"Bekanntestes Nachtlokal in Innsbruck, das hauptsächlich von der Studentenszene besucht wird.",
 							"www.tagnacht.at/stadtcafe/").getId();
 
 			// create new achievement

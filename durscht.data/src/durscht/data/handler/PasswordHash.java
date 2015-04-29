@@ -1,4 +1,4 @@
-package durscht.handler;
+package durscht.data.handler;
 
 import java.security.SecureRandom;
 
