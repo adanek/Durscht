@@ -18,7 +18,7 @@ public class TestBeerPost extends TestBase {
 	public void createBeerPost() {
 
 		// get all bars
-		Collection<IBar> bars = dataHandler.getBarsCoordinates(-90.0, 90.0, -180.0, 180.0);
+		Collection<IBar> bars = dataHandler.getBarsCoordinates(-180.0, 180.0, -90.0, 90.0);
 
 		// get first bar
 		IBar bar = bars.iterator().next();
@@ -35,7 +35,7 @@ public class TestBeerPost extends TestBase {
 		// create post
 		int id = dataHandler.createPost(bar.getId(), beer.getId(), user.getId(), 3.0, 2,
 				"Sehr gutes Bier").getId();
-
+		
 		// get all posts for bar
 		Collection<IBeerPost> posts = dataHandler.getAllPostsFromBar(bar.getId());
 

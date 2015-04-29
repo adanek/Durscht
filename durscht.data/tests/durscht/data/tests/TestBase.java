@@ -21,6 +21,8 @@ public class TestBase {
 
 		// create only one instance
 		if (dataHandler == null) {
+			//set test DB flag
+			DataHandler.setTestDB(true);
 			dataHandler = new DataHandler();
 		}
 

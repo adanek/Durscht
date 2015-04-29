@@ -68,8 +68,8 @@ public class DatabaseUpdate {
 
 			// create new achievement
 			int achid1 = handler
-					.createAchievement("10 posts",
-							"The user will get this achievement when he drinks 10 beers and add a post to the app")
+					.createAchievement("500 posts",
+							"The user will get this achievement when he drinks 500 beers and add a post to the app")
 					.getId();
 			int achid2 = handler
 					.createAchievement("50 posts",
@@ -108,12 +108,6 @@ public class DatabaseUpdate {
 			try{
 			handler.deleteBar(99999); }catch(Exception e){}*/
 
-			try {
-			IAchievement ach = handler.getAchievementByID(1111111);
-			} catch (Exception e){
-				System.out.println("Exception");
-			}
-			
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
 		}

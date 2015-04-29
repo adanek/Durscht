@@ -5,11 +5,14 @@ import static org.junit.Assert.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import durscht.contracts.data.IUser;
 import durscht.data.handler.DataHandler;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestUser extends TestBase {
 
 	@Test
