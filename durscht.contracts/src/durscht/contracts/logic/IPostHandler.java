@@ -1,23 +1,22 @@
 package durscht.contracts.logic;
 
-import java.util.NoSuchElementException;
-
 import durscht.contracts.ui.IBar;
 
 
 public interface IPostHandler {
 	
 	/**
+	 * Provides an IBar-array of bars around a given center-point
 	 * 
-	 * @param longitude Latitude of center-point
-	 * @param latitude Longitude of center-point
+	 * @param latitude Latitude of center-point
+	 * @param longitude Longitude of center-point
 	 * @return Array of Bars around the passed point
 	 * @throws IllegalArgumentException invalid longitude or latitude data: longitude outside [-180,180] or latitude outside [-90,90]
-	 * @throws NoSuchElementException if no bar was found in the database around the center-point
 	 */
-	public IBar[] getNearBars(double longitude, double latitude) throws IllegalArgumentException, NoSuchElementException;
+	public IBar[] getNearBars(double latitude, double longitude) throws IllegalArgumentException;
 	
 	/**
+	 * Saves the passed information as a Post in the database
 	 * 
 	 * @param barID
 	 * @param beerID
@@ -25,10 +24,11 @@ public interface IPostHandler {
 	 * @param description
 	 * @return index of the created post
 	 */
-	public Integer putPosting(int barID, int beerID, int userID, double prize, int rating, String description) throws NullPointerException;
+	public Integer putPosting(int barID, int beerID, int userID, double prize, int rating, String description);
 	
 	
 	/**
+	 * Creates a new Bar in the database
 	 * 
 	 * @param name
 	 * @param latitude
@@ -37,5 +37,5 @@ public interface IPostHandler {
 	 * @param url
 	 * @return
 	 */
-	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) throws NullPointerException;
+	public Integer createNewBar(String name, double latitude, double longitude, String description, String url);
 }

@@ -1,7 +1,6 @@
 package durscht.core;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
@@ -11,8 +10,7 @@ import durscht.core.config.ServiceLocator;
 
 public class PostHandler implements IPostHandler {
 	
-	// Test Purpose!!!
-	private final double BAR_SEARCH_RADIUS = 500.0;
+	private final double BAR_SEARCH_RADIUS = 15.0;
 	
 	private IDataHandler dataHandler;
 	
@@ -26,10 +24,10 @@ public class PostHandler implements IPostHandler {
 	public void setDataHandler(IDataHandler dataHandler) {
 		this.dataHandler = dataHandler;
 	}
-
 	
 	@Override
-	public durscht.contracts.ui.IBar[] getNearBars(double latitude, double longitude) throws IllegalArgumentException, NoSuchElementException {
+	public durscht.contracts.ui.IBar[] getNearBars(double latitude,
+			double longitude) throws IllegalArgumentException {
 		if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180 ) {
 			throw new IllegalArgumentException("invalid latitude or longitude");
 		}
@@ -40,9 +38,6 @@ public class PostHandler implements IPostHandler {
 		double longitudeOffset = calcLatitudeOffset(BAR_SEARCH_RADIUS);
 		
 		Collection<IBar> nearIBarsList = dataHandler.getBarsCoordinates(latitude - latitudeOffset, latitude + latitudeOffset, longitude - longitudeOffset, longitude + longitudeOffset);
-		if (nearIBarsList == null) {
-			throw new NoSuchElementException("couldn't find a bar");
-		}
 		
 		Collection<Bar> nearBarsList = new ArrayList<Bar>();
 		
@@ -126,14 +121,11 @@ public class PostHandler implements IPostHandler {
 
 	@Override
 	public Integer putPosting(int barID, int beerID, int userID, double prize,
-			int rating, String description) throws NullPointerException {
+			int rating, String description) {
 		
 		IDataHandler dataHandler = getDataHandler();
 		
-		Integer returnID;
-		if ((returnID = dataHandler.createPost(barID, beerID, userID, prize, rating, description)) == null) {
-			throw new NullPointerException("Error while create post in database");
-		}
+		Integer returnID = dataHandler.createPost(barID, beerID, userID, prize, rating, description);
 		
 		achievementAlgorithm(userID);
 		
@@ -145,16 +137,10 @@ public class PostHandler implements IPostHandler {
 	}
 
 	@Override
-	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) throws NullPointerException {
+	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) {
 		IDataHandler dataHandler = getDataHandler();
 		
-		Integer returnID;
-		if ((returnID = dataHandler.createBar(name, latitude, longitude, description, url)) == null) {
-			throw new NullPointerException("Error while create bar in database");
-		}
-		
-		return returnID;
+		return dataHandler.createBar(name, latitude, longitude, description, url);
 	}
-
 
 }
