@@ -43,6 +43,8 @@ public class DataHandler implements IDataHandler {
 	private ServiceRegistry serviceRegistry;
 	private Connection connection;
 
+	private static boolean testDB = false;
+	
 	/**
 	 * Constructor for Databasehandler, it is important that only one instance
 	 * of this class will be created
@@ -58,7 +60,13 @@ public class DataHandler implements IDataHandler {
 
 			// create session factory
 			Configuration configuration = new Configuration();
-			configuration.configure();
+			//productive DB
+			if (testDB == false) {
+				configuration.configure("hibernate.cfg.xml");
+			//test DB
+			} else {
+				configuration.configure("testConf/hibernate.cfg.xml");
+			}
 			serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
 					configuration.getProperties()).build();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -75,6 +83,11 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
+	//set testDB
+	public static void setTestDB(boolean value){
+		testDB = value;
+	}
+	
 	public void closeDatabaseConnection() throws IllegalStateException {
 		sessionFactory.close();
 		try {
