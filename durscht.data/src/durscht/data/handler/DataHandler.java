@@ -65,7 +65,7 @@ public class DataHandler implements IDataHandler {
 				configuration.configure("hibernate.cfg.xml");
 			//test DB
 			} else {
-				configuration.configure("testConf/hibernate.cfg.xml");
+				configuration.configure("durscht/data/testConf/hibernate.cfg.xml");
 			}
 			serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
 					configuration.getProperties()).build();
