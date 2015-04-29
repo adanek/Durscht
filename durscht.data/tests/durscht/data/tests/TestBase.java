@@ -1,4 +1,4 @@
-package durscht.tests;
+package durscht.data.tests;
 
 import static org.junit.Assert.*;
 
@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import durscht.contracts.data.IDataHandler;
-import durscht.handler.DataHandler;
+import durscht.data.handler.DataHandler;
 
 public class TestBase {
 

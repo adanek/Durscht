@@ -14,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import durscht.contracts.data.IAchievement;
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IBeerPost;
@@ -107,6 +108,12 @@ public class DatabaseUpdate {
 			try{
 			handler.deleteBar(99999); }catch(Exception e){}*/
 
+			try {
+			IAchievement ach = handler.getAchievementByID(1111111);
+			} catch (Exception e){
+				System.out.println("Exception");
+			}
+			
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
 		}

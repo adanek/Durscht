@@ -1,14 +1,19 @@
-package durscht.tests;
+package durscht.data.tests;
 
 import static org.junit.Assert.*;
 
+import org.hibernate.service.UnknownServiceException;
+import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import durscht.contracts.data.IAchievement;
 import durscht.contracts.data.IDataHandler;
-import durscht.handler.DataHandler;
+import durscht.data.handler.DataHandler;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAchievement extends TestBase {
 
 	@Test
@@ -20,11 +25,11 @@ public class TestAchievement extends TestBase {
 
 		// get created achievement
 		IAchievement ach = dataHandler.getAchievementByID(id);
-
+		
 		assertEquals(id, ach.getId());
 		assertEquals("erster Bierpost", ach.getName());
 		assertEquals("bekommt der User für seinen ersten Post", ach.getDescription());
 
 	}
-
+	
 }

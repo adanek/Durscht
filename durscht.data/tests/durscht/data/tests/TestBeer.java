@@ -1,4 +1,4 @@
-package durscht.tests;
+package durscht.data.tests;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IDataHandler;
-import durscht.handler.*;
+import durscht.data.handler.*;
 
 public class TestBeer extends TestBase {
 

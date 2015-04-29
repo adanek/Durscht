@@ -1,4 +1,4 @@
-package durscht.tests;
+package durscht.data.tests;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package durscht.tests;
+package durscht.data.tests;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import durscht.contracts.data.IUser;
-import durscht.handler.DataHandler;
+import durscht.data.handler.DataHandler;
 
 public class TestUser extends TestBase {
 
