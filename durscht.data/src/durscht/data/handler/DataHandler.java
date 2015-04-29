@@ -171,7 +171,8 @@ public class DataHandler implements IDataHandler {
 	 *            Class type of the searched class for example (Bar.class)
 	 * @return Object with the corresponding id
 	 * @throws IllegalStateException
-	 *             commit failed by searching for object
+	 *             commit failed by searching for object, no object with this ID
+	 *             in the database
 	 */
 	private <T> T searchForID(int id, Class<T> typeParameterClass) throws IllegalArgumentException {
 
@@ -447,12 +448,10 @@ public class DataHandler implements IDataHandler {
 			session.beginTransaction();
 
 			Criteria cr = session.createCriteria(Bar.class);
-
-			// temporäre Lösung -> soll auf le und ge umgebaut werden
-			cr.add(Restrictions.between("latitude", (fromLatitude - 0.0000000000001),
-					(toLatitude + 0.0000000000001)));
-			cr.add(Restrictions.between("longitude", (fromLongitude - 0.0000000000001),
-					(toLongitude + 0.0000000000001)));
+			cr.add(Restrictions.le("latitude", toLatitude));
+			cr.add(Restrictions.ge("latitude", fromLatitude));
+			cr.add(Restrictions.le("longitude", toLongitude));
+			cr.add(Restrictions.ge("longitude", fromLongitude));
 			List<IBar> results = cr.list();
 
 			// commit
@@ -669,14 +668,17 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
-	/*
-	 * public void deletePost(int postID) throws IllegalArgumentException { try
-	 * { // get post BeerPost post = getPostByID(postID); // delete post from
-	 * database deleteObjectFromDb(post); } catch (IllegalArgumentException e) {
-	 * System.out.println("deletion or getting post from ID failed"); throw new
-	 * IllegalArgumentException("deletion or getting post from ID failed", e); }
-	 * }
-	 */
+	public void deletePost(int postID) throws IllegalArgumentException {
+		try {
+			// get post
+			BeerPost post = getPostByID(postID);
+			// delete post from database
+			deleteObjectFromDb(post);
+		} catch (IllegalArgumentException e) {
+			System.out.println("deletion or getting post from ID failed");
+			throw new IllegalArgumentException("deletion or getting post from ID failed", e);
+		}
+	}
 
 	public void deleteAchievement(int aID) throws IllegalArgumentException {
 		try {

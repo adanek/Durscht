@@ -13,7 +13,7 @@ public interface IDataHandler {
 	/**
 	 * create an new user
 	 * 
-	 * @return the ID of the created object or null if the creation failed
+	 * @return the new created user
 	 * @throws IllegalStateException
 	 *             creating object in database or hashing of the password failed
 	 */
@@ -32,7 +32,7 @@ public interface IDataHandler {
 	/**
 	 * create a new beer
 	 * 
-	 * @return the ID of the created object or null if the creation failed
+	 * @return the new created beer
 	 * @throws IllegalStateException
 	 *             creating object in database failed
 	 */
@@ -56,7 +56,7 @@ public interface IDataHandler {
 	 * @param description
 	 * @param url
 	 *            optional, if no url is given then add "" to the method
-	 * @return the new created object bar
+	 * @return the new created bar
 	 * @throws IllegalStateException
 	 *             creating object in database failed
 	 */
@@ -81,8 +81,7 @@ public interface IDataHandler {
 	 * @param price
 	 * @param rating
 	 * @param descripton
-	 * @return ID of post or null when creation failed, one possibility is that
-	 *         one of the IDs (bar,beer,user) doesn't exists
+	 * @return the new created BeerPost
 	 * @throws IllegalStateException
 	 *             saving from post failed
 	 * @throws IllegalArgumentException
@@ -92,21 +91,21 @@ public interface IDataHandler {
 			int rating, String descripton) throws IllegalStateException,
 			IllegalArgumentException;
 
-/*	//**
+	/**
 	 * deletes a post from the database
 	 * 
 	 * @param postID
 	 * @throws IllegalArgumentException
 	 *             deletion or getting post from ID failed
-	 *//*
-	public void deletePost(int postID) throws IllegalArgumentException;*/
+	 */
+	public void deletePost(int postID) throws IllegalArgumentException;
 
 	/**
 	 * create a new achievement in the database
 	 * 
 	 * @param name
 	 * @param description
-	 * @return the ID of the created object or null if the creation failed
+	 * @return the new created achievement
 	 * @throws IllegalStateException
 	 *             creating object in database failed
 	 */
@@ -153,7 +152,7 @@ public interface IDataHandler {
 	 * get all beers that are in this bar available
 	 * 
 	 * @param barID
-	 * @return list of beers
+	 * @return list of beers or null if something with database failed
 	 * @throws IllegalArgumentException
 	 *             barID not in database
 	 */
@@ -163,7 +162,7 @@ public interface IDataHandler {
 	 * get all posts from a bar
 	 * 
 	 * @param barID
-	 * @return a list of posts
+	 * @return a list of posts or null if something with database failed
 	 * @throws IllegalArgumentException
 	 *             barID not in database
 	 */
@@ -174,7 +173,7 @@ public interface IDataHandler {
 	 * get all posts from a user
 	 * 
 	 * @param userID
-	 * @return a list of posts
+	 * @return a list of posts or null if something with database failed
 	 * @throws IllegalArgumentException
 	 *             userID not in database
 	 */
@@ -184,7 +183,7 @@ public interface IDataHandler {
 	/**
 	 * search for a beer by ID
 	 * 
-	 * @return Beer or null when no beer exists in the database with this ID
+	 * @return Beer
 	 * @throws IllegalArgumentException
 	 *             beer with this ID not in database
 	 */
@@ -193,7 +192,7 @@ public interface IDataHandler {
 	/**
 	 * search for a bar by ID
 	 * 
-	 * @return Bar or null when no user exists in the database with this ID
+	 * @return Bar
 	 * @throws IllegalArgumentException
 	 *             bar with this ID not in database
 	 */
@@ -202,7 +201,7 @@ public interface IDataHandler {
 	/**
 	 * search for a achievement by ID
 	 * 
-	 * @return Achievement or null when no user exists in the database with this
+	 * @return Achievement
 	 *         ID
 	 * @throws IllegalArgumentException
 	 *             achievement with this ID not in database
@@ -212,7 +211,7 @@ public interface IDataHandler {
 	/**
 	 * search for a user by ID
 	 * 
-	 * @return User or null when no user exists in the database with this ID
+	 * @return User
 	 * @throws IllegalArgumentException
 	 *             user with this ID not in database
 	 */
@@ -221,7 +220,7 @@ public interface IDataHandler {
 	/**
 	 * search for a beer post by ID
 	 * 
-	 * @return BeerPost or null when no beer post exists in the database with
+	 * @return BeerPost
 	 *         this ID
 	 * @throws IllegalArgumentException
 	 *             post with this ID not in database
