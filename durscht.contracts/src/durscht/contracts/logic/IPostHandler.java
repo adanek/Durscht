@@ -1,6 +1,7 @@
 package durscht.contracts.logic;
 
 import durscht.contracts.ui.IBar;
+import durscht.contracts.ui.IBeer;
 
 
 public interface IPostHandler {
@@ -16,6 +17,14 @@ public interface IPostHandler {
 	public IBar[] getNearBars(double latitude, double longitude) throws IllegalArgumentException;
 	
 	/**
+	 * Looks for a given bar in the database for all its beers.
+	 * 
+	 * @param bar The bar whose beers are looked up 
+	 * @return Array of beers registerd for a given bar
+	 */
+	public IBeer[] getBeersByBar(IBar bar);
+	
+	/**
 	 * Saves the passed information as a Post in the database
 	 * 
 	 * @param barID
@@ -25,7 +34,6 @@ public interface IPostHandler {
 	 * @return index of the created post
 	 */
 	public Integer putPosting(int barID, int beerID, int userID, double prize, int rating, String description);
-	
 	
 	/**
 	 * Creates a new Bar in the database

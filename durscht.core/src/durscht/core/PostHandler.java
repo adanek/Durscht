@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
+import durscht.contracts.data.IBeerPost;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.IPostHandler;
 import durscht.core.config.ServiceLocator;
@@ -43,17 +44,6 @@ public class PostHandler implements IPostHandler {
 		
 		for (IBar ibar : nearIBarsList) {
 			Bar bar = new Bar();
-			Collection<IBeer> IBeersList = dataHandler.getAllBeersFromBar(ibar.getId());
-			Collection<Beer> beersList = new ArrayList<Beer>();
-			for (IBeer ibeer : IBeersList) {
-				Beer beer = new Beer();
-				beer.setId(ibeer.getId());
-				beer.setBrand(ibeer.getName());
-				beer.setType(ibeer.getName());
-				beer.setDescription(ibeer.getDescription());
-				beersList.add(beer);
-			}
-			bar.setBeers(beersList.toArray(new Beer[beersList.size()]));
 			bar.setName(ibar.getName());
 			bar.setId(ibar.getId());
 			bar.setDistance(calcDistanceBetweenPoints(latitude, longitude, ibar.getLatitude(), ibar.getLongitude()));
@@ -118,6 +108,24 @@ public class PostHandler implements IPostHandler {
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	    return earthRadius * c;
 	}
+	
+	@Override
+	public durscht.contracts.ui.IBeer[] getBeersByBar(durscht.contracts.ui.IBar bar) {
+		IDataHandler dataHandler = getDataHandler();
+		
+		Collection<IBeer> IBeersList = dataHandler.getAllBeersFromBar(bar.getId());
+		Collection<Beer> beersList = new ArrayList<Beer>();
+		for (IBeer ibeer : IBeersList) {
+			Beer beer = new Beer();
+			beer.setId(ibeer.getId());
+			beer.setBrand(ibeer.getName());
+			beer.setType(ibeer.getName());
+			beer.setDescription(ibeer.getDescription());
+			beersList.add(beer);
+		}
+		
+		return beersList.toArray(new Beer[beersList.size()]);
+	}
 
 	@Override
 	public Integer putPosting(int barID, int beerID, int userID, double prize,
@@ -125,11 +133,11 @@ public class PostHandler implements IPostHandler {
 		
 		IDataHandler dataHandler = getDataHandler();
 		
-		Integer returnID = dataHandler.createPost(barID, beerID, userID, prize, rating, description);
+		IBeerPost post = dataHandler.createPost(barID, beerID, userID, prize, rating, description);
 		
 		achievementAlgorithm(userID);
 		
-		return returnID; 
+		return post.getId(); 
 	}
 	
 	private void achievementAlgorithm(int userID) {
@@ -140,7 +148,9 @@ public class PostHandler implements IPostHandler {
 	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) {
 		IDataHandler dataHandler = getDataHandler();
 		
-		return dataHandler.createBar(name, latitude, longitude, description, url);
+		IBar bar = dataHandler.createBar(name, latitude, longitude, description, url);
+
+		return bar.getId();
 	}
 
 }
