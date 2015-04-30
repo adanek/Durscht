@@ -148,7 +148,14 @@ public class PostHandler implements IPostHandler {
 	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) {
 		IDataHandler dataHandler = getDataHandler();
 		
-		IBar bar = dataHandler.createBar(name, latitude, longitude, description, url);
+		IBar bar;
+		
+		try {
+			bar = dataHandler.createBar(name, latitude, longitude, description, url);
+		}
+		catch (IllegalStateException ex) {
+			throw new IllegalStateException(ex);
+		}
 
 		return bar.getId();
 	}
