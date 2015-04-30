@@ -110,10 +110,10 @@ public class PostHandler implements IPostHandler {
 	}
 	
 	@Override
-	public durscht.contracts.ui.IBeer[] getBeersByBar(durscht.contracts.ui.IBar bar) {
+	public durscht.contracts.ui.IBeer[] getBeersByBar(int barID) {
 		IDataHandler dataHandler = getDataHandler();
 		
-		Collection<IBeer> IBeersList = dataHandler.getAllBeersFromBar(bar.getId());
+		Collection<IBeer> IBeersList = dataHandler.getAllBeersFromBar(barID);
 		Collection<Beer> beersList = new ArrayList<Beer>();
 		for (IBeer ibeer : IBeersList) {
 			Beer beer = new Beer();
@@ -145,19 +145,24 @@ public class PostHandler implements IPostHandler {
 	}
 
 	@Override
-	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) {
+	public durscht.contracts.ui.IBar createNewBar(String name, double latitude, double longitude, String description, String url) {
 		IDataHandler dataHandler = getDataHandler();
 		
-		IBar bar;
+		IBar ibar;
 		
 		try {
-			bar = dataHandler.createBar(name, latitude, longitude, description, url);
+			ibar = dataHandler.createBar(name, latitude, longitude, description, url);
 		}
 		catch (IllegalStateException ex) {
 			throw new IllegalStateException(ex);
 		}
+		
+		Bar bar = new Bar();
+		bar.setDistance(calcDistanceBetweenPoints(latitude, longitude, ibar.getLatitude(), ibar.getLongitude()));
+		bar.setId(ibar.getId());
+		bar.setName(ibar.getName());
 
-		return bar.getId();
+		return bar;
 	}
 
 }
