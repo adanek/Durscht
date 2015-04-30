@@ -31,11 +31,11 @@
     <property name="hbm2ddl.auto">update</property>
     
     <!-- Names the annotations -->
-    <mapping class="durscht.model.SavedUser" />
-    <mapping class="durscht.model.Bar" />
-    <mapping class="durscht.model.Beer" />
-    <mapping class="durscht.model.BeerPost" />
-    <mapping class="durscht.model.Achievement" />
+    <mapping class="durscht.data.model.SavedUser" />
+    <mapping class="durscht.data.model.Bar" />
+    <mapping class="durscht.data.model.Beer" />
+    <mapping class="durscht.data.model.BeerPost" />
+    <mapping class="durscht.data.model.Achievement" />
     
   </session-factory>
 </hibernate-configuration> 

@@ -1,49 +1,48 @@
 package durscht.core;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.IBeerHandler;
 import durscht.core.config.ServiceLocator;
+import durscht.core.helper.TrieST;
 
 public class BeerHandler implements IBeerHandler {
 	
-	private Set<Beer> beers;
-	
-	public static final Comparator<Beer> BY_BRAND = new ByName();
-	
-	private static class ByName implements Comparator<Beer> {
-		public int compare(Beer one, Beer other){
-			if (one.getBrand().compareToIgnoreCase(other.getBrand()) == 0) {
-				return one.getType().compareToIgnoreCase(other.getType());
-			}
-			return one.getBrand().compareToIgnoreCase(other.getBrand());
-		}
-	}
-	
+	private TrieST<Beer> beers;
+
 	public BeerHandler() {
 		IDataHandler dataHandler = ServiceLocator.getDataHandler();
 		
-		beers = new TreeSet<Beer>(BY_BRAND);
+		beers = new TrieST<Beer>();
 		
 		Collection<IBeer> db_beers = dataHandler.getAllBeers();
+
 		for (IBeer ibeer : db_beers) {
 			Beer beer = new Beer();
 			beer.setId(ibeer.getId());
+			// No distinction between Brand and Type!
 			beer.setBrand(ibeer.getName());
+			// No distinction between Brand and Type!
 			beer.setType(ibeer.getName());
 			beer.setDescription(ibeer.getDescription());
-			beers.add(beer);
+			beers.put(ibeer.getName(), beer);
 		}
-		
 	}
 
 	@Override
 	public durscht.contracts.ui.IBeer[] getBeersByPrefix(String prefix) {
-		return beers.toArray(new Beer[beers.size()]);
+
+		Iterable<String> prefixKeys = beers.keysWithPrefix(prefix);
+		if(beers.isEmpty()){
+			throw new NoSuchElementException("couldn't find a beer");
+		}
+		List<Beer> beersWithPrefix = new LinkedList<Beer>();
+		for(String name: prefixKeys){
+			beersWithPrefix.add(beers.get(name));
+		}
+
+		return beersWithPrefix.toArray(new Beer[beersWithPrefix.size()]);
 	}
 }

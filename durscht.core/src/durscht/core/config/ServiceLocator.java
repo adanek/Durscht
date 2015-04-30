@@ -7,7 +7,7 @@ import durscht.contracts.logic.IPostHandler;
 import durscht.core.BeerHandler;
 import durscht.core.LogicFacade;
 import durscht.core.PostHandler;
-import durscht.handler.DataHandler;
+import durscht.data.handler.DataHandler;
 
 public class ServiceLocator {
 	

@@ -1,18 +1,17 @@
 package durscht.core;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
+import durscht.contracts.data.IBeerPost;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.IPostHandler;
 import durscht.core.config.ServiceLocator;
 
 public class PostHandler implements IPostHandler {
 	
-	// Test Purpose!!!
-	private final double BAR_SEARCH_RADIUS = 500.0;
+	private final double BAR_SEARCH_RADIUS = 15.0;
 	
 	private IDataHandler dataHandler;
 	
@@ -26,10 +25,10 @@ public class PostHandler implements IPostHandler {
 	public void setDataHandler(IDataHandler dataHandler) {
 		this.dataHandler = dataHandler;
 	}
-
 	
 	@Override
-	public durscht.contracts.ui.IBar[] getNearBars(double latitude, double longitude) throws IllegalArgumentException, NoSuchElementException {
+	public durscht.contracts.ui.IBar[] getNearBars(double latitude,
+			double longitude) throws IllegalArgumentException {
 		if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180 ) {
 			throw new IllegalArgumentException("invalid latitude or longitude");
 		}
@@ -40,25 +39,11 @@ public class PostHandler implements IPostHandler {
 		double longitudeOffset = calcLatitudeOffset(BAR_SEARCH_RADIUS);
 		
 		Collection<IBar> nearIBarsList = dataHandler.getBarsCoordinates(latitude - latitudeOffset, latitude + latitudeOffset, longitude - longitudeOffset, longitude + longitudeOffset);
-		if (nearIBarsList == null) {
-			throw new NoSuchElementException("couldn't find a bar");
-		}
 		
 		Collection<Bar> nearBarsList = new ArrayList<Bar>();
 		
 		for (IBar ibar : nearIBarsList) {
 			Bar bar = new Bar();
-			Collection<IBeer> IBeersList = dataHandler.getAllBeersFromBar(ibar.getId());
-			Collection<Beer> beersList = new ArrayList<Beer>();
-			for (IBeer ibeer : IBeersList) {
-				Beer beer = new Beer();
-				beer.setId(ibeer.getId());
-				beer.setBrand(ibeer.getName());
-				beer.setType(ibeer.getName());
-				beer.setDescription(ibeer.getDescription());
-				beersList.add(beer);
-			}
-			bar.setBeers(beersList.toArray(new Beer[beersList.size()]));
 			bar.setName(ibar.getName());
 			bar.setId(ibar.getId());
 			bar.setDistance(calcDistanceBetweenPoints(latitude, longitude, ibar.getLatitude(), ibar.getLongitude()));
@@ -123,21 +108,36 @@ public class PostHandler implements IPostHandler {
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	    return earthRadius * c;
 	}
+	
+	@Override
+	public durscht.contracts.ui.IBeer[] getBeersByBar(durscht.contracts.ui.IBar bar) {
+		IDataHandler dataHandler = getDataHandler();
+		
+		Collection<IBeer> IBeersList = dataHandler.getAllBeersFromBar(bar.getId());
+		Collection<Beer> beersList = new ArrayList<Beer>();
+		for (IBeer ibeer : IBeersList) {
+			Beer beer = new Beer();
+			beer.setId(ibeer.getId());
+			beer.setBrand(ibeer.getName());
+			beer.setType(ibeer.getName());
+			beer.setDescription(ibeer.getDescription());
+			beersList.add(beer);
+		}
+		
+		return beersList.toArray(new Beer[beersList.size()]);
+	}
 
 	@Override
 	public Integer putPosting(int barID, int beerID, int userID, double prize,
-			int rating, String description) throws NullPointerException {
+			int rating, String description) {
 		
 		IDataHandler dataHandler = getDataHandler();
 		
-		Integer returnID;
-		if ((returnID = dataHandler.createPost(barID, beerID, userID, prize, rating, description)) == null) {
-			throw new NullPointerException("Error while create post in database");
-		}
+		IBeerPost post = dataHandler.createPost(barID, beerID, userID, prize, rating, description);
 		
 		achievementAlgorithm(userID);
 		
-		return returnID; 
+		return post.getId(); 
 	}
 	
 	private void achievementAlgorithm(int userID) {
@@ -145,16 +145,12 @@ public class PostHandler implements IPostHandler {
 	}
 
 	@Override
-	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) throws NullPointerException {
+	public Integer createNewBar(String name, double latitude, double longitude, String description, String url) {
 		IDataHandler dataHandler = getDataHandler();
 		
-		Integer returnID;
-		if ((returnID = dataHandler.createBar(name, latitude, longitude, description, url)) == null) {
-			throw new NullPointerException("Error while create bar in database");
-		}
-		
-		return returnID;
-	}
+		IBar bar = dataHandler.createBar(name, latitude, longitude, description, url);
 
+		return bar.getId();
+	}
 
 }

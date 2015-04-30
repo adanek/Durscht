@@ -1,14 +1,12 @@
 package durscht.core;
 
 import durscht.contracts.ui.IBar;
-import durscht.contracts.ui.IBeer;
 
 public class Bar implements IBar {
 
 	private int id;
 	private String name;
 	private double distance;
-	private IBeer[] beers;
 	
 	public void setId(int id) {
 		this.id = id;
@@ -20,10 +18,6 @@ public class Bar implements IBar {
 
 	public void setDistance(double distance) {
 		this.distance = distance;
-	}
-
-	public void setBeers(IBeer[] beers) {
-		this.beers = beers;
 	}
 
 	@Override
@@ -39,11 +33,6 @@ public class Bar implements IBar {
 	@Override
 	public double getDistance() {
 		return this.distance;
-	}
-
-	@Override
-	public IBeer[] getBeers() {
-		return this.beers;
 	}
 
 }
