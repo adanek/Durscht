@@ -34,11 +34,4 @@ public class Bar implements IBar {
 		// TODO Auto-generated method stub
 		return this.distance;
 	}
-
-	@Override
-	public IBeer[] getBeers() {
-		// TODO Auto-generated method stub
-		return this.beers;
-	}
-
 }

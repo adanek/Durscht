@@ -1,5 +1,6 @@
 package controllers;
 
+import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.mock.Bar;
 import controllers.mock.Beer;
@@ -13,12 +14,14 @@ import durscht.core.config.ServiceLocator;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
 import javax.activation.DataHandler;
 import java.util.Collection;
 
 public class ShareController extends Controller {
 
+    @Security.Authenticated(MyAuthenticator.class)
     public static Result getNearBars() {
 
         // Get parameters from request
@@ -101,13 +104,10 @@ public class ShareController extends Controller {
         return created();
     }
 
-    public static Result getBeersFromBar(int BarId){
+    public static Result getBeersFromBar(int barId){
 
-        // Demodata for mocking logic
-        IBeer[] beers = new Beer[3];
-        beers[0] = new Beer(0, "Zipfer", "Märzen", "");
-        beers[1] = new Beer(1, "Stiegl", "Goldbräu", "");
-        beers[2] = new Beer(2, "Corona", "Extra", "");
+        Bar bar = new Bar(barId, "",0.0,null);
+        IBeer[] beers = ServiceLocator.getPostHandler().getBeersByBar(bar);
 
         JsonNode data = Json.toJson(beers);
         attachCorsHeaders();

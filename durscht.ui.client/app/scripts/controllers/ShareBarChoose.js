@@ -9,6 +9,13 @@
             });
             setCreateBarText();
             $scope.$apply();
+        }).error(function (data, status, headers, config) {
+            console.warn("received " + status);
+            switch (status) {
+                case 401:
+                    $location.path("/login").replace();
+                    $scope.$apply();
+            }
         });
         var setCreateBarText = function () {
             if ($scope.bars) {
