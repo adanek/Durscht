@@ -1,3 +1,5 @@
 /.metadata/
 /.recommenders/
 *.classpath
+durscht.ui.web/.idea
+durscht.ui.web/.settings
