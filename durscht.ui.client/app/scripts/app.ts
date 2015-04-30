@@ -3,6 +3,10 @@
 (function (){
     var app = angular.module("durschtApp", ["ngRoute", "ui.bootstrap"]);
 
+    app.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.withCredentials = true;
+    }]);
+
     app.config(function ($routeProvider) {
         $routeProvider
             .when('/', {
@@ -53,6 +57,7 @@
     // local
     app.constant("barApiUrl", 'http://localhost:9000/share/');
     app.constant('shareApiUrl', 'http://localhost:9000/share/');
+    app.constant('serviceHost', 'http://localhost:9000');
 
     //app.constant("barApiUrl", 'http://192.168.1.11:9000/share/');
     //app.constant('shareApiUrl', 'http://192.168.1.11:9000/share/');

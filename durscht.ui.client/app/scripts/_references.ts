@@ -37,3 +37,7 @@ interface Posting {
 	reset: () => void;
     save: () => ng.IHttpPromise<void>;
 }
+
+interface AuthenticationSevice {
+	login: (username:String, passwd:String) => ng.IHttpPromise<void>;
+}

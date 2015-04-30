@@ -2,13 +2,20 @@
 
 (function(app){
 
-    var srv = function($http){
+    var service = function($http, serviceHost ){
 
-        this.login = function(username:string, passwd:string){
-            $http.post()
+        var login = function(username:String, passwd:String){
+            return $http.post(serviceHost + '/login', {
+                name: username,
+                pw: passwd
+            });
+        }
+
+        return {
+            login: login
         }
     };
     
-    app.factory('authentication', ['$http', srv]);
+    app.factory('authentication', ['$http', 'serviceHost', service]);
 
 })(angular.module('durschtApp'));
