@@ -18,7 +18,7 @@ public class ServiceLocator {
 	
 	private static IDataHandler dataHandler;
 	
-	public static ILogicFacade getLogidFacade() {
+	public static ILogicFacade getLogicFacade() {
 		if (logicFacade == null)
 			logicFacade = new LogicFacade();
 		
