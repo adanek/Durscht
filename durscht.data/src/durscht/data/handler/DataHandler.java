@@ -493,6 +493,7 @@ public class DataHandler implements IDataHandler {
 
 			Criteria cr = session.createCriteria(Bar.class);
 			cr.add(Restrictions.eq("id", barID));
+			cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			List<Bar> results = cr.list();
 
 			if (results.size() == 0)
