@@ -4,7 +4,7 @@
 
     var ctrl = function($scope, barService : BarService, posting, $location) {
 
-        $scope.caption = "Wo gesch denn um?";
+        $scope.caption = "Ich schau kurz nach, was ich hier kenne...";
 
         //$scope.bars = []; //barService.getBars();
         barService.getNearBars().success(function (data){
@@ -27,9 +27,11 @@
             if ($scope.bars) {
                 var createBarText:string = "";
                 if ($scope.bars.length <= 0) {
-                    createBarText = "Du bist der erste hier!";
+                    $scope.caption = "Du bist der erste hier!"
+                    createBarText = "Neue Bar anlegen";
                 }
                 else {
+                    $scope.caption = "Bist du in einer dieser Bars?"
                     createBarText = "Nö, ganz wo anders";
                 }
                 $scope.createBarText = createBarText;

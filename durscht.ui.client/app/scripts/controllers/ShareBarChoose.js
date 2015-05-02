@@ -1,7 +1,7 @@
 /// <reference path="../_references.ts"/>
 (function (app) {
     var ctrl = function ($scope, barService, posting, $location) {
-        $scope.caption = "Wo gesch denn um?";
+        $scope.caption = "Ich schau kurz nach, was ich hier kenne...";
         //$scope.bars = []; //barService.getBars();
         barService.getNearBars().success(function (data) {
             $scope.bars = data.sort(function (a, b) {
@@ -21,9 +21,11 @@
             if ($scope.bars) {
                 var createBarText = "";
                 if ($scope.bars.length <= 0) {
-                    createBarText = "Du bist der erste hier!";
+                    $scope.caption = "Du bist der erste hier!";
+                    createBarText = "Neue Bar anlegen";
                 }
                 else {
+                    $scope.caption = "Bist du in einer dieser Bars?";
                     createBarText = "Nö, ganz wo anders";
                 }
                 $scope.createBarText = createBarText;

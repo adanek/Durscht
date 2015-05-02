@@ -1,8 +1,6 @@
 <div>
     <h1 class="text-center">{{ caption }}</h1>
 
-    <p ng-show="bars == null" class="text-center">Ich schau einmal nach, ob da schon wer war...</p>
-
     <div ng-show="bars != null">
         <div class="list-group">
             <a class="list-group-item" ng-repeat="bar in bars" ng-click="setBar(bar)">
