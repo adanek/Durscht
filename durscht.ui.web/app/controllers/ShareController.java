@@ -58,6 +58,7 @@ public class ShareController extends Controller {
         return ok(data);
     }
 
+    @Security.Authenticated(MyAuthenticator.class)
     public static Result createPost() {
 
         JsonNode data = request().body().asJson();
@@ -75,6 +76,7 @@ public class ShareController extends Controller {
         return created();
     }
 
+    @Security.Authenticated(MyAuthenticator.class)
     public static Result createBar() {
 
         // Extract data from request
@@ -99,12 +101,14 @@ public class ShareController extends Controller {
         return created(responseData);
     }
 
+    @Security.Authenticated(MyAuthenticator.class)
     public static Result createBeer() {
 
         attachCorsHeaders();
         return created();
     }
 
+    @Security.Authenticated(MyAuthenticator.class)
     public static Result getBeersFromBar(int barId){
 
         Bar bar = new Bar(barId, "",0.0,null);
@@ -115,6 +119,7 @@ public class ShareController extends Controller {
         return ok(data);
     }
 
+    @Security.Authenticated(MyAuthenticator.class)
     public static Result getAllBeers() {
 
         IBeer[] beers = new Beer[3];

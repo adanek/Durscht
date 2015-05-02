@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import durscht.contracts.data.IUser;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -13,6 +14,7 @@ import play.mvc.Security;
 public class AuthenticationController extends Controller {
 
     //GET /logout
+    @Security.Authenticated(MyAuthenticator.class)
     public static Result logout() {
 
         String pid = session().get("pid");
@@ -28,10 +30,11 @@ public class AuthenticationController extends Controller {
     @Security.Authenticated(MyAuthenticator.class)
     public static Result getId(){
 
+        int pid = Integer.parseInt(session().get("pid"));
 
-
+        JsonNode data = Json.toJson(pid);
         CorsController.addCorsHeaders(response());
-        return ok();
+        return ok(data);
     }
 
     // POST /login
@@ -51,7 +54,7 @@ public class AuthenticationController extends Controller {
 
         //store session data
         session().clear();
-        session().put("pid", Integer.toString(42));
+        session().put("pid", Integer.toString(user.getId()));
         attachCorsHeaders();
         return ok();
     }
