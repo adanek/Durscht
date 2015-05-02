@@ -11,8 +11,13 @@
             });
         }
 
+        var getId = function(){
+            return $http.get(serviceHost + '/user/id');
+        };
+
         return {
-            login: login
+            login: login,
+            getId: getId
         }
     };
     

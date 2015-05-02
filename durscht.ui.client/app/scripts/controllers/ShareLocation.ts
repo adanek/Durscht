@@ -12,8 +12,6 @@
 (function (app) {
 
     var ctrl = function (posting:Posting, $window, $scope, $location, $rootScope) {
-        posting.reset();
-
         $scope.caption = "Mal schaun, ob ich dich finden kann...";
 
         // Check if geolocation is supported

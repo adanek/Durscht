@@ -21,6 +21,10 @@
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
             })
+            .when('/share/user', {
+                templateUrl: 'views/share-user.html',
+                controller: 'ShareUserCtrl'
+            })
             .when('/share/location', {
                 templateUrl: 'views/share-location.html',
                 controller: 'ShareLocationCtrl'

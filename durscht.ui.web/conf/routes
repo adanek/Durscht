@@ -5,6 +5,7 @@
 # Home page
 GET            /                              controllers.Application.index()
 POST           /login                         controllers.AuthenticationController.login()
+GET            /user/id                       controllers.AuthenticationController.getId()
 POST           /share/nearBars                controllers.ShareController.getNearBars()
 POST           /share/createPost              controllers.ShareController.createPost()
 POST           /share/createBar               controllers.ShareController.createBar()

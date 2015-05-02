@@ -6,5 +6,5 @@ node_modules
 durscht.ui.client/bower_components
 .project
 .tmp
-
-durscht.ui.client/durscht.ui.client.iml
+*.iml
+.idea

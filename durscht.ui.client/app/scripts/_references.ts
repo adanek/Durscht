@@ -26,6 +26,7 @@ interface BarService {
 }
 
 interface Posting {
+	user: number;
 	bar: Bar;
 	beer: Beer;
 	remark: string;
@@ -40,4 +41,5 @@ interface Posting {
 
 interface AuthenticationSevice {
 	login: (username:String, passwd:String) => ng.IHttpPromise<void>;
+    getId: () => ng.IHttpPromise<number>;
 }

@@ -9,7 +9,6 @@
  */
 (function (app) {
     var ctrl = function (posting, $window, $scope, $location, $rootScope) {
-        posting.reset();
         $scope.caption = "Mal schaun, ob ich dich finden kann...";
         // Check if geolocation is supported
         if ($window.navigator.geolocation) {

@@ -15,6 +15,7 @@
     app.service('posting', ['$http', 'shareApiUrl', function($http, shareApiUrl){
         var posting : Posting = this;
 
+        posting.user = -1;
         posting.bar = null;
         posting.beer = null;
         posting.remark = null;
@@ -23,6 +24,7 @@
 
 
         posting.reset = function(){
+            posting.user = -1;
             posting.bar = null;
             posting.beer = null;
             posting.remark = null;
@@ -33,7 +35,7 @@
         posting.save = function(){
 
             return $http.post(shareApiUrl + 'createPost',{
-                user: 1,
+                user: posting.user,
                 bar: posting.bar.id,
                 beer: posting.beer.id,
                 price: posting.price,

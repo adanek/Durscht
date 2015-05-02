@@ -1,11 +1,13 @@
 package controllers;
 
+import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import durscht.contracts.data.IUser;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
 
 public class AuthenticationController extends Controller {
@@ -22,6 +24,16 @@ public class AuthenticationController extends Controller {
         return ok();
     }
 
+    //GET /user/id
+    @Security.Authenticated(MyAuthenticator.class)
+    public static Result getId(){
+
+
+
+        CorsController.addCorsHeaders(response());
+        return ok();
+    }
+
     // POST /login
     public static Result login() {
 
@@ -33,9 +45,9 @@ public class AuthenticationController extends Controller {
         IUser user = ServiceLocator.getDataHandler().getUserLogin(name, password);
 
         //user does not exist or is unauthorized
-//        if (user == null) {
-//            return unauthorized();
-//        }
+        if (user == null) {
+            return unauthorized();
+        }
 
         //store session data
         session().clear();
