@@ -22,7 +22,7 @@ public interface IPostHandler {
 	 * @param bar The bar whose beers are looked up 
 	 * @return Array of beers registerd for a given bar
 	 */
-	public IBeer[] getBeersByBar(IBar bar);
+	public IBeer[] getBeersByBar(int barID);
 	
 	/**
 	 * Saves the passed information as a Post in the database
@@ -45,5 +45,5 @@ public interface IPostHandler {
 	 * @param url
 	 * @return
 	 */
-	public Integer createNewBar(String name, double latitude, double longitude, String description, String url);
+	public IBar createNewBar(String name, double latitude, double longitude, String description, String url);
 }
