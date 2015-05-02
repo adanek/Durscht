@@ -1,5 +1,6 @@
 package authentication;
 
+import controllers.CorsController;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -22,7 +23,7 @@ public class MyAuthenticator extends Security.Authenticator {
     public Result onUnauthorized(Context ctx) {
 
         //user is not authorized -> redirect to login form
-        ctx.response().setHeader("Access-Control-Allow-Origin", "*");
+        CorsController.addCorsHeaders(ctx.response());
         return unauthorized();
     }
 }

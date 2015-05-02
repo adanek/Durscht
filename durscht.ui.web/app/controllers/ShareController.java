@@ -13,6 +13,7 @@ import durscht.contracts.ui.IBeer;
 import durscht.core.config.ServiceLocator;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
@@ -52,6 +53,7 @@ public class ShareController extends Controller {
 //        bars[2] = new Bar(2, "Sonderbar", 1.2, beers);
 
         JsonNode data = Json.toJson(bars);
+        Http.Response response = response();
         attachCorsHeaders();
         return ok(data);
     }
@@ -90,15 +92,14 @@ public class ShareController extends Controller {
 
         IDataHandler dh = ServiceLocator.getDataHandler();
         durscht.contracts.data.IBar barData = dh.getBarByID(newBar);
-        Bar bar = new Bar(barData.getId(), barData.getName(), 0.0, new IBeer[]{});
+        IBar bar = new Bar(barData.getId(), barData.getName(), 0.0, new IBeer[]{});
 
-        JsonNode responseData = Json.toJson((IBar) bar);
+        JsonNode responseData = Json.toJson(bar);
         attachCorsHeaders();
         return created(responseData);
     }
 
     public static Result createBeer() {
-
 
         attachCorsHeaders();
         return created();
@@ -140,6 +141,7 @@ public class ShareController extends Controller {
     }
 
     private static void attachCorsHeaders() {
-        response().setHeader("Access-Control-Allow-Origin", "*");
+
+        CorsController.addCorsHeaders(response());
     }
 }

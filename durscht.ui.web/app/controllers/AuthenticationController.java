@@ -40,12 +40,12 @@ public class AuthenticationController extends Controller {
         //store session data
         session().clear();
         session().put("pid", Integer.toString(42));
-
+        attachCorsHeaders();
         return ok();
     }
 
     private static void attachCorsHeaders() {
-        response().setHeader("Access-Control-Allow-Origin", "*");
+        CorsController.addCorsHeaders(response());
     }
 }
 
