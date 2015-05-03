@@ -2,10 +2,8 @@ package controllers;
 
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.mock.Bar;
 import controllers.mock.Beer;
 import durscht.contracts.data.IDataHandler;
-import durscht.contracts.logic.IBeerHandler;
 import durscht.contracts.logic.ILogicFacade;
 import durscht.contracts.logic.IPostHandler;
 import durscht.contracts.ui.IBar;
@@ -13,11 +11,9 @@ import durscht.contracts.ui.IBeer;
 import durscht.core.config.ServiceLocator;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
-import javax.activation.DataHandler;
 import java.util.Collection;
 
 public class ShareController extends Controller {
@@ -27,33 +23,21 @@ public class ShareController extends Controller {
 
         // Get parameters from request
         JsonNode jsonNode = request().body().asJson();
-        double longitude = jsonNode.findPath("longitude").doubleValue();
         double latitude = jsonNode.findPath("latitude").doubleValue();
+        double longitude = jsonNode.findPath("longitude").doubleValue();
+
 
         IBar[] bars = new IBar[]{};
         try {
-            ILogicFacade lf = ServiceLocator.getLogidFacade();
+            ILogicFacade lf = ServiceLocator.getLogicFacade();
             IPostHandler postHandler = lf.getPostHandler();
             bars = postHandler.getNearBars(latitude, longitude);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-//
-//        bars = new IBar[3];
-//        IBeer[] noBeer = new Beer[0];
-//        IBeer[] beers = new Beer[3];
-//        beers[0] = new Beer(0,"Zipfer", "Märzen", "");
-//        beers[1] = new Beer(1, "Stiegl", "Goldbräu", "");
-//        beers[2] = new Beer(2, "Corona", "Extra", "");
-//
-//        // Create mock bars
-//        bars[0] = new Bar(0, "Uferbar", 0.0, beers);
-//        bars[1] = new Bar(1, "Wunderbar", 0.3, noBeer);
-//        bars[2] = new Bar(2, "Sonderbar", 1.2, beers);
 
         JsonNode data = Json.toJson(bars);
-        Http.Response response = response();
         attachCorsHeaders();
         return ok(data);
     }
@@ -61,15 +45,17 @@ public class ShareController extends Controller {
     @Security.Authenticated(MyAuthenticator.class)
     public static Result createPost() {
 
+        // Get data from request
         JsonNode data = request().body().asJson();
-        int userId = 1;
+        int userId = data.findPath("user").intValue();
         int barId = data.findPath("bar").intValue();
         int beerId = data.findPath("beer").intValue();
         double prize = data.findPath("price").doubleValue();
         int rating = data.findPath("rating").intValue();
         String remark = data.findPath("remark").textValue();
 
-        IPostHandler postHandler = ServiceLocator.getLogidFacade().getPostHandler();
+        // Create new post
+        IPostHandler postHandler = ServiceLocator.getLogicFacade().getPostHandler();
         postHandler.putPosting(barId, beerId, userId, prize, rating, remark);
 
         attachCorsHeaders();
@@ -88,13 +74,8 @@ public class ShareController extends Controller {
         Double lat = data.findPath("latitude").doubleValue();
 
         // Create a new bar
-        IPostHandler postHandler = ServiceLocator.getLogidFacade().getPostHandler();
-        Integer newBar = postHandler.createNewBar(name, lat, lng, remark, url);
-        System.out.println(newBar);
-
-        IDataHandler dh = ServiceLocator.getDataHandler();
-        durscht.contracts.data.IBar barData = dh.getBarByID(newBar);
-        IBar bar = new Bar(barData.getId(), barData.getName(), 0.0, new IBeer[]{});
+        IPostHandler postHandler = ServiceLocator.getLogicFacade().getPostHandler();
+        IBar bar = postHandler.createNewBar(name, lat, lng, remark, url);
 
         JsonNode responseData = Json.toJson(bar);
         attachCorsHeaders();
@@ -111,8 +92,7 @@ public class ShareController extends Controller {
     @Security.Authenticated(MyAuthenticator.class)
     public static Result getBeersFromBar(int barId){
 
-        Bar bar = new Bar(barId, "",0.0,null);
-        IBeer[] beers = ServiceLocator.getPostHandler().getBeersByBar(bar);
+        IBeer[] beers = ServiceLocator.getPostHandler().getBeersByBar(barId);
 
         JsonNode data = Json.toJson(beers);
         attachCorsHeaders();
@@ -122,25 +102,18 @@ public class ShareController extends Controller {
     @Security.Authenticated(MyAuthenticator.class)
     public static Result getAllBeers() {
 
-        IBeer[] beers = new Beer[3];
-        beers[0] = new Beer(0, "Zipfer", "Märzen", "");
-        beers[1] = new Beer(1, "Stiegl", "Goldbräu", "");
-        beers[2] = new Beer(2, "Corona", "Extra", "");
-
-        IBeerHandler beerHandler = ServiceLocator.getLogidFacade().getBeerHandler();
+        // Replace this we Beerhandler as soon as its ready
         IDataHandler dh = ServiceLocator.getDataHandler();
+        Collection<durscht.contracts.data.IBeer> beerList = dh.getAllBeers();
+        durscht.contracts.data.IBeer[] allBeers = beerList.toArray(new durscht.contracts.data.IBeer[beerList.size()]);
 
-        Collection<durscht.contracts.data.IBeer> allBeers = dh.getAllBeers();
-        beers = new Beer[allBeers.size()];
-
-        int i = 0;
-        for (durscht.contracts.data.IBeer b : allBeers) {
-            beers[i] = new Beer(b.getId(), b.getName(), "to be filled", b.getDescription());
-            i++;
+        IBeer[] beers = new IBeer[allBeers.length];
+        for(int i = 0; i < allBeers.length; i++){
+            durscht.contracts.data.IBeer beer = allBeers[i];
+            beers[i] = new Beer(beer.getId(), beer.getBrand(), beer.getType(), beer.getDescription());
         }
 
         JsonNode data = Json.toJson(beers);
-
         attachCorsHeaders();
         return ok(data);
     }
