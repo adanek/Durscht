@@ -36,7 +36,7 @@ public interface IDataHandler {
 	 * @throws IllegalStateException
 	 *             creating object in database failed
 	 */
-	public IBeer createBeer(String name, String description)
+	public IBeer createBeer(String brand, String type, String description)
 			throws IllegalStateException;
 
 	/**

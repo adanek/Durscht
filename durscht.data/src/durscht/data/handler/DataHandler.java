@@ -239,11 +239,12 @@ public class DataHandler implements IDataHandler {
 		return user;
 	}
 
-	public IBeer createBeer(String name, String description) throws IllegalStateException {
+	public IBeer createBeer(String brand, String type, String description) throws IllegalStateException {
 
 		// create beer instance
 		Beer beer = new Beer();
-		beer.setName(name);
+		beer.setBrand(brand);
+		beer.setType(type);
 		beer.setDescription(description);
 
 		// save beer to database
