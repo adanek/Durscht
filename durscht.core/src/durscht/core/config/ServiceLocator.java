@@ -7,7 +7,7 @@ import durscht.contracts.logic.IPostHandler;
 import durscht.core.BeerHandler;
 import durscht.core.LogicFacade;
 import durscht.core.PostHandler;
-import durscht.handler.DataHandler;
+import durscht.data.handler.DataHandler;
 
 public class ServiceLocator {
 	
@@ -18,7 +18,7 @@ public class ServiceLocator {
 	
 	private static IDataHandler dataHandler;
 	
-	public static ILogicFacade getLogidFacade() {
+	public static ILogicFacade getLogicFacade() {
 		if (logicFacade == null)
 			logicFacade = new LogicFacade();
 		
