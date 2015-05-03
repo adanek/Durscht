@@ -28,6 +28,9 @@ public class TestBeerPost extends TestBase {
 
 		// get first beer
 		IBeer beer = beers.iterator().next();
+		
+		// create user
+		dataHandler.createUser("TestUser", "test.user@gmx.at", "Test1234").getId();
 
 		// login user
 		IUser user = dataHandler.getUserLogin("TestUser", "Test1234");

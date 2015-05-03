@@ -31,26 +31,29 @@ public class DatabaseUpdate {
 	public static void main(String args[]) {
 
 		try {
+			//DataHandler.setTestDB(true);
 			// get handler
 			IDataHandler handler = new DataHandler();
 
 			// create new users
 
-			/*int userid1 = handler.createUser("admin", "admin@gmx.at", "admin").getId();
+			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin").getId();
 			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2").getId();
 			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3").getId();
 
 			// create new beers
-			int beerid1 = handler.createBeer("Gösser", "Herbes österreichisches Bier").getId();
-			int beerid2 = handler.createBeer("Stiegl", "Originales traditionelles Salzburger Bier")
+			int beerid1 = handler.createBeer("Gösser", "Radler", "Herbes österreichisches Bier")
 					.getId();
-			int beerid3 = handler.createBeer("Ottakringer", "Traditionelles Wiener Bier").getId();
-			int beerid4 = handler.createBeer("Starkenberger",
+			int beerid2 = handler.createBeer("Stiegl", "Goldlager",
+					"Originales traditionelles Salzburger Bier").getId();
+			int beerid3 = handler.createBeer("Ottakringer", "Helles", "Traditionelles Wiener Bier")
+					.getId();
+			int beerid4 = handler.createBeer("Starkenberger", "Märzen",
 					"Heimisches Bier aus dem Schloss Starkenberg in Tarrenz").getId();
 
 			// create new Bars
-			int barid1 = handler.createBar("Patis Testbar", 11.4040792, 47.269258,
-					"geile Cocktails!!!", "Test").getId();
+			int barid1 = handler.createBar("Theresien Bräu", 11.4040792, 47.269258,
+					"Traditionelles Lokal in Innsbruck, das ein eigenes Bier braut", "www.brauwirtshaus.at").getId();
 			int barid2 = handler
 					.createBar(
 							"11er Haus",
@@ -84,10 +87,11 @@ public class DatabaseUpdate {
 			int post2 = handler.createPost(barid1, beerid2, userid2, 3.0, 2, "Post2").getId();
 			int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3").getId();
 			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
+			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
 
 			IUser user = handler.getUserLogin("user2", "user2");
 
-			Collection<IBeer> beers = handler.getAllBeers();
+			Collection<IBeer> beers1 = handler.getAllBeers();
 			Collection<IBeer> bars1 = handler.getAllBeersFromBar(barid1);
 			Collection<IBeer> bars2 = handler.getAllBeersFromBar(barid2);
 
@@ -96,17 +100,22 @@ public class DatabaseUpdate {
 			Collection<IBeerPost> userposts1 = handler.getAllPostsFromUser(userid1);
 			Collection<IBeerPost> userposts2 = handler.getAllPostsFromUser(userid2);
 
-			Collection<IBar> bars = handler.getBarsCoordinates(47.2639834191332, 47.2639834191332,
-					11.3450129248849, 11.3450129248849);
-			Collection<IBar> bars2 = handler.getBarsCoordinates(50, 51,
-					5, 6);
-			Collection<IBeer> beers = handler.getAllBeers();
-			
-			//fehler erzeugen
-			try{
-			handler.getAchievementByID(99999); }catch(Exception e){}
-			try{
-			handler.deleteBar(99999); }catch(Exception e){}*/
+			Collection<IBar> bars3 = handler.getBarsCoordinates(11.34, 11.35,
+					47.26, 47.27);
+			// all bars
+			Collection<IBar> bars4 = handler.getBarsCoordinates(5, 60, 5, 55);
+
+			// fehler erzeugen
+			try {
+				handler.getAchievementByID(99999);
+			} catch (Exception e) {
+				System.out.println("Fehler achievement");
+			}
+			try {
+				handler.deleteBar(99999);
+			} catch (Exception e) {
+				System.out.println("Fehler delete");
+			}
 
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
