@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 
+@import play.i18n.Messages;
+
 <html>
 	<head>
 		<title>Durscht Webservice</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.css")"/>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("css/main.css")">
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 	</head>
 	<body class="container">
 	
-		<h1 class="text-center">Grias di beim Dursch Web Sevice</h1>
+		<h1 class="text-center">Grias di beim Durscht Web Service</h1>
 
-	<section id="scripts">
-	</section>
-</body>
+		<div class="form-group">
+			<label for="email">Email address:</label>
+			<input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+		</div>
+
+		<div class="form-group">
+			<label for="password">Password:</label>
+			<input type="password" name="password" class="form-control" id="password" placeholder="Password">
+		</div>
+
+		<div class="form-group">
+			<button type="submit" class="btn btn-default">@Messages.get("Login")</button>
+		</div>
+
+		<section id="scripts">
+		</section>
+	</body>
 </html>
