@@ -23,11 +23,11 @@ public class BeerHandler implements IBeerHandler {
 			Beer beer = new Beer();
 			beer.setId(ibeer.getId());
 			// No distinction between Brand and Type!
-			beer.setBrand(ibeer.getName());
+			beer.setBrand(ibeer.getBrand());
 			// No distinction between Brand and Type!
-			beer.setType(ibeer.getName());
+			beer.setType(ibeer.getType());
 			beer.setDescription(ibeer.getDescription());
-			beers.put(ibeer.getName(), beer);
+			beers.put(ibeer.getBrand(), beer);
 		}
 	}
 

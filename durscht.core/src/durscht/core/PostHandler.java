@@ -118,8 +118,8 @@ public class PostHandler implements IPostHandler {
 		for (IBeer ibeer : IBeersList) {
 			Beer beer = new Beer();
 			beer.setId(ibeer.getId());
-			beer.setBrand(ibeer.getName());
-			beer.setType(ibeer.getName());
+			beer.setBrand(ibeer.getBrand());
+			beer.setType(ibeer.getType());
 			beer.setDescription(ibeer.getDescription());
 			beersList.add(beer);
 		}
