@@ -4,10 +4,29 @@
 
     <form novalidate ng-submit="create()">
 
-        <div class="form-group">
+        <div class="form-group" ng-show="showBeerForm == false">
             <label for="beer">Marke:</label>
-            <input id="beer" type="text" ng-model="beer" class="form-control"
+            <input id="beer" type="text" ng-model="beer" class="form-control" placeholder="Tipp hier den Namen des Bieres ein"
                    typeahead="beer as beer.brand + ' - ' + beer.type for beer in beers | filter:$viewValue | limitTo:8" typeahead-append-to-body="false">
+        </div>
+
+        <div class="form-group" ng-show="showBeerForm == false">
+            <button class="form-control btn btn-default" ng-click="newBeer()">Das Bier war nicht dabei</button>
+        </div>
+
+        <div class="form-group" ng-show="showBeerForm == true">
+            <label>Marke:</label>
+            <input type="text" ng-model="brand" class="form-control"/>
+        </div>
+
+        <div class="form-group" ng-show="showBeerForm == true">
+            <label>Sorte:</label>
+            <input type="text" ng-model="type" class="form-control">
+        </div>
+
+        <div class="form-group" ng-show="showBeerForm == true">
+            <label>Beschreibung:</label>
+            <textarea rows="3" class="form-control" ng-model="description"></textarea>
         </div>
 
         <div class="form-group">

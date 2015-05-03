@@ -55,6 +55,8 @@ public class AuthenticationController extends Controller {
         //store session data
         session().clear();
         session().put("pid", Integer.toString(user.getId()));
+
+
         attachCorsHeaders();
         return ok();
     }

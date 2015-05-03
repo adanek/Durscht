@@ -2,8 +2,8 @@
 (function (app) {
     var controller = function ($scope, authentication, $location) {
         $scope.caption = "Dich kenn ich doch!";
-        $scope.username = "Hans";
-        $scope.password = "Geheim";
+        $scope.username = "";
+        $scope.password = "";
         $scope.login = function () {
             authentication.login($scope.username, $scope.password).success(function () {
                 $location.path('/share/position').replace();

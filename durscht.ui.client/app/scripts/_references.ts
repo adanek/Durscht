@@ -25,6 +25,10 @@ interface BarService {
     addBeerToBar: (bar: Bar, beer: Beer) => ng.IPromise<void>;
 }
 
+interface BeerService {
+	createBeer: (brand:string, type:string, description:string) => ng.IHttpPromise<number>;
+}
+
 interface Posting {
 	user: number;
 	bar: Bar;
