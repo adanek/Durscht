@@ -12,6 +12,19 @@ public class BeerHandler implements IBeerHandler {
 
 	private TrieST<Beer> beers;
 
+	private IDataHandler dataHandler;
+
+	private IDataHandler getDataHandler() {
+		if (dataHandler == null)
+			dataHandler = ServiceLocator.getDataHandler();
+
+		return dataHandler;
+	}
+
+	public void setDataHandler(IDataHandler dataHandler) {
+		this.dataHandler = dataHandler;
+	}
+
 	public BeerHandler() {
 		IDataHandler dataHandler = ServiceLocator.getDataHandler();
 
@@ -47,7 +60,7 @@ public class BeerHandler implements IBeerHandler {
 	@Override
 	public durscht.contracts.ui.IBeer createNewBeer(String brand, String type, String description)
 			throws IllegalStateException {
-		IDataHandler dataHandler = ServiceLocator.getDataHandler();
+		IDataHandler dataHandler = getDataHandler();
 
 		IBeer ibeer = dataHandler.createBeer(brand, type, description);
 

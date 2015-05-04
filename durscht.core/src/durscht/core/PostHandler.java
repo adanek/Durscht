@@ -152,6 +152,7 @@ public class PostHandler implements IPostHandler {
 	@Override
 	public durscht.contracts.ui.IBar createNewBar(String name, double latitude, double longitude, String description,
 			String url) throws IllegalStateException {
+
 		IDataHandler dataHandler = getDataHandler();
 
 		IBar ibar = dataHandler.createBar(name, latitude, longitude, description, url);
