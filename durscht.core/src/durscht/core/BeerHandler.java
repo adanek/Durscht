@@ -22,9 +22,7 @@ public class BeerHandler implements IBeerHandler {
 		for (IBeer ibeer : db_beers) {
 			Beer beer = new Beer();
 			beer.setId(ibeer.getId());
-			// No distinction between Brand and Type!
 			beer.setBrand(ibeer.getBrand());
-			// No distinction between Brand and Type!
 			beer.setType(ibeer.getType());
 			beer.setDescription(ibeer.getDescription());
 			beers.put(ibeer.getBrand() + ibeer.getType(), beer);
@@ -45,4 +43,21 @@ public class BeerHandler implements IBeerHandler {
 
 		return beersWithPrefix.toArray(new Beer[beersWithPrefix.size()]);
 	}
+
+	@Override
+	public durscht.contracts.ui.IBeer createNewBeer(String brand, String type, String description)
+			throws IllegalStateException {
+		IDataHandler dataHandler = ServiceLocator.getDataHandler();
+
+		IBeer ibeer = dataHandler.createBeer(brand, type, description);
+
+		Beer beer = new Beer();
+		beer.setId(ibeer.getId());
+		beer.setBrand(ibeer.getBrand());
+		beer.setType(ibeer.getType());
+		beer.setDescription(ibeer.getDescription());
+
+		return beer;
+	}
+
 }
