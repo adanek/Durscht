@@ -45,5 +45,5 @@ public interface IPostHandler {
 	 * @param url
 	 * @return
 	 */
-	public IBar createNewBar(String name, double latitude, double longitude, String description, String url);
+	public IBar createNewBar(String name, double latitude, double longitude, String description, String url) throws IllegalStateException ;
 }
