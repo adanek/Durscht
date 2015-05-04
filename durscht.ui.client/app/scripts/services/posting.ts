@@ -12,7 +12,7 @@
 
 (function(app){
 
-    app.service('posting', ['$http', 'shareApiUrl', function($http, shareApiUrl){
+    app.service('posting', ['$http', 'serviceHost', function($http, serviceHost){
         var posting : Posting = this;
 
         posting.user = -1;
@@ -34,8 +34,8 @@
 
         posting.save = function(){
 
-            return $http.post(shareApiUrl + 'createPost',{
-                user: parseInt(posting.user),
+            return $http.post(serviceHost + '/share/createPost',{
+                user: posting.user,
                 bar: posting.bar.id,
                 beer: posting.beer.id,
                 price: posting.price,

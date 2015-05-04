@@ -4,15 +4,19 @@
 
 (function (app) {
 
-    var ctrl = function ($scope, posting:Posting, authentication:AuthenticationSevice, $location) {
+    var ctrl = function ($scope, posting:Posting, authService:AuthenticationService, $location) {
         posting.reset();
         $scope.caption = "Kann ich mal deinen Ausweis sehen?";
 
-        authentication.getId().success(function(data){
-            posting.user = data;
-            $location.path('/share/location').replace();
-        }).error(function(data, status, headers, config){
+        authService.getId()
+            .success(function(data){
+                posting.user = parseInt(data);
+                authService.setAuthenticated(true);
+                $location.path('/share/location').replace();
+            })
+            .error(function(data, status, headers, config){
             if(status == 401){
+                var h = headers;
                 $location.path('/login').replace();
             }
         });

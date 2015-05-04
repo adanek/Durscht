@@ -16,9 +16,8 @@ interface Bar {
 }
 
 interface BarService {
-	getBars: () => Array<Bar>;
-	getBar: (id:number) => Bar;
-	getNearBars;
+
+	getNearBars:() => ng.IHttpPromise<Array<Bar>>;
 	createBar: (name:String, url:String, remark:String) => ng.IHttpPromise<Bar>;
 	getBeersFromBar: (bar:Bar) => ng.IHttpPromise<Array<Beer>>;
 	getAllBeers: () => ng.IHttpPromise<Array<Beer>>;
@@ -26,7 +25,7 @@ interface BarService {
 }
 
 interface BeerService {
-	createBeer: (brand:string, type:string, description:string) => ng.IHttpPromise<number>;
+	createBeer: (brand:string, type:string, description:string) => ng.IHttpPromise<string>;
 }
 
 interface Posting {
@@ -43,7 +42,10 @@ interface Posting {
     save: () => ng.IHttpPromise<void>;
 }
 
-interface AuthenticationSevice {
-	login: (username:String, passwd:String) => ng.IHttpPromise<void>;
-    getId: () => ng.IHttpPromise<number>;
+interface AuthenticationService {
+	isAuthenticated: () => boolean;
+    setAuthenticated: (val : boolean) => void;
+	login: (username:String, password:String) => ng.IHttpPromise<void>;
+	logout: () => ng.IHttpPromise<void>;
+    getId: () => ng.IHttpPromise<string>;
 }

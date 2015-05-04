@@ -8,7 +8,7 @@
  * Provides the service to hold the required data for a post.
  */
 (function (app) {
-    app.service('posting', ['$http', 'shareApiUrl', function ($http, shareApiUrl) {
+    app.service('posting', ['$http', 'serviceHost', function ($http, serviceHost) {
         var posting = this;
         posting.user = -1;
         posting.bar = null;
@@ -25,8 +25,8 @@
             posting.rating = 0;
         };
         posting.save = function () {
-            return $http.post(shareApiUrl + 'createPost', {
-                user: parseInt(posting.user),
+            return $http.post(serviceHost + '/share/createPost', {
+                user: posting.user,
                 bar: posting.bar.id,
                 beer: posting.beer.id,
                 price: posting.price,

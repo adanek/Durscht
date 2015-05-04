@@ -17,19 +17,17 @@ public class MyAuthenticator extends Security.Authenticator {
         if (pid == null) {
             return null;
         }
-        return null;
+        return pid;
     }
 
     @Override
     public Result onUnauthorized(Context ctx) {
 
         Http.Request request = ctx.request();
-        //user is not authorized -> redirect to login form
-
         String uri = request.uri();
 
         Http.Response response = ctx.response();
-        response.setHeader("Refferer", uri);
+        response.setHeader("Referer", uri);
         CorsController.addCorsHeaders(ctx.response());
         return unauthorized();
     }

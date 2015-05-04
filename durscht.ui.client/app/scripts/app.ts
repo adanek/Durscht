@@ -59,8 +59,6 @@
     //app.constant('shareApiUrl', 'https://durscht-service.herokuapp.com/share/');
 
     // local
-    app.constant("barApiUrl", 'http://localhost:9000/share/');
-    app.constant('shareApiUrl', 'http://localhost:9000/share/');
     app.constant('serviceHost', 'http://127.0.0.1:9000');
 
     //app.constant("barApiUrl", 'http://192.168.1.11:9000/share/');

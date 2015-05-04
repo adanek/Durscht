@@ -23,6 +23,7 @@ public class AuthenticationController extends Controller {
         //clear session data
         session().clear();
 
+        attachCorsHeaders();
         return ok();
     }
 
