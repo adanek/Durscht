@@ -15,8 +15,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import durscht.contracts.data.IAchievement;
 import durscht.contracts.data.IBar;
@@ -44,7 +46,7 @@ public class DataHandler implements IDataHandler {
 	private Connection connection;
 
 	private static boolean testDB = false;
-	
+
 	/**
 	 * Constructor for Databasehandler, it is important that only one instance
 	 * of this class will be created
@@ -60,10 +62,10 @@ public class DataHandler implements IDataHandler {
 
 			// create session factory
 			Configuration configuration = new Configuration();
-			//productive DB
+			// productive DB
 			if (testDB == false) {
 				configuration.configure("hibernate.cfg.xml");
-			//test DB
+				// test DB
 			} else {
 				configuration.configure("durscht/data/testConf/hibernate.cfg.xml");
 			}
@@ -83,11 +85,11 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
-	//set testDB
-	public static void setTestDB(boolean value){
+	// set testDB
+	public static void setTestDB(boolean value) {
 		testDB = value;
 	}
-	
+
 	public void closeDatabaseConnection() throws IllegalStateException {
 		sessionFactory.close();
 		try {
@@ -237,11 +239,12 @@ public class DataHandler implements IDataHandler {
 		return user;
 	}
 
-	public IBeer createBeer(String name, String description) throws IllegalStateException {
+	public IBeer createBeer(String brand, String type, String description) throws IllegalStateException {
 
 		// create beer instance
 		Beer beer = new Beer();
-		beer.setName(name);
+		beer.setBrand(brand);
+		beer.setType(type);
 		beer.setDescription(description);
 
 		// save beer to database
@@ -503,7 +506,9 @@ public class DataHandler implements IDataHandler {
 			Collection<IBeer> beers = new ArrayList<>();
 
 			for (BeerPost post : posts) {
-				beers.add(post.getBeer());
+				if (!beers.contains(post.getBeer())) {
+					beers.add(post.getBeer());
+				}
 			}
 
 			// commit
@@ -705,4 +710,3 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 }
-
