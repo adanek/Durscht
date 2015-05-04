@@ -34,9 +34,8 @@ public class DatabaseUpdate {
 			//DataHandler.setTestDB(true);
 			// get handler
 			IDataHandler handler = new DataHandler();
-
+/*
 			// create new users
-
 			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin").getId();
 			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2").getId();
 			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3").getId();
@@ -52,20 +51,20 @@ public class DatabaseUpdate {
 					"Heimisches Bier aus dem Schloss Starkenberg in Tarrenz").getId();
 
 			// create new Bars
-			int barid1 = handler.createBar("Theresien Bräu", 11.4040792, 47.269258,
+			int barid1 = handler.createBar("Theresien Bräu", 47.269258, 11.4040792,
 					"Traditionelles Lokal in Innsbruck, das ein eigenes Bier braut", "www.brauwirtshaus.at").getId();
 			int barid2 = handler
 					.createBar(
 							"11er Haus",
-							11.392825,
 							47.268653,
+							11.392825,
 							"Sehr bekannte Bar in Innsbruck, die sehr viele Biersorten der ganzen Welt anbietet.",
 							"http://innsbruckplus.at/elferhaus/").getId();
 			int barid3 = handler
 					.createBar(
 							"Stadtcafe",
-							11.395963,
 							47.268785,
+							11.395963,
 							"Bekanntestes Nachtlokal in Innsbruck, das hauptsächlich von der Studentenszene besucht wird.",
 							"www.tagnacht.at/stadtcafe/").getId();
 
@@ -102,6 +101,7 @@ public class DatabaseUpdate {
 
 			Collection<IBar> bars3 = handler.getBarsCoordinates(11.34, 11.35,
 					47.26, 47.27);
+					
 			// all bars
 			Collection<IBar> bars4 = handler.getBarsCoordinates(5, 60, 5, 55);
 
@@ -116,7 +116,12 @@ public class DatabaseUpdate {
 			} catch (Exception e) {
 				System.out.println("Fehler delete");
 			}
-
+			
+			Collection<IBeer> bars1 = handler.getAllBeersFromBar(8);
+			*/
+			
+			IUser user = handler.getUserLogin("user2", "user3");
+			
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
 		}
