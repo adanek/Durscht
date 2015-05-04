@@ -3,16 +3,19 @@
 (function (app){
     var controller = function ($scope, authService : AuthenticationService, $location){
 
-        var setAuthBtnText = function (authenticated){
+        $scope.authBtnText = "";
+        setAuthBtnText(authService.isAuthenticated);
+
+        function setAuthBtnText (authenticated){
+
             if(authenticated == true){
-                $scope.authbtn.text = "Logout";
+
+                $scope.authBtnText = "Logout";
             } else {
-                $scope.authbtn.text = "Login";
+
+                $scope.authBtnText = "Login";
             }
         }
-
-        $scope.authbtn = {};
-        setAuthBtnText(authService.isAuthenticated());
 
         $scope.$watch(function(){
             return authService.isAuthenticated();

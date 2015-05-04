@@ -4,7 +4,7 @@
 
     var ctrl = function ($scope, barService:BarService, posting, $location) {
 
-        $scope.caption = "Wie heißt den das Lokal, in dem du bist?";
+        $scope.caption = "Du bist der erste hier!";
 
         // Properties
         var name:String = "";

@@ -1,7 +1,7 @@
 /// <reference path="../_references.ts"/>
 (function (app) {
     var ctrl = function ($scope, barService, posting, $location) {
-        $scope.caption = "Wie heißt den das Lokal, in dem du bist?";
+        $scope.caption = "Du bist der erste hier!";
         // Properties
         var name = "";
         var website = "";
