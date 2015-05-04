@@ -27,6 +27,10 @@
                     });
                 });
         }
+
+        $scope.register = function(){
+            $location.path('/register').replace();
+        }
     };
 
     app.controller("LoginCtrl", ['$scope', 'authService', '$location', controller]);

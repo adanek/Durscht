@@ -48,4 +48,5 @@ interface AuthenticationService {
 	login: (username:String, password:String) => ng.IHttpPromise<void>;
 	logout: () => ng.IHttpPromise<void>;
     getId: () => ng.IHttpPromise<string>;
+	register: (username:string, email:string, password:string) => ng.IHttpPromise<void>;
 }

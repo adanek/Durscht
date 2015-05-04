@@ -39,6 +39,14 @@
             return $http.get(serviceHost + '/user/id');
         };
 
+        srv.register = function(username:string, email:string, password:string){
+            return $http.post(serviceHost + '/user/register', {
+                user: username,
+                email: email,
+                passwd: password
+            });
+        };
+
         return srv;
     };
 

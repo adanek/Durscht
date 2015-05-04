@@ -21,6 +21,10 @@
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
             })
+            .when('/register', {
+                templateUrl: 'views/register.html',
+                controller: 'RegisterCtrl'
+            })
             .when('/share/user', {
                 templateUrl: 'views/share-user.html',
                 controller: 'ShareUserCtrl'
@@ -57,9 +61,10 @@
     // heroku
     //app.constant("barApiUrl", 'https://durscht-service.herokuapp.com/share/');
     //app.constant('shareApiUrl', 'https://durscht-service.herokuapp.com/share/');
+    app.constant('serviceHost', 'http://durscht-service.herokuapp.com');
 
     // local
-    app.constant('serviceHost', 'http://127.0.0.1:9000');
+    //app.constant('serviceHost', 'http://127.0.0.1:9000');
 
     //app.constant("barApiUrl", 'http://192.168.1.11:9000/share/');
     //app.constant('shareApiUrl', 'http://192.168.1.11:9000/share/');

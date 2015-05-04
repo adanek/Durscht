@@ -28,6 +28,13 @@
         srv.getId = function () {
             return $http.get(serviceHost + '/user/id');
         };
+        srv.register = function (username, email, password) {
+            return $http.post(serviceHost + '/user/register', {
+                user: username,
+                email: email,
+                passwd: password
+            });
+        };
         return srv;
     };
     app.factory('authService', ['$rootScope', '$http', 'serviceHost', service]);

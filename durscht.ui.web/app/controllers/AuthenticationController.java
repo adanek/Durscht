@@ -2,12 +2,14 @@ package controllers;
 
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
+import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Results;
 import play.mvc.Security;
 
 
@@ -38,9 +40,9 @@ public class AuthenticationController extends Controller {
         return ok(data);
     }
 
-    // POST /login
+    // POST /user/login
     public static Result login() {
-
+        attachCorsHeaders();
         JsonNode data = request().body().asJson();
         String name = data.findPath("name").textValue();
         String password = data.findPath("pw").textValue();
@@ -54,6 +56,27 @@ public class AuthenticationController extends Controller {
         }
 
         //store session data
+        session().clear();
+        session().put("pid", Integer.toString(user.getId()));
+        return ok();
+    }
+
+    // POST /user/register
+    public static Result register(){
+
+        JsonNode data = request().body().asJson();
+        String username = data.findPath("user").textValue();
+        String email = data.findPath("email").textValue();
+        String passwd = data.findPath("passwd").textValue();
+
+        IUser user = null;
+        try {
+            IDataHandler dataHandler = ServiceLocator.getDataHandler();
+            user = dataHandler.createUser(username, email, passwd);
+        } catch (IllegalStateException e) {
+            return Results.internalServerError();
+        }
+
         session().clear();
         session().put("pid", Integer.toString(user.getId()));
 

@@ -15,6 +15,6 @@
             }
         });
     };
-    app.controller('ShareUserCtrl', ctrl);
+    app.controller('ShareUserCtrl', ['$scope', 'posting', 'authService', '$location', ctrl]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=ShareUser.js.map
