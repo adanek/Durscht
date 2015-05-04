@@ -9,25 +9,25 @@ import durscht.core.config.ServiceLocator;
 import durscht.core.helper.TrieST;
 
 public class BeerHandler implements IBeerHandler {
-	
+
 	private TrieST<Beer> beers;
 
 	public BeerHandler() {
 		IDataHandler dataHandler = ServiceLocator.getDataHandler();
-		
+
 		beers = new TrieST<Beer>();
-		
+
 		Collection<IBeer> db_beers = dataHandler.getAllBeers();
 
 		for (IBeer ibeer : db_beers) {
 			Beer beer = new Beer();
 			beer.setId(ibeer.getId());
 			// No distinction between Brand and Type!
-			beer.setBrand(ibeer.getName());
+			beer.setBrand(ibeer.getBrand());
 			// No distinction between Brand and Type!
-			beer.setType(ibeer.getName());
+			beer.setType(ibeer.getType());
 			beer.setDescription(ibeer.getDescription());
-			beers.put(ibeer.getName(), beer);
+			beers.put(ibeer.getBrand() + ibeer.getType(), beer);
 		}
 	}
 
@@ -35,11 +35,11 @@ public class BeerHandler implements IBeerHandler {
 	public durscht.contracts.ui.IBeer[] getBeersByPrefix(String prefix) {
 
 		Iterable<String> prefixKeys = beers.keysWithPrefix(prefix);
-		if(beers.isEmpty()){
+		if (beers.isEmpty()) {
 			throw new NoSuchElementException("couldn't find a beer");
 		}
 		List<Beer> beersWithPrefix = new LinkedList<Beer>();
-		for(String name: prefixKeys){
+		for (String name : prefixKeys) {
 			beersWithPrefix.add(beers.get(name));
 		}
 
