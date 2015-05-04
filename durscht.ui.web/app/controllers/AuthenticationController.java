@@ -56,7 +56,6 @@ public class AuthenticationController extends Controller {
         session().clear();
         session().put("pid", Integer.toString(user.getId()));
 
-
         attachCorsHeaders();
         return ok();
     }

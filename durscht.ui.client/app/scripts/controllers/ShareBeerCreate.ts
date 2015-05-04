@@ -20,7 +20,7 @@
                 return a.brand.localeCompare(b.brand);
             });
             $scope.$apply();
-        })
+        });
 
         $scope.create = function(){
 
@@ -33,12 +33,12 @@
             }else {
                 posting.beer = $scope.beer;
                 $location.path('/share/details').replace();
-            }
-        }
+            };
+        };
 
         $scope.newBeer = function(){
             $scope.showBeerForm = true;
-        }
+        };
 
     };
 

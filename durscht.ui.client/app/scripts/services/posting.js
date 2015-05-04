@@ -26,7 +26,7 @@
         };
         posting.save = function () {
             return $http.post(shareApiUrl + 'createPost', {
-                user: posting.user,
+                user: parseInt(posting.user),
                 bar: posting.bar.id,
                 beer: posting.beer.id,
                 price: posting.price,
