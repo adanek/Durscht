@@ -8,7 +8,8 @@ public class Application extends Controller {
 
     // GET /
     public static Result index() {
-        return ok(main.render());
+        String message = "";
+        return ok(main.render(message));
     }
 
 }

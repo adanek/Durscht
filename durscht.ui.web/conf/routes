@@ -2,18 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Admin Page @Roman hier deine routen eintragen
+# Home page
 GET            /                              controllers.Application.index()
-
-# Map static resources from the /public folder to the /assets URL path
-GET            /assets/*file                  controllers.Assets.at(path="/public", file)
-
-# WebService API
+POST           /login                         controllers.AuthenticationController.login()
 GET            /user/id                       controllers.AuthenticationController.getId()
-POST           /user/login                    controllers.AuthenticationController.login()
-POST           /user/logout                   controllers.AuthenticationController.logout()
-POST           /user/register                 controllers.AuthenticationController.register()
-
 POST           /share/nearBars                controllers.ShareController.getNearBars()
 POST           /share/createPost              controllers.ShareController.createPost()
 POST           /share/createBar               controllers.ShareController.createBar()
@@ -21,10 +13,12 @@ POST           /share/createBeer              controllers.ShareController.create
 GET            /share/getAllBeers             controllers.ShareController.getAllBeers()
 GET            /share/beersFromBar/:id        controllers.ShareController.getBeersFromBar(id: Integer)
 
-POST           /beer/create                   controllers.BeerController.create()
+POST            /beer/create                  controllers.BeerController.create()
 
 # Options for CORS Cross Origin Resource Sharing
 OPTIONS        /                              controllers.CorsController.CorsOptions(url: String ?= "root")
 OPTIONS        /*url                          controllers.CorsController.CorsOptions(url: String)
 
 
+# Map static resources from the /public folder to the /assets URL path
+GET            /assets/*file                  controllers.Assets.at(path="/public", file)
