@@ -10,14 +10,17 @@
         $scope.website = website;
         $scope.remark = remark;
         $scope.create = function () {
-            barService.createBar($scope.name, $scope.website, $scope.remark).success(function (data) {
-                posting.bar = data;
-                $location.path("/share/beer/create").replace();
-                $scope.$apply();
-            }).error(function (data, status, headers, config) {
-                $scope.error = "Das hat nich geklappt!";
-                $scope.$apply();
-            });
+            $scope.$broadcast('show-errors-check-validity');
+            if ($scope.createBarForm.$valid) {
+                barService.createBar($scope.name, $scope.website, $scope.remark).success(function (data) {
+                    posting.bar = data;
+                    $location.path("/share/beer/create").replace();
+                    $scope.$apply();
+                }).error(function (data, status, headers, config) {
+                    $scope.error = "Das hat nich geklappt!";
+                    $scope.$apply();
+                });
+            }
         };
     };
     app.controller('ShareBarCreateCtrl', ['$scope', 'barService', 'posting', '$location', ctrl]);

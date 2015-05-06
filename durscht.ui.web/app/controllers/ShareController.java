@@ -120,6 +120,7 @@ public class ShareController extends Controller {
 
     private static void attachCorsHeaders() {
 
-        CorsController.addCorsHeaders(response());
+        String origin = request().getHeader("Origin");
+        CorsController.addCorsHeaders(response(), origin);
     }
 }

@@ -1,11 +1,12 @@
 <div>
     <h1>{{ caption }}</h1>
 
-    <form novalidate>
+    <form name="createBarForm" novalidate ng-submit="create()">
 
-        <div class="form-group">
+        <div class="form-group" show-errors>
             <label for="name">Name:</label>
-            <input id="name" type="text" ng-model="name" required class="form-control" placeholder="Schreib hier den Namen des Lokals rein..."/>
+            <input id="name" name="name" type="text" ng-model="name" required class="form-control" placeholder="Schreib hier den Namen des Lokals rein..."/>
+            <p class="help-block">Den Namen brauche ich auf jeden Fall!</p>
         </div>
 
         <div class="form-group">
@@ -19,7 +20,7 @@
         </div>
 
         <div>
-            <input type="submit" value="Weiter" ng-click="create()" class="form-control"/>
+            <input type="submit" value="Weiter" class="form-control"/>
         </div>
     </form>
 

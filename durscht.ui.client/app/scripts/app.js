@@ -1,8 +1,11 @@
 /// <reference path="_references.ts"/>
 (function () {
-    var app = angular.module("durschtApp", ["ngRoute", "ui.bootstrap"]);
+    var app = angular.module("durschtApp", ["ngRoute", "ui.bootstrap", 'ui.bootstrap.showErrors']);
     app.config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.withCredentials = true;
+    }]);
+    app.config(['showErrorsConfigProvider', function (showErrorsConfigProvider) {
+        showErrorsConfigProvider.showSuccess(true);
     }]);
     app.config(function ($routeProvider) {
         $routeProvider.when('/', {
@@ -43,13 +46,8 @@
         });
     });
     // heroku
-    //app.constant("barApiUrl", 'https://durscht-service.herokuapp.com/share/');
-    //app.constant('shareApiUrl', 'https://durscht-service.herokuapp.com/share/');
-    app.constant('serviceHost', 'http://durscht-service.herokuapp.com');
+    app.constant('serviceHost', 'https://durscht-service.herokuapp.com');
     // local
     //app.constant('serviceHost', 'http://127.0.0.1:9000');
-    //app.constant("barApiUrl", 'http://192.168.1.11:9000/share/');
-    //app.constant('shareApiUrl', 'http://192.168.1.11:9000/share/');
-    //app.constant('authenticationUrl', 'http://192.168.1.11:9000/auth');
 })();
 //# sourceMappingURL=app.js.map

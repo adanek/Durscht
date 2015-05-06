@@ -28,7 +28,8 @@ public class MyAuthenticator extends Security.Authenticator {
 
         Http.Response response = ctx.response();
         response.setHeader("Referer", uri);
-        CorsController.addCorsHeaders(ctx.response());
+        String origin = ctx.request().getHeader("Origin");
+        CorsController.addCorsHeaders(ctx.response(), origin);
         return unauthorized();
     }
 }

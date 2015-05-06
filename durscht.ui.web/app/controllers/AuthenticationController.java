@@ -36,7 +36,7 @@ public class AuthenticationController extends Controller {
         int pid = Integer.parseInt(session().get("pid"));
 
         JsonNode data = Json.toJson(pid);
-        CorsController.addCorsHeaders(response());
+        attachCorsHeaders();
         return ok(data);
     }
 
@@ -47,11 +47,16 @@ public class AuthenticationController extends Controller {
         String name = data.findPath("name").textValue();
         String password = data.findPath("pw").textValue();
 
+        Logger.info(String.format("User tried to login with name: %s and pw: %s.\n", name, password));
         // Verify login data
         IUser user = ServiceLocator.getDataHandler().getUserLogin(name, password);
 
+        IUser user1 = ServiceLocator.getDataHandler().getUserByID(1);
+        Logger.info(String.format("%d %s %s %s", user1.getId(), user1.getName(), user1.getEmail(), user1.getJoinedDate().toString()));
+
         //user does not exist or is unauthorized
         if (user == null) {
+            Logger.info("User no user found");
             return unauthorized();
         }
 
@@ -85,7 +90,9 @@ public class AuthenticationController extends Controller {
     }
 
     private static void attachCorsHeaders() {
-        CorsController.addCorsHeaders(response());
+
+        String origin = request().getHeader("Origin");
+        CorsController.addCorsHeaders(response(), origin);
     }
 }
 

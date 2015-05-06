@@ -1,19 +1,22 @@
 <div>
-    <form novalidate ng-submit="register()">
+    <form name="registerForm" novalidate ng-submit="register()">
 
-        <div class="form-group">
+        <div class="form-group" show-errors>
             <label for="username">Benutzername:</label>
-            <input id="username" type="text" class="form-control" ng-model="username" required/>
+            <input id="username" name="username" type="text" class="form-control" ng-model="username" required/>
+            <p class="help-block">Einen Namen brauch ich schon!</p>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" show-errors>
             <label for="email">E-Mail:</label>
-            <input id="email" type="email" class="form-control" ng-model="email" required/>
+            <input id="email" name="email" type="email" class="form-control" ng-model="email" required/>
+            <p class="help-block">Deinen E-mail Adresse brauch ich auch.</p>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" show-errors>
             <label for="password">Passwort:</label>
-            <input id="password" type="password" class="form-control" ng-model="password" required/>
+            <input id="password" name="password" type="password" class="form-control" ng-model="password" required/>
+            <p class="help-block">Ohne Passwort kann ja jeder behaupten, dass er du ist.</p>
         </div>
 
         <div>

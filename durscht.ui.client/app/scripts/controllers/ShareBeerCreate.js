@@ -3,9 +3,10 @@
 (function (app) {
     var ctrl = function ($scope, barService, beerService, posting, $location) {
         $scope.caption = "Welches Bier konnte denn deinen Durscht stillen?";
+        // Fields for add beer
         $scope.beer = undefined;
         $scope.beers = [];
-        // Fields for new beer
+        // Fields for create beer
         $scope.showBeerForm = false;
         $scope.brand = "";
         $scope.type = "";
@@ -16,21 +17,30 @@
             });
             $scope.$apply();
         });
-        $scope.create = function () {
-            if ($scope.showBeerForm) {
-                beerService.createBeer($scope.brand, $scope.type, $scope.description).success(function (data) {
-                    posting.beer = data;
-                    $location.path('/share/details').replace();
-                    $scope.$apply();
-                });
-            }
-            else {
+        $scope.add = function () {
+            $scope.$broadcast('show-errors-check-validity');
+            if ($scope.addBeerForm.$valid) {
                 posting.beer = $scope.beer;
                 $location.path('/share/details').replace();
             }
             ;
         };
+        $scope.create = function () {
+            $scope.$broadcast('show-errors-check-validity');
+            if ($scope.createBeerForm.$valid) {
+                beerService.createBeer($scope.brand, $scope.type, $scope.description).success(function (data) {
+                    posting.beer = data;
+                    $location.path('/share/details').replace();
+                    $scope.$apply();
+                }).error(function () {
+                    $scope.error = "Das hat nicht geklappt!";
+                });
+            }
+            ;
+        };
         $scope.newBeer = function () {
+            $scope.caption = "Na dann lass es uns anlegen!";
+            $scope.$broadcast('show-errors-reset');
             $scope.showBeerForm = true;
         };
     };

@@ -10,6 +10,8 @@ import play.mvc.Result;
 
 public class BeerController extends Controller {
 
+
+    //POST /beer/create
     public static Result create(){
 
         // Get data from request
@@ -18,12 +20,16 @@ public class BeerController extends Controller {
         String type = body.findPath("type").textValue();
         String description = body.findPath("description").textValue();
 
-        // TODO: Replace this as soon BeerHandler provides method
-        IBeer beer = ServiceLocator.getDataHandler().createBeer(brand, type, description);
-        int id = beer.getId();
+        durscht.contracts.ui.IBeer beer = ServiceLocator.getBeerHandler().createNewBeer(brand, type, description);
 
-        JsonNode data = Json.toJson(id);
-        CorsController.addCorsHeaders(response());
+        JsonNode data = Json.toJson(beer);
+        attachCorsHeaders();
         return created(data);
+    }
+
+    private static void attachCorsHeaders() {
+
+        String origin = request().getHeader("Origin");
+        CorsController.addCorsHeaders(response(), origin);
     }
 }

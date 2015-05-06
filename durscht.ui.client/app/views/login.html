@@ -1,20 +1,22 @@
 <div>
 	<h1 class="text-center">{{ caption }}</h1>
 	
-	<form novalidate ng-submit="login()" >
+	<form name="loginForm" novalidate ng-submit="login()" >
 	
-		<div class="form-group">
+		<div class="form-group" show-errors>
 			<label for="username">Benutzername:</label>
-			<input type="text" id="username" class="form-control" placeholder="Dein Name" ng-model="username">
+			<input type="text" name="username" id="username" class="form-control" placeholder="Dein Name" ng-model="username" required>
+            <div class="help-block">Deinen Namen musst du mir schon verraten.</div>
 		</div>
 		
-		<div class="form-group">
+		<div class="form-group" show-errors>
 			<label for="password">Passwort:</label>
-			<input id="password" class="form-control" placeholder="Dein Passwort" type="PASSWORD" ng-model="password"/>
+			<input name="password" id="password" class="form-control" placeholder="Dein Passwort" type="PASSWORD" ng-model="password" required/>
+            <p class="help-block">Ohne Passwort könnte ja jeder behaupten, dass er du ist</p>
 		</div>
 		
 		<div class="form-group">
-			<input type="submit" value="Login" class="btn btn-default form-control"/>
+			<input type="submit" value="Lass mich rein" class="btn btn-default form-control"/>
 		</div>
 
 		<div class="form-group" ng-show="errorMessage">
@@ -22,7 +24,7 @@
 		</div>
 		
 		<div class="form-group text-center">
-			<a class="btn btn-default form-control" ng-click="register()">Register</a>
+			<a class="btn btn-default form-control" ng-click="register()">Nein, mich kennst du noch nicht</a>
 		</div>
 		
 	</form>
