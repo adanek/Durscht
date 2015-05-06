@@ -31,10 +31,10 @@ public class DatabaseUpdate {
 	public static void main(String args[]) {
 
 		try {
-			//DataHandler.setTestDB(true);
+			DataHandler.setTestDB(true);
 			// get handler
 			IDataHandler handler = new DataHandler();
-/*
+
 			// create new users
 			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin").getId();
 			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2").getId();
@@ -82,14 +82,22 @@ public class DatabaseUpdate {
 							"The user will get this achievement when he drinks 100 beers and add a post to the app")
 					.getId();
 
+			//create posts
 			int post1 = handler.createPost(barid1, beerid1, userid1, 3.0, 2, "Post1").getId();
 			int post2 = handler.createPost(barid1, beerid2, userid2, 3.0, 2, "Post2").getId();
 			int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3").getId();
 			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
 			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
-
+			
+			//get user
 			IUser user = handler.getUserLogin("user2", "user2");
+			
+			//assign Achievements
+			Collection<IAchievement> ach = handler.getAllAchievements();
+			handler.assignAchievementToUser(user.getId(), achid1);
+			handler.assignAchievementToUser(user.getId(), achid2);
 
+		/*	//all get methods
 			Collection<IBeer> beers1 = handler.getAllBeers();
 			Collection<IBeer> bars1 = handler.getAllBeersFromBar(barid1);
 			Collection<IBeer> bars2 = handler.getAllBeersFromBar(barid2);
@@ -100,12 +108,11 @@ public class DatabaseUpdate {
 			Collection<IBeerPost> userposts2 = handler.getAllPostsFromUser(userid2);
 
 			Collection<IBar> bars3 = handler.getBarsCoordinates(11.34, 11.35,
-					47.26, 47.27);
-					
-			// all bars
-			Collection<IBar> bars4 = handler.getBarsCoordinates(5, 60, 5, 55);
+					47.26, 47.27);*/
+			
+			Collection<IAchievement> userAch = handler.getAllAchievementsFromUser(user.getId());
 
-			// fehler erzeugen
+/*			// fehler erzeugen
 			try {
 				handler.getAchievementByID(99999);
 			} catch (Exception e) {
@@ -117,15 +124,7 @@ public class DatabaseUpdate {
 				System.out.println("Fehler delete");
 			}
 			
-			Collection<IBeer> bars1 = handler.getAllBeersFromBar(8);
-			*/
-			
-			//IUser user = handler.getUserLogin("user2", "user3");
-			
-			//Collection<IAchievement> ach = handler.getAllAchievements();
-			
-			IUser user = handler.assignAchievementToUser(40, 54);
-			Collection<IAchievement> ach = handler.getAllAchievementsFromUser(user.getId());
+*/
 			
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
