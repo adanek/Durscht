@@ -1,5 +1,6 @@
 package durscht.contracts.data;
 
+import java.util.Collection;
 import java.util.Date;
 
 public interface IUser {

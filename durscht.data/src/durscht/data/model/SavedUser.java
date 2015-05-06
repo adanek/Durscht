@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import durscht.contracts.data.IAchievement;
 import durscht.contracts.data.IUser;
 
 @Entity

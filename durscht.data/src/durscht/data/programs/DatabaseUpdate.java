@@ -120,10 +120,16 @@ public class DatabaseUpdate {
 			Collection<IBeer> bars1 = handler.getAllBeersFromBar(8);
 			*/
 			
-			IUser user = handler.getUserLogin("user2", "user3");
+			//IUser user = handler.getUserLogin("user2", "user3");
+			
+			//Collection<IAchievement> ach = handler.getAllAchievements();
+			
+			IUser user = handler.assignAchievementToUser(40, 54);
+			Collection<IAchievement> ach = handler.getAllAchievementsFromUser(user.getId());
 			
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
+			return;
 		}
 	}
 }

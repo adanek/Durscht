@@ -122,6 +122,14 @@ public interface IDataHandler {
 	public Collection<IBeer> getAllBeers() throws IllegalStateException;
 
 	/**
+	 * get all achievements that are saved in the database
+	 * 
+	 * @return all achievements
+	 * @throws IllegalStateException database error
+	 */
+	public Collection<IAchievement> getAllAchievements() throws IllegalStateException;
+	
+	/**
 	 * get all bars that are between the longitude and latitude coordinates
 	 * 
 	 * @param fromLatitude
@@ -165,6 +173,16 @@ public interface IDataHandler {
 	public Collection<IBeerPost> getAllPostsFromUser(int userID) throws IllegalArgumentException;
 
 	/**
+	 * get all achievements from a user
+	 * 
+	 * @param userID
+	 * @return a list of achievements
+	 * @throws IllegalArgumentException userID not in database
+	 * @throws IllegalStateException database error
+	 */
+	public Collection<IAchievement> getAllAchievementsFromUser(int userID) throws IllegalArgumentException;
+	
+	/**
 	 * search for a beer by ID
 	 * 
 	 * @return Beer
@@ -204,6 +222,14 @@ public interface IDataHandler {
 	 */
 	public IBeerPost getPostByID(int id) throws IllegalArgumentException;
 
+	/**
+	 * assign achievement to a user
+	 * 
+	 * @return User new User object
+	 * @throws IllegalArgumentException user or achievement with this ID not in database
+	 */
+	public IUser assignAchievementToUser(int userID, int achID) throws IllegalArgumentException;
+	
 	/**
 	 * disconnect database connection
 	 * 
