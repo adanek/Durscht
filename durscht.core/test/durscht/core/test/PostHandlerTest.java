@@ -14,8 +14,8 @@ import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IDataHandler;
 import durscht.core.PostHandler;
-import durscht.model.Bar;
-import durscht.model.Beer;
+import durscht.data.model.Bar;
+import durscht.data.model.Beer;
 
 public class PostHandlerTest {
 
@@ -46,6 +46,7 @@ public class PostHandlerTest {
 		postHandler.getNearBars(20, -191);
 	}
 
+	/* Deprecated
 	@Test (expected = NoSuchElementException.class)
 	public void getBarsNoSuchElementTest() {
 		IDataHandler dataHandler = Mockito.mock(IDataHandler.class);
@@ -55,30 +56,48 @@ public class PostHandlerTest {
 		
 		postHandler.getNearBars(47, 11);
 	}
+	*/
 	
 	@Test
-	public void getNearBars() {
+	public void getNearBarsTest() {
 		Collection<IBar> bars = new ArrayList<IBar>();
-		Collection<IBeer> beers = new ArrayList<IBeer>();
 		Bar bar = new Bar();
 		bar.setId(26);
+		bar.setName("TechCafe");
 		bars.add(bar);
-		
-		Beer beer = new Beer();
-		beers.add(beer);
 		
 		IDataHandler dataHandler = Mockito.mock(IDataHandler.class);
 		Mockito.when(dataHandler.getBarsCoordinates(Mockito.anyDouble(),Mockito.anyDouble(),
 				Mockito.anyDouble(),Mockito.anyDouble())).thenReturn(bars);
-		Mockito.when(dataHandler.getAllBeersFromBar(26)).thenReturn(beers);
 		postHandler.setDataHandler(dataHandler);
 		
-		int expected = 26;
-		int actual = postHandler.getNearBars(47, 11)[0].getId();
+		durscht.contracts.ui.IBar ibar = postHandler.getNearBars(47, 11)[0];
 		
-		assertEquals(expected, actual);
+		assertEquals(26, ibar.getId());
+		assertEquals("TechCafe", ibar.getName());
 	}
 	
+	@Test
+	public void getBeersByBarTest() {
+		Collection<IBeer> beers = new ArrayList<IBeer>();
+		Beer beer = new Beer();
+		beer.setId(10);
+		beer.setBrand("Zipfer");
+		beer.setType("Märzen");
+		beers.add(beer);
+		
+		IDataHandler dataHandler = Mockito.mock(IDataHandler.class);
+		Mockito.when(dataHandler.getAllBeersFromBar(26)).thenReturn(beers);
+		
+		durscht.contracts.ui.IBeer ibeer = postHandler.getBeersByBar(26)[0];
+		
+		assertEquals(10, ibeer.getId());
+		assertEquals("Zipfer", ibeer.getBrand());
+		assertEquals("Märzen", ibeer.getType());
+		
+	}
+	
+	// will fail! IBeerPost returned!
 	@Test
 	public void putPostingTest() {
 		
@@ -90,6 +109,21 @@ public class PostHandlerTest {
 		int actual = postHandler.putPosting(0, 0, 0, 2.0, 2, "test");
 		
 		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void createNewBarTest() {
+		Bar bar = new Bar();
+		bar.setId(26);
+		bar.setName("barname");
+		
+		IDataHandler dataHandler = Mockito.mock(IDataHandler.class);
+		Mockito.when(dataHandler.createBar("barname", 0, 0, "descr", "www.bar.at")).thenReturn(bar);
+		
+		durscht.contracts.ui.IBar ibar = postHandler.createNewBar("barname", 0, 0, "descr", "www.bar.at");
+		
+		assertEquals(26, ibar.getId());
+		assertEquals("barname", ibar.getName());
 	}
 
 }
