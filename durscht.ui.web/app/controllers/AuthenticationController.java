@@ -95,7 +95,7 @@ public class AuthenticationController extends Controller {
 
     public static Result adminLogin() {
 
-        String email = request().body().asFormUrlEncoded().get("email")[0];
+       /* String email = request().body().asFormUrlEncoded().get("email")[0];
         String password = request().body().asFormUrlEncoded().get("password")[0];
 
         // Verify login data
@@ -109,7 +109,7 @@ public class AuthenticationController extends Controller {
         //store session data
         session().clear();
         session().put("pid", Integer.toString(user.getId()));
-
+    */
 
         return ok(menu.render());
     }
