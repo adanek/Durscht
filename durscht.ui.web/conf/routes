@@ -8,6 +8,7 @@ POST           /user/login                         controllers.AuthenticationCon
 GET            /user/choose_beer.scala.html        controllers.MenuController.chooseBeer()
 GET            /user/choose_bar.scala.html         controllers.MenuController.chooseBar()
 GET            /user/choose_user.scala.html        controllers.MenuController.chooseUser()
+GET            /user/choose_post.scala.html        controllers.MenuController.choosePost()
 
 
 # Map static resources from the /public folder to the /assets URL path
