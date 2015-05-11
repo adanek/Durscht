@@ -12,5 +12,7 @@ public interface IUser {
 	public String getEmail();
 
 	public Date getJoinedDate();
+	
+	public boolean isAdmin();
 
 }

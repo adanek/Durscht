@@ -33,7 +33,7 @@ public class TestBeerPost extends TestBase {
 		IBeer beer = beers.iterator().next();
 		
 		// create user
-		dataHandler.createUser("TestUser", "test.user@gmx.at", "Test1234").getId();
+		dataHandler.createUser("TestUser", "test.user@gmx.at", "Test1234", false).getId();
 
 		// login user
 		IUser user = dataHandler.getUserLogin("TestUser", "Test1234");

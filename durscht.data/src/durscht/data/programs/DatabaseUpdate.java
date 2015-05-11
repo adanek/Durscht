@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -36,9 +37,9 @@ public class DatabaseUpdate {
 			IDataHandler handler = new DataHandler();
 
 			// create new users
-			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin").getId();
-			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2").getId();
-			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3").getId();
+			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin",true).getId();
+			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2", false).getId();
+			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3",false).getId();
 
 			// create new beers
 			int beerid1 = handler.createBeer("Gösser", "Radler", "Herbes österreichisches Bier")
@@ -108,12 +109,13 @@ public class DatabaseUpdate {
 			Collection<IBeerPost> userposts2 = handler.getAllPostsFromUser(userid2);
 
 			Collection<IBar> bars3 = handler.getBarsCoordinates(11.34, 11.35,
-					47.26, 47.27);*/
+					47.26, 47.27);
 			
-			Collection<IAchievement> userAch = handler.getAllAchievementsFromUser(user.getId());
+			Collection<IAchievement> userAch = handler.getAllAchievementsFromUser(user.getId());*/
+			Collection<IBeerPost> posts = handler.getAllPosts();
 
-/*			// fehler erzeugen
-			try {
+			// fehler erzeugen
+			/*try {
 				handler.getAchievementByID(99999);
 			} catch (Exception e) {
 				System.out.println("Fehler achievement");

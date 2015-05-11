@@ -17,7 +17,7 @@ public interface IDataHandler {
 	 * @throws IllegalStateException
 	 *             creating object in database or hashing of the password failed
 	 */
-	public IUser createUser(String name, String email, String password)
+	public IUser createUser(String name, String email, String password, boolean admin)
 			throws IllegalStateException;
 
 	/**
@@ -176,6 +176,15 @@ public interface IDataHandler {
 			IllegalStateException;
 
 	/**
+	 * get all Posts from the database
+	 * 
+	 * @return Collection of posts or a empty list if no posts are in the database
+	 * @throws IllegalArgumentException
+	 *             database error
+	 */
+	public Collection<IBeerPost> getAllPosts() throws IllegalStateException;
+	
+	/**
 	 * get all posts from a bar
 	 * 
 	 * @param barID
@@ -257,6 +266,15 @@ public interface IDataHandler {
 	 *             post with this ID not in database
 	 */
 	public IBeerPost getPostByID(int id) throws IllegalArgumentException;
+	
+	/**
+	 * search bars by coordinates and beers
+	 * 
+	 * @return Collection of bars
+	 * @throws IllegalArgumentException
+	 *             post with this ID not in database
+	 */
+	public Collection<IBar> findBars(double fromLatitude, double toLatitude, double fromLongitude, double toLongitude, Collection<IBeer> beers) throws IllegalStateException;
 
 	/**
 	 * assign achievement to a user

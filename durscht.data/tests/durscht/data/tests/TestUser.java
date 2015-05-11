@@ -23,7 +23,7 @@ public class TestUser extends TestBase {
 	public void createUser() {
 
 		// create user
-		int id = dataHandler.createUser("TestUser", "test.user@gmx.at", "Test1234").getId();
+		int id = dataHandler.createUser("TestUser", "test.user@gmx.at", "Test1234", false).getId();
 
 		// get created user
 		IUser user = dataHandler.getUserByID(id);
@@ -36,6 +36,7 @@ public class TestUser extends TestBase {
 		assertEquals("TestUser", user.getName());
 		assertEquals("test.user@gmx.at", user.getEmail());
 		assertEquals(date.toString(), user.getJoinedDate().toString());
+		assertEquals(false, user.isAdmin());
 
 	}
 
