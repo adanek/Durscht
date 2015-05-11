@@ -42,6 +42,10 @@ public class ServiceLocator {
 		return beerHandler;
 	}
 
+	public static void setBeerHandler(IBeerHandler beerHandler) {
+		ServiceLocator.beerHandler = beerHandler;
+	}
+
 	public static IDataHandler getDataHandler() {
 
 		if (dataHandler == null) {
