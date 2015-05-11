@@ -73,4 +73,18 @@ public class BeerHandler implements IBeerHandler {
 		return beer;
 	}
 
+	@Override
+	public durscht.contracts.ui.IBeer[] getAllBeers(){
+		Iterable<String> Keys = beers.keys();
+		if (beers.isEmpty()) {
+			throw new NoSuchElementException("couldn't find a beer");
+		}
+		List<Beer> beersList = new LinkedList<Beer>();
+		for (String name : Keys) {
+			beersList.add(beers.get(name));
+		}
+
+		return beersList.toArray(new Beer[beersList.size()]);
+	}
+
 }

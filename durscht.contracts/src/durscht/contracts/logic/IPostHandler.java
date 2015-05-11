@@ -20,7 +20,7 @@ public interface IPostHandler {
 	 * Looks for a given bar in the database for all its beers.
 	 * 
 	 * @param bar The bar whose beers are looked up
-	 * @return Array of beers registerd for a given bar
+	 * @return Array of beers registered for a given bar
 	 */
 	public IBeer[] getBeersByBar(int barID) throws IllegalArgumentException, IllegalStateException;
 
