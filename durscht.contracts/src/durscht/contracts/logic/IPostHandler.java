@@ -48,4 +48,12 @@ public interface IPostHandler {
 	 */
 	public IBar createNewBar(String name, double latitude, double longitude, String description, String url)
 			throws IllegalStateException;
+
+	/**
+	 * Returns all bars around you which serve at least one of the beers mentioned in beers
+	 * 
+	 * @param beers Beer array listing your preferred beers
+	 * @return Bar array that lists all bars around your spot that serve one of the beers
+	 */
+	public IBar[] getBarsByBeer(double latitude, double longitude, IBeer[] beers);
 }
