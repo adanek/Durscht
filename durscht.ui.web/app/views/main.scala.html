@@ -1,6 +1,8 @@
+@(message: String)
 <!DOCTYPE html>
 
 @import play.i18n.Messages;
+
 
 <html>
 	<head>
@@ -16,18 +18,31 @@
 	
 		<h1 class="text-center">Grias di beim Durscht Web Service</h1>
 
-		<div class="form-group">
-			<label for="email">Email address:</label>
-			<input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
-		</div>
+		<div class="text-center">
+			<div class="btn-group-vertical">
+				<form class="login-form" action="@routes.AuthenticationController.adminLogin()"method="post">
 
-		<div class="form-group">
-			<label for="password">Password:</label>
-			<input type="password" name="password" class="form-control" id="password" placeholder="Password">
-		</div>
+					<div class="form-group text-left">
+						<label for="email">Email address:</label>
+						<input type="text" name="email" class="form-control" id="email" placeholder="Enter email">
+					</div>
 
-		<div class="form-group">
-			<button type="submit" class="btn btn-default">@Messages.get("Login")</button>
+					<div class="form-group text-left">
+						<label for="password">Password:</label>
+						<input type="password" name="password" class="form-control" id="password" placeholder="Password">
+					</div>
+
+					<div class="form-group text-left">
+						<button type="submit" class="btn btn-default">@Messages.get("Login")</button>
+					</div>
+					@if(message){
+						<div class="alert alert-danger" role="alert">
+						@message
+						</div>
+					}
+
+				</form>
+			</div>
 		</div>
 
 		<section id="scripts">

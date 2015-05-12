@@ -1,0 +1,46 @@
+@(beers: List[controllers.mock.Beer])
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <title>Beer Menü</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.css")"/>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+  </head>
+
+  <body class="container">
+
+    <h1 class="text-center">Beer Menü</h1>
+        <div>
+          <table class="table">
+            <th>
+              <tr>
+                <th>ID</th>
+                <th>Brand</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </th>
+            <tbody>
+            @for(beer <- beers){
+              <tr>
+                <td>@beer.getId</td>
+                <td>@beer.getBrand</td>
+                <td>@beer.getType</td>
+                <td>@beer.getDescription</td>
+                <td>  <a class="btn btn-default" href=@("/beers/delete/" + beer.getId)> löschen</a>
+                </td>
+              </tr>
+            }
+            </tbody>
+          </table>
+        </div>
+    <section id="scripts">
+		</section>
+  </body>
+</html>

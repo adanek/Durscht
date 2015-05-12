@@ -4,6 +4,7 @@ import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
+import durscht.core.User;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
 import play.libs.Json;
@@ -11,6 +12,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
+import views.html.main;
+import views.html.menu;
+
+import java.util.Map;
 
 
 public class AuthenticationController extends Controller {
@@ -88,6 +93,29 @@ public class AuthenticationController extends Controller {
         attachCorsHeaders();
         return ok();
     }
+
+    public static Result adminLogin() {
+
+        String email = request().body().asFormUrlEncoded().get("email")[0];
+        String password = request().body().asFormUrlEncoded().get("password")[0];
+
+        // Verify login data
+        User user = ServiceLocator.getLoginHandler().login(email, password);
+
+        //user does not exist or is unauthorized
+        if (user == null) {
+            return unauthorized(main.render("Unauthorisiert!"));
+        }
+
+        //store session data
+        session().clear();
+        session().put("pid", Integer.toString(user.getId()));
+
+
+        return ok(menu.render());
+    }
+
+
 
     private static void attachCorsHeaders() {
 

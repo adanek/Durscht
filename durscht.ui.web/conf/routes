@@ -4,6 +4,17 @@
 
 # Admin Page @Roman hier deine routen eintragen
 GET            /                              controllers.Application.index()
+POST           /user/login                    controllers.AuthenticationController.adminLogin()
+GET            /admin/users                   controllers.MenuController.allUsers()
+GET            /admin/bars                    controllers.MenuController.allBars()
+GET            /admin/posts                   controllers.MenuController.allPosts()
+GET            /admin/beers                   controllers.MenuController.allBeers()
+
+GET            /posts/delete/:id              controllers.MenuController.deletePost(id:Integer)
+GET            /beers/delete/:id              controllers.MenuController.deleteBeer(id:Integer)
+GET            /bars/delete/:id               controllers.MenuController.deleteBar(id:Integer)
+GET            /users/delete/:id              controllers.MenuController.deleteUser(id:Integer)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET            /assets/*file                  controllers.Assets.at(path="/public", file)
@@ -26,5 +37,3 @@ POST           /beer/create                   controllers.BeerController.create(
 # Options for CORS Cross Origin Resource Sharing
 OPTIONS        /                              controllers.CorsController.CorsOptions(url: String ?= "root")
 OPTIONS        /*url                          controllers.CorsController.CorsOptions(url: String)
-
-
