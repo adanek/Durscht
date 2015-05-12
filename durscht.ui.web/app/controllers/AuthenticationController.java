@@ -4,6 +4,7 @@ import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
+import durscht.core.User;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
 import play.libs.Json;
@@ -99,7 +100,7 @@ public class AuthenticationController extends Controller {
         String password = request().body().asFormUrlEncoded().get("password")[0];
 
         // Verify login data
-        IUser user = ServiceLocator
+        User user = ServiceLocator.getLoginHandler().login(email, password);
 
         //user does not exist or is unauthorized
         if (user == null) {

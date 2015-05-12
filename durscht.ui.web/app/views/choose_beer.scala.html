@@ -1,3 +1,4 @@
+@(beers: List[controllers.mock.Beer])
 <!DOCTYPE html>
 
 
@@ -15,17 +16,30 @@
   <body class="container">
 
     <h1 class="text-center">Beer Menü</h1>
-
-    <div class="text-center">
-
-      <div class="col-xs-12 text-center">
-        <div class="btn-group-vertical">
-          <a class='btn btn-default btn-lg btn-block' href="">Bier ändern</a>
+        <div>
+          <table class="table">
+            <th>
+              <tr>
+                <th>ID</th>
+                <th>Brand</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </th>
+            <tbody>
+            @for(beer <- beers){
+              <tr>
+                <td>@beer.getId</td>
+                <td>@beer.getBrand</td>
+                <td>@beer.getType</td>
+                <td>@beer.getDescription</td>
+                <td>  <a class="btn btn-default" href=@("/beers/delete/" + beer.getId)> löschen</a>
+                </td>
+              </tr>
+            }
+            </tbody>
+          </table>
         </div>
-      </div>
-
-    </div>
-
     <section id="scripts">
 		</section>
   </body>

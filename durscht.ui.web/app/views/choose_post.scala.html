@@ -1,3 +1,4 @@
+@(posts: List[controllers.mock.Post])
 <!DOCTYPE html>
 
 
@@ -13,19 +14,29 @@
   </head>
 
   <body class="container">
-
     <h1 class="text-center">Post Menü</h1>
-
-    <div class="text-center">
-
-      <div class="col-xs-12 text-center">
-        <div class="btn-group-vertical">
-          <a class='btn btn-default btn-lg btn-block' href="">Post ändern</a>
+        <div>
+            <table class="table">
+              <th>
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>ID</th>
+                </tr>
+              </th>
+                <tbody>
+                @for(post <- posts){
+                  <tr>
+                    <td>@post.username</td>
+                    <td>@post.price</td>
+                    <td>@post.id</td>
+                    <td>  <a class="btn btn-default" href=@("/posts/delete/" + post.id)> löschen</a>
+                    </td>
+                  </tr>
+                }
+                </tbody>
+            </table>
         </div>
-      </div>
-
-    </div>
-
     <section id="scripts">
 		</section>
   </body>
