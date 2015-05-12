@@ -25,7 +25,7 @@ public class Beer implements IBeer {
 		this.description = description;
 	}
 	
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
