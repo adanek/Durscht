@@ -1,5 +1,9 @@
 /.metadata/
 /.recommenders/
+*.classpath
+durscht.ui.web/.idea
+durscht.ui.web/.settings
+durscht.contracts/durscht.contracts.iml
 npm-debug.log
 .gitignore
 node_modules

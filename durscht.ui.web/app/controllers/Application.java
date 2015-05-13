@@ -6,7 +6,6 @@ import views.html.*;
 
 public class Application extends Controller {
 
-    // GET /
     public static Result index() {
         String message = "";
         return ok(main.render(message));
