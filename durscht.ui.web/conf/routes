@@ -4,7 +4,9 @@
 
 # Admin Page @Roman hier deine routen eintragen
 GET            /                              controllers.Application.index()
+POST           /                              controllers.AuthenticationController.logout()
 POST           /user/login                    controllers.AuthenticationController.adminLogin()
+GET            /user/login                    controllers.MenuController.goToMenu()
 GET            /admin/users                   controllers.MenuController.allUsers()
 GET            /admin/bars                    controllers.MenuController.allBars()
 GET            /admin/posts                   controllers.MenuController.allPosts()

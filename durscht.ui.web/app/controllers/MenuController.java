@@ -12,10 +12,7 @@ import durscht.data.model.BeerPost;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.Array;
-import views.html.choose_beer;
-import views.html.choose_bar;
-import views.html.choose_user;
-import views.html.choose_post;
+import views.html.*;
 
 import java.util.Collection;
 import java.util.Date;
@@ -26,14 +23,8 @@ public class MenuController extends Controller{
 
     public static Result allBeers(){
 
-
-
         durscht.contracts.ui.IBeer [] beers = ServiceLocator.getBeerHandler().getAllBeers();
-
-
-
         return ok(choose_beer.render(beers));
-
     }
 
     public static Result allPosts(){
@@ -41,8 +32,6 @@ public class MenuController extends Controller{
         //durscht.data.model.Bar bar = new durscht.data.model.Bar();
         //bar.setName("Wunderbar");
 
-
-        //durscht.data.model.BeerPost post;
         List<Post> posts = new LinkedList<>();
         posts.add(new Post("user1",4, "wunderbar", 2.0, "info",5, new Date(4,5,5)));
         posts.add(new Post("user1",4, "wunderbar", 2.0, "info",5, new Date(4,5,5)));
@@ -54,12 +43,6 @@ public class MenuController extends Controller{
 
         //IBar[] nearBars = ServiceLocator.getPostHandler().getNearBars(47.0, 11.0);
 
-        IBeer[] beers1;
-        //beers1[1] = new IBeer()IBeer(2, "desc", "type", "brand");
-        //IBeer beer = new IBeer(2, "desc", "type", "brand");
-
-
-
         //List<Bar> bars = new LinkedList<>();
        // bars.add(new Bar(1, "wunderbar", 4.0, beers1));
 
@@ -70,7 +53,9 @@ public class MenuController extends Controller{
         return ok(choose_user.render());
     }
 
-
+    public static Result goToMenu(){
+        return ok(menu.render());
+    }
 
 
     public static Result deletePost(int id){
