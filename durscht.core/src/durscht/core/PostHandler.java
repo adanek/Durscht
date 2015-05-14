@@ -12,7 +12,7 @@ import durscht.core.config.ServiceLocator;
 
 public class PostHandler implements IPostHandler {
 
-	private final double BAR_SEARCH_RADIUS = 15.0;
+	// private final double BAR_SEARCH_RADIUS = 15.0;
 
 	private IDataHandler dataHandler;
 
@@ -34,10 +34,17 @@ public class PostHandler implements IPostHandler {
 			throw new IllegalArgumentException("invalid latitude or longitude");
 		}
 
+		return getNearBars(latitude, longitude, 3.0);
+
+	}
+
+	private durscht.contracts.ui.IBar[] getNearBars(double latitude, double longitude, double search_radius)
+			throws IllegalArgumentException, IllegalStateException {
+
 		IDataHandler dataHandler = getDataHandler();
 
-		double latitudeOffset = calcLongitudeOffset(latitude, BAR_SEARCH_RADIUS);
-		double longitudeOffset = calcLatitudeOffset(BAR_SEARCH_RADIUS);
+		double latitudeOffset = calcLongitudeOffset(latitude, search_radius);
+		double longitudeOffset = calcLatitudeOffset(search_radius);
 
 		Collection<IBar> nearIBarsList = dataHandler.getBarsCoordinates(latitude - latitudeOffset, latitude
 				+ latitudeOffset, longitude - longitudeOffset, longitude + longitudeOffset);
@@ -165,4 +172,32 @@ public class PostHandler implements IPostHandler {
 		return bar;
 	}
 
+	@Override
+	public durscht.contracts.ui.IBar[] getBarsByBeer(double latitude, double longitude,
+			durscht.contracts.ui.IBeer[] beers) {
+
+		IDataHandler dataHandler = getDataHandler();
+		Collection<durscht.contracts.ui.IBar> filteredBars = new ArrayList<>();
+
+		// get all near bars
+		durscht.contracts.ui.IBar[] ibars = getNearBars(latitude, longitude, 5);
+
+		// filter bars for beers that are in the beers array
+		for (durscht.contracts.ui.IBar ibar : ibars) {
+			Collection<IBeer> ibeers = dataHandler.getAllBeersFromBar(ibar.getId());
+
+			// look through all registered beers of every bar
+			for (IBeer ibeer : ibeers) {
+
+				for (durscht.contracts.ui.IBeer beer : beers) {
+					if (ibeer.getId() == beer.getId()) {
+						filteredBars.add(ibar);
+						break;
+					}
+				}
+			}
+		}
+
+		return filteredBars.toArray(new durscht.contracts.ui.IBar[filteredBars.size()]);
+	}
 }

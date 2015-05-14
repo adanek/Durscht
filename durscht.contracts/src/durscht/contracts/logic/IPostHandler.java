@@ -20,7 +20,7 @@ public interface IPostHandler {
 	 * Looks for a given bar in the database for all its beers.
 	 * 
 	 * @param bar The bar whose beers are looked up
-	 * @return Array of beers registerd for a given bar
+	 * @return Array of beers registered for a given bar
 	 */
 	public IBeer[] getBeersByBar(int barID) throws IllegalArgumentException, IllegalStateException;
 
@@ -48,4 +48,12 @@ public interface IPostHandler {
 	 */
 	public IBar createNewBar(String name, double latitude, double longitude, String description, String url)
 			throws IllegalStateException;
+
+	/**
+	 * Returns all bars around you which serve at least one of the beers mentioned in beers
+	 * 
+	 * @param beers Beer array listing your preferred beers
+	 * @return Bar array that lists all bars around your spot that serve one of the beers
+	 */
+	public IBar[] getBarsByBeer(double latitude, double longitude, IBeer[] beers);
 }

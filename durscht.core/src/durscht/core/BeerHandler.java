@@ -26,7 +26,7 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	public BeerHandler() {
-		IDataHandler dataHandler = ServiceLocator.getDataHandler();
+		IDataHandler dataHandler = getDataHandler();
 
 		beers = new TrieST<Beer>();
 
@@ -46,9 +46,7 @@ public class BeerHandler implements IBeerHandler {
 	public durscht.contracts.ui.IBeer[] getBeersByPrefix(String prefix) {
 
 		Iterable<String> prefixKeys = beers.keysWithPrefix(prefix);
-		if (beers.isEmpty()) {
-			throw new NoSuchElementException("couldn't find a beer");
-		}
+
 		List<Beer> beersWithPrefix = new LinkedList<Beer>();
 		for (String name : prefixKeys) {
 			beersWithPrefix.add(beers.get(name));
@@ -71,6 +69,20 @@ public class BeerHandler implements IBeerHandler {
 		beer.setDescription(ibeer.getDescription());
 
 		return beer;
+	}
+
+	@Override
+	public durscht.contracts.ui.IBeer[] getAllBeers() {
+		Iterable<String> Keys = beers.keys();
+		if (beers.isEmpty()) {
+			throw new NoSuchElementException("couldn't find a beer");
+		}
+		List<Beer> beersList = new LinkedList<Beer>();
+		for (String name : Keys) {
+			beersList.add(beers.get(name));
+		}
+
+		return beersList.toArray(new Beer[beersList.size()]);
 	}
 
 }
