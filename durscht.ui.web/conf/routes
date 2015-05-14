@@ -7,15 +7,17 @@ GET            /                              controllers.Application.index()
 POST           /                              controllers.AuthenticationController.logout()
 POST           /user/login                    controllers.AuthenticationController.adminLogin()
 GET            /user/login                    controllers.MenuController.goToMenu()
-GET            /admin/users                   controllers.MenuController.allUsers()
-GET            /admin/bars                    controllers.MenuController.allBars()
-GET            /admin/posts                   controllers.MenuController.allPosts()
-GET            /admin/beers                   controllers.MenuController.allBeers()
+GET            /admin/users                   controllers.MenuController.showAllUsers()
+GET            /admin/bars                    controllers.MenuController.showAllBars()
+GET            /admin/posts                   controllers.MenuController.showAllPosts()
+GET            /admin/beers                   controllers.MenuController.showAllBeers()
 
-GET            /posts/delete/:id              controllers.MenuController.deletePost(id:Integer)
-GET            /beers/delete/:id              controllers.MenuController.deleteBeer(id:Integer)
-GET            /bars/delete/:id               controllers.MenuController.deleteBar(id:Integer)
-GET            /users/delete/:id              controllers.MenuController.deleteUser(id:Integer)
+GET            /posts/delete/:id              controllers.AdminPostController.deletePost(id:Integer)
+GET            /beers/delete/:id              controllers.AdminBeerController.deleteBeer(id:Integer)
+GET            /bars/delete/:id               controllers.AdminBarController.deleteBar(id:Integer)
+GET            /users/delete/:id              controllers.AdminUserController.deleteUser(id:Integer)
+
+GET            /beers/create                  controllers.AdminBeerController.createBeer()
 
 
 # Map static resources from the /public folder to the /assets URL path

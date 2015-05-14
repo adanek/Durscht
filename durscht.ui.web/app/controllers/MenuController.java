@@ -21,61 +21,24 @@ import java.util.List;
 
 public class MenuController extends Controller{
 
-    public static Result allBeers(){
-
-        durscht.contracts.ui.IBeer [] beers = ServiceLocator.getBeerHandler().getAllBeers();
-        return ok(choose_beer.render(beers));
+    public static Result showAllBeers(){
+        return ok(choose_beer.render(AdminBeerController.allBeers()));
     }
 
-    public static Result allPosts(){
-
-        //durscht.data.model.Bar bar = new durscht.data.model.Bar();
-        //bar.setName("Wunderbar");
-
-        List<Post> posts = new LinkedList<>();
-        posts.add(new Post("user1",4, "wunderbar", 2.0, "info",5, new Date(4,5,5)));
-        posts.add(new Post("user1",4, "wunderbar", 2.0, "info",5, new Date(4,5,5)));
-
-        return ok(choose_post.render(posts));
+    public static Result showAllBars(){
+        return ok(choose_bar.render(AdminBarController.allBars()));
     }
 
-    public static Result allBars(){
-
-        //IBar[] nearBars = ServiceLocator.getPostHandler().getNearBars(47.0, 11.0);
-
-        //List<Bar> bars = new LinkedList<>();
-       // bars.add(new Bar(1, "wunderbar", 4.0, beers1));
-
-        return ok(choose_bar.render());
+    public static Result showAllPosts(){
+        return ok(choose_post.render(AdminPostController.allPosts()));
     }
 
-    public static Result allUsers(){
-        return ok(choose_user.render());
+    public static Result showAllUsers(){
+        return ok(choose_user.render(AdminUserController.allUsers()));
     }
 
     public static Result goToMenu(){
         return ok(menu.render());
     }
-
-
-    public static Result deletePost(int id){
-        return redirect("/admin/posts");
-    }
-
-    public static Result deleteBeer(int id){
-        return redirect("/admin/beers");
-    }
-
-    public static Result deleteBar(int id){
-        return redirect("/admin/bars");
-    }
-
-    public static Result deleteUser(int id){
-        return redirect("/admin/users");
-    }
-
-
-
-
 
 }

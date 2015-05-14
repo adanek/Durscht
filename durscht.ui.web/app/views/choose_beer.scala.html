@@ -29,6 +29,16 @@
                 <th>Description</th>
                 <th></th>
               </tr>
+              <tr>
+                <td>New Beer</td>
+                <td> <input type="text" name="brand" class="form-control" id="brand">
+                  </td>
+                <td> <input type="text" name="type" class="form-control" id="type">
+                  </td>
+                <td> <input type="text" name="description" class="form-control" id="description">
+                  </td>
+                <td> <a class="btn btn-default" href=@("/beers/create" )> neues Bier</a></td>
+              </tr>
             <tbody>
             @for(beer <- beers){
               <tr>
