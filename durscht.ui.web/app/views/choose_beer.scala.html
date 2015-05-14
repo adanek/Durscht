@@ -1,4 +1,4 @@
-@(beers: List[controllers.mock.Beer])
+@(beers: Array[durscht.contracts.ui.IBeer])
 <!DOCTYPE html>
 
 
@@ -18,14 +18,13 @@
     <h1 class="text-center">Beer Menü</h1>
         <div>
           <table class="table">
-            <th>
               <tr>
                 <th>ID</th>
                 <th>Brand</th>
                 <th>Type</th>
                 <th>Description</th>
+                <th></th>
               </tr>
-            </th>
             <tbody>
             @for(beer <- beers){
               <tr>

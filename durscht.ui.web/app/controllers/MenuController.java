@@ -6,6 +6,7 @@ import controllers.mock.Post;
 import durscht.contracts.data.IBeerPost;
 import durscht.contracts.ui.IBar;
 import durscht.contracts.ui.IBeer;
+import durscht.core.BeerHandler;
 import durscht.core.config.ServiceLocator;
 import durscht.data.model.BeerPost;
 import play.mvc.Controller;
@@ -17,16 +18,18 @@ import views.html.choose_user;
 import views.html.choose_post;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class MenuController extends Controller{
 
     public static Result allBeers(){
-        //IBar[] nearBars = ServiceLocator.getPostHandler().getNearBars(47.0, 11.0);
 
-        List<Beer> beers = new LinkedList<>();
-        beers.add(new Beer(2, "desc", "type", "brand"));
+
+
+        durscht.contracts.ui.IBeer [] beers = ServiceLocator.getBeerHandler().getAllBeers();
+
 
 
         return ok(choose_beer.render(beers));
@@ -38,19 +41,23 @@ public class MenuController extends Controller{
         //durscht.data.model.Bar bar = new durscht.data.model.Bar();
         //bar.setName("Wunderbar");
 
+
         //durscht.data.model.BeerPost post;
         List<Post> posts = new LinkedList<>();
-        posts.add(new Post("user1", "wunderbar", "zipfer", 2.0, "soa schas", 23));
-        posts.add(new Post("user1", "wunderbar", "zipfer", 2.0, "soa schas", 24));
+        posts.add(new Post("user1",4, "wunderbar", 2.0, "info",5, new Date(4,5,5)));
+        posts.add(new Post("user1",4, "wunderbar", 2.0, "info",5, new Date(4,5,5)));
 
         return ok(choose_post.render(posts));
     }
 
     public static Result allBars(){
 
+        //IBar[] nearBars = ServiceLocator.getPostHandler().getNearBars(47.0, 11.0);
+
         IBeer[] beers1;
         //beers1[1] = new IBeer()IBeer(2, "desc", "type", "brand");
         //IBeer beer = new IBeer(2, "desc", "type", "brand");
+
 
 
         //List<Bar> bars = new LinkedList<>();
