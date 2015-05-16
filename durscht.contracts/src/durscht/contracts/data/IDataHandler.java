@@ -131,6 +131,15 @@ public interface IDataHandler {
 	public IUser getUserLogin(String name, String password) throws IllegalStateException;
 
 	/**
+	 * get all users that are saved in the database
+	 * 
+	 * @return all beers
+	 * @throws IllegalStateException
+	 *             database error
+	 */
+	public Collection<IUser> getAllUsers() throws IllegalStateException;
+	
+	/**
 	 * get all beers that are saved in the database
 	 * 
 	 * @return all beers
@@ -138,6 +147,15 @@ public interface IDataHandler {
 	 *             database error
 	 */
 	public Collection<IBeer> getAllBeers() throws IllegalStateException;
+	
+	/**
+	 * get all bars that are saved in the database
+	 * 
+	 * @return all bars
+	 * @throws IllegalStateException
+	 *             database error
+	 */
+	public Collection<IBar> getAllBars() throws IllegalStateException;
 
 	/**
 	 * get all achievements that are saved in the database
@@ -147,6 +165,15 @@ public interface IDataHandler {
 	 *             database error
 	 */
 	public Collection<IAchievement> getAllAchievements() throws IllegalStateException;
+	
+	/**
+	 * get all Posts from the database
+	 * 
+	 * @return Collection of posts or a empty list if no posts are in the database
+	 * @throws IllegalArgumentException
+	 *             database error
+	 */
+	public Collection<IBeerPost> getAllPosts() throws IllegalStateException;
 
 	/**
 	 * get all bars that are between the longitude and latitude coordinates
@@ -174,15 +201,6 @@ public interface IDataHandler {
 	 */
 	public Collection<IBeer> getAllBeersFromBar(int barID) throws IllegalArgumentException,
 			IllegalStateException;
-
-	/**
-	 * get all Posts from the database
-	 * 
-	 * @return Collection of posts or a empty list if no posts are in the database
-	 * @throws IllegalArgumentException
-	 *             database error
-	 */
-	public Collection<IBeerPost> getAllPosts() throws IllegalStateException;
 	
 	/**
 	 * get all posts from a bar

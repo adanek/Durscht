@@ -447,6 +447,33 @@ public class DataHandler implements IDataHandler {
 		return this.<Achievement> searchForID(id, Achievement.class);
 	}
 
+	public Collection<IUser> getAllUsers() throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(SavedUser.class);
+			List<IUser> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException(
+					"something went wrong by getting the user list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+	
 	public Collection<IBeer> getAllBeers() throws IllegalStateException {
 		Session session = openSession();
 
@@ -468,6 +495,33 @@ public class DataHandler implements IDataHandler {
 			session.getTransaction().rollback();
 			throw new IllegalStateException(
 					"something went wrong by getting the beer list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+	
+	public Collection<IBar> getAllBars() throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			List<IBar> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException(
+					"something went wrong by getting the bar list");
 		} finally {
 			// close session
 			session.close();
@@ -496,6 +550,34 @@ public class DataHandler implements IDataHandler {
 			session.getTransaction().rollback();
 			throw new IllegalStateException(
 					"something went wrong by getting the achievement list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+	
+	public Collection<IBeerPost> getAllPosts()
+			throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(BeerPost.class);
+			List<IBeerPost> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException(
+					"something went wrong by getting the post list");
 		} finally {
 			// close session
 			session.close();
@@ -576,34 +658,6 @@ public class DataHandler implements IDataHandler {
 			session.getTransaction().rollback();
 			throw new IllegalStateException(
 					"something went wrong by getting the beer list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-
-	public Collection<IBeerPost> getAllPosts()
-			throws IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(BeerPost.class);
-			List<IBeerPost> results = cr.list();
-
-			// commit
-			session.getTransaction().commit();
-
-			return results;
-
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the post list");
 		} finally {
 			// close session
 			session.close();
