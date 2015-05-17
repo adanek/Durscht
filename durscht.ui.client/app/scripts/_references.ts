@@ -22,7 +22,7 @@ interface BarService {
 	getBeersFromBar: (bar:Bar) => ng.IHttpPromise<Array<Beer>>;
 	getAllBeers: () => ng.IHttpPromise<Array<Beer>>;
     addBeerToBar: (bar: Bar, beer: Beer) => ng.IPromise<void>;
-	getBarsWithBeers: (beers:Array<Beer>) => ng.IHttpPromise<Array<Bar>>;
+	getBarsWithFavoriteBeers: () => ng.IHttpPromise<Array<Bar>>;
 }
 
 interface BeerService {

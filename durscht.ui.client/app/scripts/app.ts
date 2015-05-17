@@ -66,6 +66,10 @@
                 templateUrl: 'views/find-beer-choose.html',
                 controller: 'FindBeerChooseCtrl'
             })
+            .when('/find/bars', {
+                templateUrl: 'views/find-bar-list.html',
+                controller: 'FindBarListCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

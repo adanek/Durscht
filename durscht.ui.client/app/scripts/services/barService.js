@@ -1,6 +1,6 @@
 /// <reference path="../_references.ts"/>
 (function (app) {
-    function service(serviceHost, $http, posting, locationService) {
+    function service(serviceHost, $http, posting, locationService, beerService) {
         var srv = this;
         srv.getNearBars = function () {
             return $http.post(serviceHost + "/share/nearBars", {
@@ -23,15 +23,15 @@
         srv.getAllBeers = function () {
             return $http.get(serviceHost + "/share/getAllBeers");
         };
-        srv.getBarsWithBeers = function (beers) {
-            return $http.get(serviceHost + '/bars/withBeers', {
+        srv.getBarsWithFavoriteBeers = function () {
+            return $http.post(serviceHost + '/bars/withBeers', {
                 latitude: locationService.latitude,
                 longitude: locationService.longitude,
-                beers: beers
+                beers: beerService.getFavorites()
             });
         };
         return srv;
     }
-    app.factory('barService', ['serviceHost', '$http', 'posting', 'locationService', service]);
+    app.factory('barService', ['serviceHost', '$http', 'posting', 'locationService', 'beerService', service]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=barService.js.map
