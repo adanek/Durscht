@@ -2,7 +2,7 @@
 
 (function (app) {
 
-    function service(serviceHost, $http, posting) {
+    function service(serviceHost, $http, posting, locationService: LocationService) {
 
         var srv:BarService = this
 
@@ -34,9 +34,17 @@
             return $http.get(serviceHost + "/share/getAllBeers");
         }
 
+        srv.getBarsWithBeers = function(beers: Array<Beer>){
+            return $http.get(serviceHost + '/bars/withBeers', {
+                latitude: locationService.latitude,
+                longitude: locationService.longitude,
+                beers: beers
+            });
+        }
+
         return srv;
     }
 
-    app.factory('barService', ['serviceHost', '$http', 'posting', service]);
+    app.factory('barService', ['serviceHost', '$http', 'posting', 'locationService', service]);
 
 })(angular.module('durschtApp'));

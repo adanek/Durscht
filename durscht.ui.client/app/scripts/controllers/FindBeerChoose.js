@@ -1,9 +1,13 @@
 /// <reference path="../_references.ts"/>
 'use strict';
 (function (app) {
-    var ctrl = function ($scope, $location) {
+    var ctrl = function ($scope, $location, beerService) {
         $scope.caption = 'Welches Bier hättesch denn gern?';
         $scope.beer = {};
+        var beers = [];
+        beerService.getUsed().success(function (data) {
+            beers = data;
+        });
         var beers = [
             { brand: 'Zipfer', type: 'Märzen', id: 0, description: '' },
             { brand: 'Corona', type: 'Extra', id: 1, description: '' }
@@ -49,9 +53,10 @@
             $scope.beers.sort(compareBeers);
         };
         $scope.searchBars = function () {
+            beerService.setFavorites($scope.selectedBeers);
             $location.path('/find/bars').replace();
         };
     };
-    app.controller('FindBeerChooseCtrl', ['$scope', '$location', ctrl]);
+    app.controller('FindBeerChooseCtrl', ['$scope', '$location', 'beerService', ctrl]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=FindBeerChoose.js.map

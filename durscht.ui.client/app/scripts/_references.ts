@@ -22,10 +22,15 @@ interface BarService {
 	getBeersFromBar: (bar:Bar) => ng.IHttpPromise<Array<Beer>>;
 	getAllBeers: () => ng.IHttpPromise<Array<Beer>>;
     addBeerToBar: (bar: Bar, beer: Beer) => ng.IPromise<void>;
+	getBarsWithBeers: (beers:Array<Beer>) => ng.IHttpPromise<Array<Bar>>;
 }
 
 interface BeerService {
 	createBeer: (brand:string, type:string, description:string) => ng.IHttpPromise<string>;
+	getAll: () => ng.IHttpPromise<Array<Beer>>;
+	getUsed: () => ng.IHttpPromise<Array<Beer>>;
+    setFavorites: (beers:Array<Beer>) => void;
+    getFavorites: () => Array<Beer>;
 }
 
 interface Posting {
@@ -49,4 +54,10 @@ interface AuthenticationService {
 	logout: () => ng.IHttpPromise<void>;
     getId: () => ng.IHttpPromise<string>;
 	register: (username:string, email:string, password:string) => ng.IHttpPromise<void>;
+}
+
+interface LocationService {
+	latitude: number;
+	longitude: number;
+	locate: ()=> ng.IPromise<void>;
 }

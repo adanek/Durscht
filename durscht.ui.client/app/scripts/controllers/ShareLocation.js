@@ -8,7 +8,7 @@
  * Controller of the durschtApp
  */
 (function (app) {
-    var ctrl = function (posting, $window, $scope, $location, $rootScope) {
+    var ctrl = function (posting, $window, $scope, $location) {
         $scope.caption = "Mal schaun, ob ich dich finden kann...";
         // Check if geolocation is supported
         if ($window.navigator.geolocation) {
@@ -53,6 +53,6 @@
             $scope.errorMessage = "Tut leid, aber ohne deine aktulle Position kommst du hier nicht rein";
         }
     };
-    app.controller('ShareLocationCtrl', ['posting', '$window', '$scope', '$location', '$rootScope', ctrl]);
+    app.controller('ShareLocationCtrl', ['posting', '$window', '$scope', '$location', ctrl]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=ShareLocation.js.map

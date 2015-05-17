@@ -3,11 +3,15 @@
 
 (function (app) {
 
-    var ctrl = function ($scope, $location) {
+    var ctrl = function ($scope, $location, beerService:BeerService) {
 
         $scope.caption = 'Welches Bier hättesch denn gern?';
-
         $scope.beer = {};
+
+        var beers : Array<Beer> = [];
+        beerService.getUsed().success(function(data){
+            beers = data;
+        });
 
         var beers:Array<Beer> = [
             {brand: 'Zipfer', type: 'Märzen', id: 0, description: ''},
@@ -21,10 +25,9 @@
                 return 1;
             }
             else {
-                if(a.type < b.type)
-                {
+                if (a.type < b.type) {
                     return -1;
-                } else if(b.type < a.type){
+                } else if (b.type < a.type) {
                     return 1;
                 } else {
                     return 0;
@@ -61,10 +64,12 @@
         }
 
         $scope.searchBars = function () {
+
+            beerService.setFavorites($scope.selectedBeers);
             $location.path('/find/bars').replace();
         };
     };
 
-    app.controller('FindBeerChooseCtrl', ['$scope','$location', ctrl]);
+    app.controller('FindBeerChooseCtrl', ['$scope', '$location', 'beerService', ctrl]);
 
 })(angular.module('durschtApp'));

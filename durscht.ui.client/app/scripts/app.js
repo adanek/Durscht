@@ -42,6 +42,9 @@
         }).when('/share/details', {
             templateUrl: 'views/share-details.html',
             controller: 'ShareDetailsCtrl'
+        }).when('/find/location', {
+            templateUrl: 'views/share-location.html',
+            controller: 'FindLocationCtrl'
         }).when('/find/beers', {
             templateUrl: 'views/find-beer-choose.html',
             controller: 'FindBeerChooseCtrl'

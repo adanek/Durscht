@@ -11,7 +11,7 @@
  */
 (function (app) {
 
-    var ctrl = function (posting:Posting, $window, $scope, $location, $rootScope) {
+    var ctrl = function (posting:Posting, $window, $scope, $location) {
         $scope.caption = "Mal schaun, ob ich dich finden kann...";
 
         // Check if geolocation is supported
@@ -54,7 +54,7 @@
                         break;
                 }
 
-                $scope.$apply(function (){
+                $scope.$apply(function () {
                     $scope.errorMessage = msg;
                 });
             });
@@ -65,7 +65,7 @@
         }
     };
 
-    app.controller('ShareLocationCtrl', ['posting', '$window', '$scope', '$location', '$rootScope', ctrl]);
+    app.controller('ShareLocationCtrl', ['posting', '$window', '$scope', '$location', ctrl]);
 
 })(angular.module('durschtApp'));
 
