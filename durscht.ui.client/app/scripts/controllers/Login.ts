@@ -1,11 +1,12 @@
 /// <reference path="../_references.ts"/>
+'use strict';
 
 (function (app){
     var controller = function ($scope, authService: AuthenticationService, $location){
 
-        $scope.caption = "Dich kenn ich doch!";
-        $scope.username = undefined;
-        $scope.password = undefined;
+        $scope.caption = 'Dich kenn ich doch!';
+        $scope.username = '';
+        $scope.password = '';
 
 
 
@@ -23,10 +24,10 @@
                         var msg;
                         switch (status) {
                             case 401:
-                                msg = "Das passt so nicht, denk noch einmal nach";
+                                msg = 'Das passt so nicht, denk noch einmal nach';
                                 break;
                             default:
-                                msg = "Ups, da ging was schief!";
+                                msg = 'Ups, da ging was schief!';
                         }
 
                         $scope.$apply(function () {
@@ -41,6 +42,6 @@
         }
     };
 
-    app.controller("LoginCtrl", ['$scope', 'authService', '$location', controller]);
+    app.controller('LoginCtrl', ['$scope', 'authService', '$location', controller]);
 
 })(angular.module('durschtApp'));
