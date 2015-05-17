@@ -17,7 +17,7 @@ public class Beer implements IBeer {
 	}
 
 	@Override
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 

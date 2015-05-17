@@ -14,23 +14,34 @@
   </head>
 
   <body class="container">
-    <h1 class="text-center">Post Menü</h1>
+    <h1 class="text-center">Post Menü
+      <div>
+        <a class="btn btn-default" href="/user/login"> Zurück zum Durscht Menü</a>
+      </div>
+    </h1>
         <div>
             <table class="table">
-              <th>
                 <tr>
+                  <th>ID</th>
                   <th>Name</th>
                   <th>Price</th>
-                  <th>ID</th>
+                  <th></th>
                 </tr>
-              </th>
+                <tr>
+                  <td>New Post</td>
+                  <td> <input type="text" name="name" class="form-control" id="name">
+                  </td>
+                  <td> <input type="text" name="price" class="form-control" id="price">
+                  </td>
+                  <td> <a class="btn btn-default" href=@("/bars/create" )> neuer Post</a></td>
+                </tr>
                 <tbody>
                 @for(post <- posts){
                   <tr>
-                    <td>@post.username</td>
-                    <td>@post.price</td>
-                    <td>@post.id</td>
-                    <td>  <a class="btn btn-default" href=@("/posts/delete/" + post.id)> löschen</a>
+                    <td>@post.getId</td>
+                    <td>@post.getUsername</td>
+                    <td>@post.getPrice</td>
+                    <td>  <a class="btn btn-default" href=@("/posts/delete/" + post.getId)> löschen</a>
                     </td>
                   </tr>
                 }

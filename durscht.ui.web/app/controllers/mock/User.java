@@ -1,16 +1,17 @@
 package controllers.mock;
 
 import java.util.Date;
+import durscht.contracts.ui.IUser;
 
-public class User {
+public class User implements IUser{
 
     private final int id;
     private String name;
     private String email;
     private String password;
-    private Date joinedDate;
+    private String joinedDate;
 
-    public User(int id, String name, String email, String password, Date joinedDate){
+    public User(int id, String name, String email, String password, String joinedDate){
         this.id = id;
         this.name = name;
         this.email = email;
@@ -34,20 +35,8 @@ public class User {
         return this.password;
     }
 
-    public Date getJoinedDate(){
+    public String getJoinedDate(){
         return this.joinedDate;
-    }
-
-    public void setName(){
-        this.name = name;
-    }
-
-    public void setEmail(){
-        this.email = email;
-    }
-
-    public void setPassword(){
-        this.password = password;
     }
 
 }
