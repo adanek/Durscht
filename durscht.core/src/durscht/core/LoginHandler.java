@@ -41,8 +41,7 @@ public class LoginHandler {
 		IDataHandler dataHandler = getDataHandler();
 
 		User user = new User();
-		durscht.contracts.data.IUser iUser = dataHandler.createUser(name, email, password);
-
+		durscht.contracts.data.IUser iUser = dataHandler.createUser(name, email, password, false);
 		user.setId(iUser.getId());
 		user.setName(iUser.getName());
 		user.setEmail(iUser.getEmail());

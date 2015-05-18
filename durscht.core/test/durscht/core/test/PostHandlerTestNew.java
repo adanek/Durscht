@@ -92,7 +92,7 @@ public class PostHandlerTestNew {
 
 		durscht.contracts.ui.IBeer ibeer = postHandler.getBeersByBar(26)[0];
 
-		Integer expected = 10;
+		int expected = 10;
 		assertEquals(expected, ibeer.getId());
 		assertEquals("Zipfer", ibeer.getBrand());
 		assertEquals("Märzen", ibeer.getType());

@@ -5,6 +5,6 @@
 durscht.ui.web/.idea
 durscht.ui.web/.settings
 durscht.contracts/durscht.contracts.iml
-.idea
+.idea/
 durscht.core/durscht.core.iml
 durscht.data/durscht.data.iml
