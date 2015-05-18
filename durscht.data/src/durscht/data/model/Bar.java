@@ -3,7 +3,6 @@ package durscht.data.model;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +26,7 @@ public class Bar implements IBar {
 	private String url;
 	private double latitude;
 	private double longitude;
+	private boolean verified;
 	@Lob
 	private String description;
 	@OneToMany(mappedBy = "bar")
@@ -76,6 +76,14 @@ public class Bar implements IBar {
 
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+
+	public boolean isVerified() {
+		return verified;
+	}
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
 	}
 
 	@Override

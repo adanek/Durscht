@@ -1,20 +1,17 @@
 package durscht.contracts.data;
 
-import java.util.Collection;
 import java.util.Date;
-
-import durscht.contracts.data.*;
 
 public interface IUser {
 
-	public int getId();
+	int getId();
 
-	public String getName();
+	String getName();
 
-	public String getEmail();
+	String getEmail();
 
-	public Date getJoinedDate();
+	Date getJoinedDate();
 	
-	public boolean isAdmin();
+	boolean isAdmin();
 
 }
