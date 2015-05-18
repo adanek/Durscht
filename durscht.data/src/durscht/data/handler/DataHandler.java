@@ -447,6 +447,13 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
+	/**
+	 * deletes a achievement from the database
+	 * 
+	 * @param aID
+	 * @throws IllegalArgumentException
+	 *             deletion or getting achievement from ID failed
+	 */
 	@Deprecated
 	public void deleteAchievement(int aID) throws IllegalArgumentException {
 		try {

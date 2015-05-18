@@ -20,8 +20,8 @@ public class InitialUpload {
 				.getId();
 		int beerid2 = handler.createBeer("Stiegl", "Goldlager",
 				"Originales traditionelles Salzburger Bier", true).getId();
-		int beerid3 = handler.createBeer("Ottakringer", "Helles", "Traditionelles Wiener Bier", false)
-				.getId();
+		int beerid3 = handler.createBeer("Ottakringer", "Helles", "Traditionelles Wiener Bier",
+				false).getId();
 		int beerid4 = handler.createBeer("Starkenberger", "Märzen",
 				"Heimisches Bier aus dem Schloss Starkenberg in Tarrenz", true).getId();
 
@@ -64,7 +64,7 @@ public class InitialUpload {
 		int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3").getId();
 		int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
 		int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
-		
+
 		handler.closeDatabaseConnection();
 
 	}

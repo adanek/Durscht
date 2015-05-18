@@ -39,7 +39,6 @@ public class SavedUser implements IUser {
 	@Cascade({ CascadeType.DELETE })
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
 	@ManyToMany
-	@Cascade({ CascadeType.DELETE})
 	private Collection<Achievement> achievements = new LinkedList<>();
 
 	public int getId() {

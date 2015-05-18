@@ -43,12 +43,12 @@ public class DatabaseUpdate {
 			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3", false).getId();
 
 			// create new beers
-			int beerid1 = handler.createBeer("Gösser", "Radler", "Herbes österreichisches Bier", false)
-					.getId();
+			int beerid1 = handler.createBeer("Gösser", "Radler", "Herbes österreichisches Bier",
+					false).getId();
 			int beerid2 = handler.createBeer("Stiegl", "Goldlager",
 					"Originales traditionelles Salzburger Bier", true).getId();
-			int beerid3 = handler.createBeer("Ottakringer", "Helles", "Traditionelles Wiener Bier", false)
-					.getId();
+			int beerid3 = handler.createBeer("Ottakringer", "Helles", "Traditionelles Wiener Bier",
+					false).getId();
 			int beerid4 = handler.createBeer("Starkenberger", "Märzen",
 					"Heimisches Bier aus dem Schloss Starkenberg in Tarrenz", true).getId();
 
@@ -91,55 +91,85 @@ public class DatabaseUpdate {
 			int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3").getId();
 			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
 			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
-			
-			//test user login
-			IUser testuser1 = handler.getUserLogin("admin", "admin");
-			IUser testuser2 = handler.getUserLogin("user2", "user2");
-			IUser testuser3 = handler.getUserLoginAdmin("admin", "admin");
-			IUser testuser4 = handler.getUserLogin("user3", "user3");
-			
-			//test get all beers and verify method
-			Collection<IBeer> testbeers1 = handler.getAllBeers();
-			Collection<IBeer> testbeers2 = handler.getAllBeersVerified();
-			handler.verifyBeer(beerid1);
-			handler.verifyBeer(beerid3);
-			Collection<IBeer> testbeers3 = handler.getAllBeers();
-			Collection<IBeer> testbeers4 = handler.getAllBeersVerified();
-			
-			/*// assign Achievements
-			Collection<IAchievement> ach = handler.getAllAchievements();
-			handler.assignAchievementToUser(user.getId(), achid1);
-			handler.assignAchievementToUser(user.getId(), achid2);*/
 
+			// test user login
 			/*
-			 * //all get methods Collection<IBeer> beers1 =
-			 * handler.getAllBeers(); Collection<IBeer> bars1 =
-			 * handler.getAllBeersFromBar(barid1); Collection<IBeer> bars2 =
-			 * handler.getAllBeersFromBar(barid2);
-			 * 
-			 * Collection<IBeerPost> posts1 =
-			 * handler.getAllPostsFromBar(barid1); Collection<IBeerPost> posts2
-			 * = handler.getAllPostsFromBar(barid2); Collection<IBeerPost>
-			 * userposts1 = handler.getAllPostsFromUser(userid1);
-			 * Collection<IBeerPost> userposts2 =
-			 * handler.getAllPostsFromUser(userid2);
-			 * 
-			 * Collection<IBar> bars3 = handler.getBarsCoordinates(11.34, 11.35,
-			 * 47.26, 47.27);
-			 * 
-			 * Collection<IAchievement> userAch =
-			 * handler.getAllAchievementsFromUser(user.getId());
+			 * IUser testuser1 = handler.getUserLogin("admin", "admin"); IUser
+			 * testuser2 = handler.getUserLogin("user2", "user2"); IUser
+			 * testuser3 = handler.getUserLoginAdmin("admin", "admin"); IUser
+			 * testuser4 = handler.getUserLoginAdmin("user3", "user3");
 			 */
-			// Collection<IBeerPost> posts = handler.getAllPosts();
 
-			handler.deleteUser(3);
-
-			// fehler erzeugen
+			// test get all beers and verify method
 			/*
-			 * try { handler.getAchievementByID(99999); } catch (Exception e) {
-			 * System.out.println("Fehler achievement"); } try {
-			 * handler.deleteBar(99999); } catch (Exception e) {
-			 * System.out.println("Fehler delete"); }
+			 * Collection<IBeer> testbeers1 = handler.getAllBeers();
+			 * Collection<IBeer> testbeers2 = handler.getAllBeersVerified();
+			 * handler.verifyBeer(beerid1); handler.verifyBeer(beerid3);
+			 * Collection<IBeer> testbeers3 = handler.getAllBeers();
+			 * Collection<IBeer> testbeers4 = handler.getAllBeersVerified();
+			 */
+
+			// test getAll methods from model class
+			/*
+			 * Collection<IUser> testusers1 = handler.getAllUsers();
+			 * Collection<IBar> testbars1 = handler.getAllBars();
+			 * Collection<IAchievement> testachievements1 =
+			 * handler.getAllAchievements(); Collection<IBeerPost> testposts1 =
+			 * handler.getAllPosts();
+			 */
+
+			// test achievements
+			handler.assignAchievementToUser(userid1, achid1);
+			handler.assignAchievementToUser(userid1, achid3);
+			handler.assignAchievementToUser(userid2, achid1);
+			handler.assignAchievementToUser(userid2, achid2);
+			Collection<IAchievement> testachievements2 = handler
+					.getAllAchievementsFromUser(userid1);
+
+			// test getBarsfromCoordinates
+			// Collection<IBar> testbars2 = handler.getBarsCoordinates(47.2687,
+			// 48, 11.39, 12); //sollte nur TheresienBräu und Stadtcafe liefern
+
+			// test all other get methods
+			/*
+			 * Collection<IBeerPost> testposts2 =
+			 * handler.getAllPostsFromBar(barid1); //sollte Post1,2 liefern
+			 * Collection<IBeerPost> testposts3 =
+			 * handler.getAllPostsFromBar(barid2); //sollte Post3,4,5 liefern
+			 * Collection<IBeerPost> testposts4 =
+			 * handler.getAllPostsFromUser(userid1); //sollte Post1,3 liefern
+			 * Collection<IBeerPost> testposts5 =
+			 * handler.getAllPostsFromUser(userid2); //sollte Post2,5 liefern
+			 * Collection<IBeer> testbeers5 =
+			 * handler.getAllBeersFromBar(barid1); //sollte Gösser und Stiegl
+			 * liefern Collection<IBeer> testbeers6 =
+			 * handler.getAllBeersFromBar(barid2); //sollte Ottakringer und
+			 * Starkenberger liefern
+			 */
+
+			// test findBars
+			/*
+			 * Collection<Integer> array = new ArrayList<>();
+			 * array.add(beerid3); Collection<IBar> testbars3 =
+			 * handler.findBars(47, 48, 11, 12, array); //sollte 11er Haus
+			 * liefern
+			 */
+
+			// delete tests
+			/*
+			 * handler.deletePost(post1); Collection<IBeer> testbeers7 =
+			 * handler.getAllBeersFromBar(barid1); //sollte nur Stiegl liefern
+			 * Collection<IBeerPost> testposts6 =
+			 * handler.getAllPostsFromUser(userid1); //sollte Post 3 liefern
+			 * Collection<IBeerPost> testposts7 =
+			 * handler.getAllPostsFromBar(barid1); //sollte Post2 liefern
+			 */
+			handler.deleteUser(userid1);
+			/*
+			 * Collection<IBeerPost> testposts8 = handler.getAllPosts();
+			 * //sollte Post2,4,5 liefern handler.deleteBeer(beerid3);
+			 * Collection<IBeerPost> testposts9 = handler.getAllPosts();
+			 * //sollte Post2,4 liefern
 			 */
 
 			handler.closeDatabaseConnection();

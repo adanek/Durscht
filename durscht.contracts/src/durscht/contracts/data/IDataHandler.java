@@ -104,15 +104,6 @@ public interface IDataHandler {
 	void deleteBar(int barID) throws IllegalArgumentException;
 
 	/**
-	 * deletes a achievement from the database
-	 * 
-	 * @param aID
-	 * @throws IllegalArgumentException
-	 *             deletion or getting achievement from ID failed
-	 */
-	void deleteAchievement(int aID) throws IllegalArgumentException;
-
-	/**
 	 * deletes a post from the database
 	 * 
 	 * @param postID
