@@ -35,7 +35,7 @@ public class DatabaseUpdate {
 			DataHandler.setTestDB(true);
 			// get handler
 			IDataHandler handler = new DataHandler();
-
+/*
 			// create new users
 			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin",true).getId();
 			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2", false).getId();
@@ -82,6 +82,7 @@ public class DatabaseUpdate {
 					.createAchievement("100 posts",
 							"The user will get this achievement when he drinks 100 beers and add a post to the app")
 					.getId();
+			
 
 			//create posts
 			int post1 = handler.createPost(barid1, beerid1, userid1, 3.0, 2, "Post1").getId();
@@ -97,7 +98,7 @@ public class DatabaseUpdate {
 			Collection<IAchievement> ach = handler.getAllAchievements();
 			handler.assignAchievementToUser(user.getId(), achid1);
 			handler.assignAchievementToUser(user.getId(), achid2);
-
+			*/
 		/*	//all get methods
 			Collection<IBeer> beers1 = handler.getAllBeers();
 			Collection<IBeer> bars1 = handler.getAllBeersFromBar(barid1);
@@ -112,8 +113,11 @@ public class DatabaseUpdate {
 					47.26, 47.27);
 			
 			Collection<IAchievement> userAch = handler.getAllAchievementsFromUser(user.getId());*/
-			Collection<IBeerPost> posts = handler.getAllPosts();
-
+			//Collection<IBeerPost> posts = handler.getAllPosts();
+			
+			handler.deleteUser(3);
+			
+			
 			// fehler erzeugen
 			/*try {
 				handler.getAchievementByID(99999);

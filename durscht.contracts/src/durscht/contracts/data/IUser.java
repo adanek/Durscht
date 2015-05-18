@@ -3,6 +3,8 @@ package durscht.contracts.data;
 import java.util.Collection;
 import java.util.Date;
 
+import durscht.contracts.data.*;
+
 public interface IUser {
 
 	public int getId();

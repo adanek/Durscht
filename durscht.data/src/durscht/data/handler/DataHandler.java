@@ -727,7 +727,7 @@ public class DataHandler implements IDataHandler {
 			Collection<BeerPost> posts = results.get(0).getBeerPosts();
 
 			Collection<IBeerPost> ret = new ArrayList<>(posts);
-
+			
 			// commit
 			session.getTransaction().commit();
 
@@ -949,6 +949,7 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
+	@Deprecated
 	public void deleteAchievement(int aID) throws IllegalArgumentException {
 		try {
 			// get achievement
