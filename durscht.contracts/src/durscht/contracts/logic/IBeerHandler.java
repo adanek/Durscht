@@ -4,9 +4,9 @@ import durscht.contracts.ui.IBeer;
 
 public interface IBeerHandler {
 
-	public IBeer[] getBeersByPrefix(String prefix);
+	IBeer[] getBeersByPrefix(String prefix);
 
-	public IBeer createNewBeer(String brand, String type, String description) throws IllegalStateException;
+	IBeer createNewBeer(String brand, String type, String description) throws IllegalStateException;
 
-	public IBeer[] getAllBeers();
+	IBeer[] getAllBeers();
 }
