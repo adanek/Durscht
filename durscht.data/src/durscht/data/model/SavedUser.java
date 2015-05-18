@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import durscht.contracts.data.IAchievement;
 import durscht.contracts.data.IUser;
 
 @Entity
@@ -29,6 +30,7 @@ public class SavedUser implements IUser {
 	private String name;
 	private String email;
 	private String password;
+	private boolean admin;
 	@Temporal(TemporalType.DATE)
 	private Date joinedDate = new Date();
 	@OneToMany(mappedBy = "user")
@@ -91,6 +93,14 @@ public class SavedUser implements IUser {
 
 	public void setAchievements(Collection<Achievement> achievements) {
 		this.achievements = achievements;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	@Override
