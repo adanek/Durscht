@@ -11,11 +11,13 @@
         var beers : Array<Beer> = [];
         beerService.getUsed().success(function(data){
             beers = data;
+            beers.sort(compareBeers);
+            $scope.beers = beers;
         });
 
-        var beers:Array<Beer> = [
-            {brand: 'Zipfer', type: 'Märzen', id: 0, description: ''},
-            {brand: 'Corona', type: 'Extra', id: 1, description: ''}];
+        //var beers:Array<Beer> = [
+        //    {brand: 'Zipfer', type: 'Märzen', id: 0, description: ''},
+        //    {brand: 'Corona', type: 'Extra', id: 1, description: ''}];
 
         function compareBeers(a:Beer, b:Beer) {
             if (a < b) {

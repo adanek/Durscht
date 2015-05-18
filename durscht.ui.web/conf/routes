@@ -37,6 +37,8 @@ GET            /share/getAllBeers             controllers.ShareController.getAll
 GET            /share/beersFromBar/:id        controllers.ShareController.getBeersFromBar(id: Integer)
 
 POST           /beer/create                   controllers.BeerController.create()
+GET            /beer/used                     controllers.BeerController.getUsed()
+
 
 # Options for CORS Cross Origin Resource Sharing
 OPTIONS        /                              controllers.CorsController.CorsOptions(url: String ?= "root")
