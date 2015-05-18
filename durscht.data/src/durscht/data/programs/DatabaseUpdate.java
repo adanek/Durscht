@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -31,15 +32,14 @@ public class DatabaseUpdate {
 	public static void main(String args[]) {
 
 		try {
-			//DataHandler.setTestDB(true);
+			DataHandler.setTestDB(true);
 			// get handler
 			IDataHandler handler = new DataHandler();
 
 			// create new users
-
-			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin").getId();
-			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2").getId();
-			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3").getId();
+			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin",true).getId();
+			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2", false).getId();
+			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3",false).getId();
 
 			// create new beers
 			int beerid1 = handler.createBeer("Gösser", "Radler", "Herbes österreichisches Bier")
@@ -52,20 +52,20 @@ public class DatabaseUpdate {
 					"Heimisches Bier aus dem Schloss Starkenberg in Tarrenz").getId();
 
 			// create new Bars
-			int barid1 = handler.createBar("Theresien Bräu", 11.4040792, 47.269258,
+			int barid1 = handler.createBar("Theresien Bräu", 47.269258, 11.4040792,
 					"Traditionelles Lokal in Innsbruck, das ein eigenes Bier braut", "www.brauwirtshaus.at").getId();
 			int barid2 = handler
 					.createBar(
 							"11er Haus",
-							11.392825,
 							47.268653,
+							11.392825,
 							"Sehr bekannte Bar in Innsbruck, die sehr viele Biersorten der ganzen Welt anbietet.",
 							"http://innsbruckplus.at/elferhaus/").getId();
 			int barid3 = handler
 					.createBar(
 							"Stadtcafe",
-							11.395963,
 							47.268785,
+							11.395963,
 							"Bekanntestes Nachtlokal in Innsbruck, das hauptsächlich von der Studentenszene besucht wird.",
 							"www.tagnacht.at/stadtcafe/").getId();
 
@@ -83,14 +83,22 @@ public class DatabaseUpdate {
 							"The user will get this achievement when he drinks 100 beers and add a post to the app")
 					.getId();
 
+			//create posts
 			int post1 = handler.createPost(barid1, beerid1, userid1, 3.0, 2, "Post1").getId();
 			int post2 = handler.createPost(barid1, beerid2, userid2, 3.0, 2, "Post2").getId();
 			int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3").getId();
 			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
 			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
-
+			
+			//get user
 			IUser user = handler.getUserLogin("user2", "user2");
+			
+			//assign Achievements
+			Collection<IAchievement> ach = handler.getAllAchievements();
+			handler.assignAchievementToUser(user.getId(), achid1);
+			handler.assignAchievementToUser(user.getId(), achid2);
 
+		/*	//all get methods
 			Collection<IBeer> beers1 = handler.getAllBeers();
 			Collection<IBeer> bars1 = handler.getAllBeersFromBar(barid1);
 			Collection<IBeer> bars2 = handler.getAllBeersFromBar(barid2);
@@ -102,11 +110,12 @@ public class DatabaseUpdate {
 
 			Collection<IBar> bars3 = handler.getBarsCoordinates(11.34, 11.35,
 					47.26, 47.27);
-			// all bars
-			Collection<IBar> bars4 = handler.getBarsCoordinates(5, 60, 5, 55);
+			
+			Collection<IAchievement> userAch = handler.getAllAchievementsFromUser(user.getId());*/
+			Collection<IBeerPost> posts = handler.getAllPosts();
 
 			// fehler erzeugen
-			try {
+			/*try {
 				handler.getAchievementByID(99999);
 			} catch (Exception e) {
 				System.out.println("Fehler achievement");
@@ -116,9 +125,12 @@ public class DatabaseUpdate {
 			} catch (Exception e) {
 				System.out.println("Fehler delete");
 			}
-
+			
+*/
+			
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
+			return;
 		}
 	}
 }

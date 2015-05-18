@@ -27,6 +27,15 @@ public class BeerController extends Controller {
         return created(data);
     }
 
+    public static Result getUsed(){
+
+        durscht.contracts.ui.IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeers();
+
+        JsonNode data = Json.toJson(beers);
+        attachCorsHeaders();
+        return ok(data);
+    }
+
     private static void attachCorsHeaders() {
 
         String origin = request().getHeader("Origin");
