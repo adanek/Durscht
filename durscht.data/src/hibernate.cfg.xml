@@ -36,6 +36,7 @@
     <mapping class="durscht.data.model.Beer" />
     <mapping class="durscht.data.model.BeerPost" />
     <mapping class="durscht.data.model.Achievement" />
+    <mapping class="durscht.data.model.AchievementCriterion" />
     
   </session-factory>
 </hibernate-configuration> 

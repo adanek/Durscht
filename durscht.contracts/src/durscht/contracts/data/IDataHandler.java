@@ -55,8 +55,21 @@ public interface IDataHandler {
 	 * @throws IllegalStateException
 	 *             creating object in database failed
 	 */
-	IAchievement createAchievement(String name, String description) throws IllegalStateException;
+	IAchievement createAchievement(String name, String description, int criterionID) throws IllegalStateException;
 
+	/**
+	 * create a new achievement criterion in the database
+	 * 
+	 * @param type
+	 * @param value
+	 * @return the new created achievement criterion
+	 * @throws IllegalStateException
+	 *             creating object in database failed
+	 */
+	IAchievementCriterion createAchievementCriterion(
+			AchievementCriterionType type, int value)
+			throws IllegalStateException;
+	
 	/**
 	 * create a new Post
 	 * 
