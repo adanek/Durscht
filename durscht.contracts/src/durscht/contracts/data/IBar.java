@@ -13,6 +13,4 @@ public interface IBar {
 	double getLongitude();
 
 	String getDescription();
-	
-	boolean isVerified();
 }

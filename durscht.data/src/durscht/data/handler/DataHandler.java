@@ -240,7 +240,7 @@ public class DataHandler implements IDataHandler {
 		return user;
 	}
 
-	public IBeer createBeer(String brand, String type, String description)
+	public IBeer createBeer(String brand, String type, String description, boolean verified)
 			throws IllegalStateException {
 
 		// create beer instance
@@ -248,6 +248,7 @@ public class DataHandler implements IDataHandler {
 		beer.setBrand(brand);
 		beer.setType(type);
 		beer.setDescription(description);
+		beer.setVerified(verified);
 
 		// save beer to database
 		saveObjectToDb(beer);
@@ -255,7 +256,7 @@ public class DataHandler implements IDataHandler {
 	}
 
 	public IBar createBar(String name, double latitude, double longitude, String description,
-			String url, boolean verified) throws IllegalStateException {
+			String url) throws IllegalStateException {
 
 		// create bar instance
 		Bar bar = new Bar();
@@ -264,7 +265,6 @@ public class DataHandler implements IDataHandler {
 		bar.setLongitude(longitude);
 		bar.setDescription(description);
 		bar.setUrl(url);
-		bar.setVerified(verified);
 
 		// save bar to database
 		saveObjectToDb(bar);
@@ -472,6 +472,119 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
+	public IUser assignAchievementToUser(int userID, int achID) throws IllegalArgumentException,
+			IllegalStateException {
+
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			// get user
+			Criteria cr = session.createCriteria(SavedUser.class);
+			cr.add(Restrictions.eq("id", userID));
+			List<SavedUser> results = cr.list();
+
+			if (results.size() == 0)
+				throw new IllegalArgumentException("userID");
+
+			// get user
+			SavedUser user = results.get(0);
+
+			// get achievement
+			cr = session.createCriteria(Achievement.class);
+			cr.add(Restrictions.eq("id", achID));
+			List<Achievement> achResults = cr.list();
+
+			if (achResults.size() == 0)
+				throw new IllegalArgumentException("achID");
+
+			Achievement newAch = achResults.get(0);
+
+			// achievement already in list from user
+			if (user.getAchievements().contains(newAch))
+				throw new IllegalArgumentException("user has this achievement already");
+
+			// add achievement to users achievements and add user to achievement
+			user.getAchievements().add(newAch);
+			newAch.getUsers().add(user);
+
+			// update user and achievement
+			session.update(user);
+			session.update(newAch);
+
+			// commit
+			session.getTransaction().commit();
+
+			return user;
+
+		} catch (IllegalArgumentException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out
+					.println("no user with this ID or no achievement with this ID in the database");
+			throw new IllegalArgumentException(e.getMessage());
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("saving from achievement");
+			throw new IllegalStateException("saving from achievement");
+		} finally {
+			// close session
+			session.close();
+		}
+
+	}
+
+	public IBeer verifyBeer(int beerID) throws IllegalArgumentException, IllegalStateException {
+
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			// get beer
+			Criteria cr = session.createCriteria(Beer.class);
+			cr.add(Restrictions.eq("id", beerID));
+			List<Beer> results = cr.list();
+
+			if (results.size() == 0)
+				throw new IllegalArgumentException("beerID");
+
+			Beer beer = results.get(0);
+
+			// verify beer
+			beer.setVerified(true);
+
+			// update beer
+			session.update(beer);
+
+			// commit
+			session.getTransaction().commit();
+
+			return beer;
+
+		} catch (IllegalArgumentException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("no beer with this ID in the database");
+			throw new IllegalArgumentException(e.getMessage());
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("verifieng beer");
+			throw new IllegalStateException("verifieng beer");
+		} finally {
+			// close session
+			session.close();
+		}
+
+	}
+
 	public Collection<IUser> getAllUsers() throws IllegalStateException {
 		Session session = openSession();
 
@@ -524,7 +637,7 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
-	public Collection<IBar> getAllBars() throws IllegalStateException {
+	public Collection<IBeer> getAllBeersVerified() throws IllegalStateException {
 		Session session = openSession();
 
 		try {
@@ -532,8 +645,9 @@ public class DataHandler implements IDataHandler {
 			// begin transaction
 			session.beginTransaction();
 
-			Criteria cr = session.createCriteria(Bar.class);
-			List<IBar> results = cr.list();
+			Criteria cr = session.createCriteria(Beer.class);
+			cr.add(Restrictions.eq("verified", true));
+			List<IBeer> results = cr.list();
 
 			// commit
 			session.getTransaction().commit();
@@ -543,14 +657,14 @@ public class DataHandler implements IDataHandler {
 		} catch (Exception e) {
 			// Exception -> rollback
 			session.getTransaction().rollback();
-			throw new IllegalStateException("something went wrong by getting the bar list");
+			throw new IllegalStateException("something went wrong by getting the beer list");
 		} finally {
 			// close session
 			session.close();
 		}
 	}
 
-	public Collection<IBar> getAllBarsVerified() throws IllegalStateException {
+	public Collection<IBar> getAllBars() throws IllegalStateException {
 		Session session = openSession();
 
 		try {
@@ -559,7 +673,6 @@ public class DataHandler implements IDataHandler {
 			session.beginTransaction();
 
 			Criteria cr = session.createCriteria(Bar.class);
-			cr.add(Restrictions.eq("verfied", true));
 			List<IBar> results = cr.list();
 
 			// commit
@@ -720,72 +833,6 @@ public class DataHandler implements IDataHandler {
 		}
 		// no appropriate user found in database
 		return null;
-	}
-
-	public IUser assignAchievementToUser(int userID, int achID) throws IllegalArgumentException,
-			IllegalStateException {
-
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			// get user
-			Criteria cr = session.createCriteria(SavedUser.class);
-			cr.add(Restrictions.eq("id", userID));
-			List<SavedUser> results = cr.list();
-
-			if (results.size() == 0)
-				throw new IllegalArgumentException("userID");
-
-			// get user
-			SavedUser user = results.get(0);
-
-			// get achievement
-			cr = session.createCriteria(Achievement.class);
-			cr.add(Restrictions.eq("id", achID));
-			List<Achievement> achResults = cr.list();
-
-			if (achResults.size() == 0)
-				throw new IllegalArgumentException("achID");
-
-			Achievement newAch = achResults.get(0);
-
-			// achievement already in list from user
-			if (user.getAchievements().contains(newAch))
-				throw new IllegalArgumentException("user has this achievement already");
-
-			// add achievement to users achievements and add user to achievement
-			user.getAchievements().add(newAch);
-			newAch.getUsers().add(user);
-
-			// update user and achievement
-			session.update(user);
-			session.update(newAch);
-
-			// commit
-			session.getTransaction().commit();
-
-			return user;
-
-		} catch (IllegalArgumentException e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			System.out
-					.println("no user with this ID or no achievement with this ID in the database");
-			throw new IllegalArgumentException(e.getMessage());
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			System.out.println("saving from achievement");
-			throw new IllegalStateException("saving from achievement");
-		} finally {
-			// close session
-			session.close();
-		}
-
 	}
 
 	public Collection<IBar> getBarsCoordinates(double fromLatitude, double toLatitude,
@@ -989,10 +1036,16 @@ public class DataHandler implements IDataHandler {
 	}
 
 	public Collection<IBar> findBars(double fromLatitude, double toLatitude, double fromLongitude,
-			double toLongitude, Collection<IBeer> beers) throws IllegalStateException {
+			double toLongitude, Collection<Integer> beerIDs) throws IllegalStateException {
 
 		Collection<IBar> bars = getBarsCoordinates(fromLatitude, toLatitude, fromLongitude,
 				toLongitude);
+
+		// fetching all beers
+		Collection<IBeer> beers = new ArrayList<>();
+		for (Integer id : beerIDs) {
+			beers.add(getBeerByID(id));
+		}
 
 		Session session = openSession();
 

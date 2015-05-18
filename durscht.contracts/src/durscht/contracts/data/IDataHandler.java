@@ -23,11 +23,14 @@ public interface IDataHandler {
 	/**
 	 * create a new beer
 	 * 
+	 * @param verified
+	 *            verified or not yet
 	 * @return the new created beer
 	 * @throws IllegalStateException
 	 *             creating object in database failed
 	 */
-	IBeer createBeer(String brand, String type, String description) throws IllegalStateException;
+	IBeer createBeer(String brand, String type, String description, boolean verified)
+			throws IllegalStateException;
 
 	/**
 	 * create a new bar in the database
@@ -37,14 +40,12 @@ public interface IDataHandler {
 	 * @param description
 	 * @param url
 	 *            optional, if no url is given then add "" to the method
-	 * @param bar
-	 *            verified or not yet
 	 * @return the new created bar
 	 * @throws IllegalStateException
 	 *             creating object in database failed
 	 */
-	IBar createBar(String name, double latitude, double longitude, String description, String url,
-			boolean verified) throws IllegalStateException;
+	IBar createBar(String name, double latitude, double longitude, String description, String url)
+			throws IllegalStateException;
 
 	/**
 	 * create a new achievement in the database
@@ -121,6 +122,31 @@ public interface IDataHandler {
 	void deletePost(int postID) throws IllegalArgumentException;
 
 	/**
+	 * assign achievement to a user
+	 * 
+	 * @return User new User object
+	 * @throws IllegalArgumentException
+	 *             user or achievement with this ID not in database, which
+	 *             argument is wrong is reported in the exception message, or
+	 *             achievement has user already
+	 * @throws IllegalStateException
+	 *             database error
+	 */
+	IUser assignAchievementToUser(int userID, int achID) throws IllegalArgumentException,
+			IllegalStateException;
+
+	/**
+	 * verify a beer
+	 * 
+	 * @return the verified IBeer object
+	 * @throws IllegalArgumentException
+	 *             beer with this ID not in database
+	 * @throws IllegalStateException
+	 *             database error
+	 */
+	IBeer verifyBeer(int beerID) throws IllegalArgumentException, IllegalStateException;
+
+	/**
 	 * get all users that are saved in the database
 	 * 
 	 * @return all beers
@@ -139,6 +165,15 @@ public interface IDataHandler {
 	Collection<IBeer> getAllBeers() throws IllegalStateException;
 
 	/**
+	 * get all beers that are saved in the database and are verified
+	 * 
+	 * @return all beers that are verified
+	 * @throws IllegalStateException
+	 *             database error
+	 */
+	Collection<IBeer> getAllBeersVerified() throws IllegalStateException;
+
+	/**
 	 * get all bars that are saved in the database
 	 * 
 	 * @return all bars
@@ -146,15 +181,6 @@ public interface IDataHandler {
 	 *             database error
 	 */
 	Collection<IBar> getAllBars() throws IllegalStateException;
-
-	/**
-	 * get all bars that are saved in the database and are verified
-	 * 
-	 * @return all bars that are verified
-	 * @throws IllegalStateException
-	 *             database error
-	 */
-	Collection<IBar> getAllBarsVerified() throws IllegalStateException;
 
 	/**
 	 * get all achievements that are saved in the database
@@ -241,20 +267,6 @@ public interface IDataHandler {
 	IUser getUserLoginAdmin(String name, String password) throws IllegalStateException;
 
 	/**
-	 * assign achievement to a user
-	 * 
-	 * @return User new User object
-	 * @throws IllegalArgumentException
-	 *             user or achievement with this ID not in database, which
-	 *             argument is wrong is reported in the exception message, or
-	 *             achievement has user already
-	 * @throws IllegalStateException
-	 *             database error
-	 */
-	IUser assignAchievementToUser(int userID, int achID) throws IllegalArgumentException,
-			IllegalStateException;
-
-	/**
 	 * get all bars that are between the longitude and latitude coordinates
 	 * 
 	 * @param fromLatitude
@@ -327,7 +339,7 @@ public interface IDataHandler {
 	 *             post with this ID not in database
 	 */
 	Collection<IBar> findBars(double fromLatitude, double toLatitude, double fromLongitude,
-			double toLongitude, Collection<IBeer> beers) throws IllegalStateException;
+			double toLongitude, Collection<Integer> beerIDs) throws IllegalStateException;
 
 	/**
 	 * disconnect database connection
