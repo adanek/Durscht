@@ -20,13 +20,16 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
+import durscht.contracts.data.AchievementCriterionType;
 import durscht.contracts.data.IAchievement;
+import durscht.contracts.data.IAchievementCriterion;
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IBeerPost;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
 import durscht.data.model.Achievement;
+import durscht.data.model.AchievementCriterion;
 import durscht.data.model.Bar;
 import durscht.data.model.Beer;
 import durscht.data.model.BeerPost;
@@ -240,7 +243,24 @@ public class DataHandler implements IDataHandler {
 		return user;
 	}
 
+<<<<<<< HEAD
 	public IBeer createBeer(String brand, String type, String description, boolean verified)
+=======
+	public IAchievementCriterion createAchievementCriterion(AchievementCriterionType type, int value)
+			throws IllegalStateException {
+
+		// create user instance
+		AchievementCriterion criterion = new AchievementCriterion();
+		criterion.setType(type);
+		criterion.setValue(value);
+
+		// save user in database
+		saveObjectToDb(criterion);
+		return criterion;
+	}
+	
+	public IBeer createBeer(String brand, String type, String description)
+>>>>>>> origin/db
 			throws IllegalStateException {
 
 		// create beer instance
@@ -271,16 +291,52 @@ public class DataHandler implements IDataHandler {
 		return bar;
 	}
 
-	public IAchievement createAchievement(String name, String description)
+	public IAchievement createAchievement(String name, String description, int criterionID)
 			throws IllegalStateException {
+		
+		Session session = openSession();
+		AchievementCriterion criterion;
+		
+		// begin transaction
+		session.beginTransaction();
+
+		// search criterion
+		try {
+			Criteria cr = session.createCriteria(AchievementCriterion.class);
+			cr.add(Restrictions.eq("id", criterionID));
+			criterion = (AchievementCriterion) cr.list().get(0);
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("criterionID in database not found");
+			// close session
+			session.close();
+			throw new IllegalArgumentException("criterionID: not in database found",
+					e);
+		}
+		
 		// create achievement instance
 		Achievement ach = new Achievement();
 		ach.setName(name);
 		ach.setDescription(description);
+		ach.setCriterion(criterion);
 
 		// save achievement to database
 		saveObjectToDb(ach);
 		return ach;
+	}
+	
+  public IAchievementCriterion createAchievementCriterion(AchievementCriterionType type, int value)
+    throws IllegalStateException {
+
+    // create user instance
+    AchievementCriterion criterion = new AchievementCriterion();
+    criterion.setType(type);
+    criterion.setValue(value);
+
+    // save user in database
+    saveObjectToDb(criterion);
+    return criterion;
 	}
 
 	public IBeerPost createPost(int barID, int beerID, int userID, double price, int rating,

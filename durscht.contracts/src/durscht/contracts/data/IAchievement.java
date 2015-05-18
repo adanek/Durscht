@@ -7,5 +7,7 @@ public interface IAchievement {
 	String getName();
 
 	String getDescription();
+	
+	IAchievementCriterion getCriterion();
 
 }

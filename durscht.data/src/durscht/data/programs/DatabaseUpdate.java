@@ -15,7 +15,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import durscht.contracts.data.AchievementCriterionType;
 import durscht.contracts.data.IAchievement;
+import durscht.contracts.data.IAchievementCriterion;
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IBeerPost;
@@ -36,12 +38,21 @@ public class DatabaseUpdate {
 			DataHandler.setTestDB(true);
 			// get handler
 			IDataHandler handler = new DataHandler();
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> origin/db
 			// create new users
 			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin", true).getId();
 			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2", false).getId();
 			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3", false).getId();
 
+			//create achievement critera
+			int cid1 = handler.createAchievementCriterion(AchievementCriterionType.TOTAL_NO_BEERS, 10).getId();
+			int cid2 = handler.createAchievementCriterion(AchievementCriterionType.CRIT2, 10).getId();
+			int cid3 = handler.createAchievementCriterion(AchievementCriterionType.CRIT3, 10).getId();
+			
 			// create new beers
 			int beerid1 = handler.createBeer("Gösser", "Radler", "Herbes österreichisches Bier",
 					false).getId();
@@ -54,35 +65,39 @@ public class DatabaseUpdate {
 
 			// create new Bars
 			int barid1 = handler.createBar("Theresien Bräu", 47.269258, 11.4040792,
+<<<<<<< HEAD
 					"Traditionelles Lokal in Innsbruck, das ein eigenes Bier braut",
 					"www.brauwirtshaus.at").getId();
+=======
+					"Traditionelles Lokal in Innsbruck, das ein eigenes Bier braut", "www.brauwirtshaus.at", true).getId();
+>>>>>>> origin/db
 			int barid2 = handler
 					.createBar(
 							"11er Haus",
 							47.268653,
 							11.392825,
 							"Sehr bekannte Bar in Innsbruck, die sehr viele Biersorten der ganzen Welt anbietet.",
-							"http://innsbruckplus.at/elferhaus/").getId();
+							"http://innsbruckplus.at/elferhaus/", true).getId();
 			int barid3 = handler
 					.createBar(
 							"Stadtcafe",
 							47.268785,
 							11.395963,
 							"Bekanntestes Nachtlokal in Innsbruck, das hauptsächlich von der Studentenszene besucht wird.",
-							"www.tagnacht.at/stadtcafe/").getId();
+							"www.tagnacht.at/stadtcafe/", true).getId();
 
 			// create new achievement
 			int achid1 = handler
 					.createAchievement("500 posts",
-							"The user will get this achievement when he drinks 500 beers and add a post to the app")
+							"The user will get this achievement when he drinks 500 beers and add a post to the app", cid1)
 					.getId();
 			int achid2 = handler
 					.createAchievement("50 posts",
-							"The user will get this achievement when he drinks 50 beers and add a post to the app")
+							"The user will get this achievement when he drinks 50 beers and add a post to the app", cid3)
 					.getId();
 			int achid3 = handler
 					.createAchievement("100 posts",
-							"The user will get this achievement when he drinks 100 beers and add a post to the app")
+							"The user will get this achievement when he drinks 100 beers and add a post to the app", cid3)
 					.getId();
 
 			// create posts
@@ -91,6 +106,7 @@ public class DatabaseUpdate {
 			int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3").getId();
 			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
 			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
+<<<<<<< HEAD
 
 			// test user login
 			/*
@@ -172,6 +188,47 @@ public class DatabaseUpdate {
 			 * //sollte Post2,4 liefern
 			 */
 
+=======
+			
+			//get user
+			IUser user = handler.getUserLogin("user2", "user2");
+			
+			//assign Achievements
+			Collection<IAchievement> ach = handler.getAllAchievements();
+			handler.assignAchievementToUser(user.getId(), achid1);
+			handler.assignAchievementToUser(user.getId(), achid2);
+			
+		/*	//all get methods
+			Collection<IBeer> beers1 = handler.getAllBeers();
+			Collection<IBeer> bars1 = handler.getAllBeersFromBar(barid1);
+			Collection<IBeer> bars2 = handler.getAllBeersFromBar(barid2);
+
+			Collection<IBeerPost> posts1 = handler.getAllPostsFromBar(barid1);
+			Collection<IBeerPost> posts2 = handler.getAllPostsFromBar(barid2);
+			Collection<IBeerPost> userposts1 = handler.getAllPostsFromUser(userid1);
+			Collection<IBeerPost> userposts2 = handler.getAllPostsFromUser(userid2);
+
+			Collection<IBar> bars3 = handler.getBarsCoordinates(11.34, 11.35,
+					47.26, 47.27);
+			
+			Collection<IAchievement> userAch = handler.getAllAchievementsFromUser(user.getId());*/
+			//Collection<IBeerPost> posts = handler.getAllPosts();
+
+			// fehler erzeugen
+			/*try {
+				handler.getAchievementByID(99999);
+			} catch (Exception e) {
+				System.out.println("Fehler achievement");
+			}
+			try {
+				handler.deleteBar(99999);
+			} catch (Exception e) {
+				System.out.println("Fehler delete");
+			}
+			
+*/
+			
+>>>>>>> origin/db
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
 			return;
