@@ -20,7 +20,7 @@ public class TestBar extends TestBase {
 	public void createBar() {
 
 		// create bar
-		int id = dataHandler.createBar("Gössers", 11.392206, 47.266619, "Bar", "www.goessers.at", true)
+		int id = dataHandler.createBar("Gössers", 11.392206, 47.266619, "Bar", "www.goessers.at")
 				.getId();
 
 		// get created bar

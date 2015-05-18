@@ -243,24 +243,7 @@ public class DataHandler implements IDataHandler {
 		return user;
 	}
 
-<<<<<<< HEAD
 	public IBeer createBeer(String brand, String type, String description, boolean verified)
-=======
-	public IAchievementCriterion createAchievementCriterion(AchievementCriterionType type, int value)
-			throws IllegalStateException {
-
-		// create user instance
-		AchievementCriterion criterion = new AchievementCriterion();
-		criterion.setType(type);
-		criterion.setValue(value);
-
-		// save user in database
-		saveObjectToDb(criterion);
-		return criterion;
-	}
-	
-	public IBeer createBeer(String brand, String type, String description)
->>>>>>> origin/db
 			throws IllegalStateException {
 
 		// create beer instance
@@ -293,10 +276,10 @@ public class DataHandler implements IDataHandler {
 
 	public IAchievement createAchievement(String name, String description, int criterionID)
 			throws IllegalStateException {
-		
+
 		Session session = openSession();
 		AchievementCriterion criterion;
-		
+
 		// begin transaction
 		session.beginTransaction();
 
@@ -311,10 +294,9 @@ public class DataHandler implements IDataHandler {
 			System.out.println("criterionID in database not found");
 			// close session
 			session.close();
-			throw new IllegalArgumentException("criterionID: not in database found",
-					e);
+			throw new IllegalArgumentException("criterionID: not in database found", e);
 		}
-		
+
 		// create achievement instance
 		Achievement ach = new Achievement();
 		ach.setName(name);
@@ -325,18 +307,18 @@ public class DataHandler implements IDataHandler {
 		saveObjectToDb(ach);
 		return ach;
 	}
-	
-  public IAchievementCriterion createAchievementCriterion(AchievementCriterionType type, int value)
-    throws IllegalStateException {
 
-    // create user instance
-    AchievementCriterion criterion = new AchievementCriterion();
-    criterion.setType(type);
-    criterion.setValue(value);
+	public IAchievementCriterion createAchievementCriterion(AchievementCriterionType type, int value)
+			throws IllegalStateException {
 
-    // save user in database
-    saveObjectToDb(criterion);
-    return criterion;
+		// create user instance
+		AchievementCriterion criterion = new AchievementCriterion();
+		criterion.setType(type);
+		criterion.setValue(value);
+
+		// save user in database
+		saveObjectToDb(criterion);
+		return criterion;
 	}
 
 	public IBeerPost createPost(int barID, int beerID, int userID, double price, int rating,
