@@ -8,10 +8,7 @@ import durscht.core.User;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
 import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Results;
-import play.mvc.Security;
+import play.mvc.*;
 import views.html.main;
 import views.html.menu;
 
@@ -119,7 +116,12 @@ public class AuthenticationController extends Controller {
 
     private static void attachCorsHeaders() {
 
+        Http.Request request = request();
+
+        String address = request.remoteAddress();
         String origin = request().getHeader("Origin");
+
+        origin = origin == null ? address : origin;
         CorsController.addCorsHeaders(response(), origin);
     }
 }

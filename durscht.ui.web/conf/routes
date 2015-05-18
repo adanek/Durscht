@@ -5,8 +5,8 @@
 # Admin Page @Roman hier deine routen eintragen
 GET            /                              controllers.Application.index()
 POST           /                              controllers.AuthenticationController.logout()
-POST           /user/login                    controllers.AuthenticationController.adminLogin()
-GET            /user/login                    controllers.MenuController.goToMenu()
+POST           /admin/login                    controllers.AuthenticationController.adminLogin()
+GET            /admin/login                    controllers.MenuController.goToMenu()
 GET            /admin/users                   controllers.MenuController.showAllUsers()
 GET            /admin/bars                    controllers.MenuController.showAllBars()
 GET            /admin/posts                   controllers.MenuController.showAllPosts()
@@ -20,6 +20,7 @@ GET            /users/delete/:id              controllers.AdminUserController.de
 POST           /beers/filter                  controllers.AdminBeerController.filterBeer()
 
 
+
 # Map static resources from the /public folder to the /assets URL path
 GET            /assets/*file                  controllers.Assets.at(path="/public", file)
 
@@ -29,16 +30,16 @@ POST           /user/login                    controllers.AuthenticationControll
 POST           /user/logout                   controllers.AuthenticationController.logout()
 POST           /user/register                 controllers.AuthenticationController.register()
 
-POST           /share/nearBars                controllers.ShareController.getNearBars()
 POST           /share/createPost              controllers.ShareController.createPost()
-POST           /share/createBar               controllers.ShareController.createBar()
-POST           /share/createBeer              controllers.ShareController.createBeer()
-GET            /share/getAllBeers             controllers.ShareController.getAllBeers()
-GET            /share/beersFromBar/:id        controllers.ShareController.getBeersFromBar(id: Integer)
 
 POST           /beer/create                   controllers.BeerController.create()
 GET            /beer/used                     controllers.BeerController.getUsed()
+GET            /beer/all                      controllers.BeerController.getAllBeers()
 
+POST           /bar/near                      controllers.BarController.getNearBars()
+GET            /bar/getBeers/:id              controllers.BarController.getBeersFromBar(id: Integer)
+POST           /bar/withBeers                 controllers.BarController.getBarsWithBeers()
+POST           /bar/create                    controllers.BarController.createBar()
 
 # Options for CORS Cross Origin Resource Sharing
 OPTIONS        /                              controllers.CorsController.CorsOptions(url: String ?= "root")
