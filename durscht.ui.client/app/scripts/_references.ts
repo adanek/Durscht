@@ -23,6 +23,9 @@ interface BarService {
 	getAllBeers: () => ng.IHttpPromise<Array<Beer>>;
     addBeerToBar: (bar: Bar, beer: Beer) => ng.IPromise<void>;
 	getBarsWithFavoriteBeers: () => ng.IHttpPromise<Array<Bar>>;
+
+	compareByName: (a: Bar, b:Bar) => number;
+	compareByDistance: (a: Bar, b:Bar) => number;
 }
 
 interface BeerService {
@@ -31,6 +34,8 @@ interface BeerService {
 	getUsed: () => ng.IHttpPromise<Array<Beer>>;
     setFavorites: (beers:Array<Beer>) => void;
     getFavorites: () => Array<Beer>;
+
+	compareByName: (a:Beer, b:Beer) => number;
 }
 
 interface Posting {

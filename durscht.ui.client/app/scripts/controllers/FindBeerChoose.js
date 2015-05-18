@@ -7,32 +7,10 @@
         var beers = [];
         beerService.getUsed().success(function (data) {
             beers = data;
-            beers.sort(compareBeers);
+            beers.sort(beerService.compareByName);
             $scope.beers = beers;
         });
-        //var beers:Array<Beer> = [
-        //    {brand: 'Zipfer', type: 'Märzen', id: 0, description: ''},
-        //    {brand: 'Corona', type: 'Extra', id: 1, description: ''}];
-        function compareBeers(a, b) {
-            if (a < b) {
-                return -1;
-            }
-            else if (b < a) {
-                return 1;
-            }
-            else {
-                if (a.type < b.type) {
-                    return -1;
-                }
-                else if (b.type < a.type) {
-                    return 1;
-                }
-                else {
-                    return 0;
-                }
-            }
-        }
-        $scope.beers = beers.sort(compareBeers);
+        $scope.beers = beers;
         $scope.selectedBeers = [];
         $scope.addBeer = function () {
             if ($scope.beer.selected) {
@@ -51,9 +29,14 @@
             $scope.selectedBeers.splice(ndx, 1);
             // Add beer to source list
             $scope.beers.push(beer);
-            $scope.beers.sort(compareBeers);
+            $scope.beers.sort(beerService.compareByName);
         };
         $scope.searchBars = function () {
+            // Check if at least one beer is selected
+            if ($scope.selectedBeers.length == 0) {
+                $scope.errorMessage = "Du musst mindestens ein Bier auswählen!";
+                return;
+            }
             beerService.setFavorites($scope.selectedBeers);
             $location.path('/find/bars').replace();
         };

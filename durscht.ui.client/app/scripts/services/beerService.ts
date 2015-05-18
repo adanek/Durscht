@@ -32,12 +32,32 @@
             return favorites;
         }
 
+        var compareByBrand =  function (a:Beer, b:Beer) {
+            if (a.brand < b.brand) {
+                return -1
+            }
+            else if (a.brand > b.brand) {
+                return 1;
+            }
+            else {
+                if (a.type < b.type) {
+                    return -1;
+                } else if (a.type > b.type) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+
         return {
             createBeer: createBeer,
             getAll: getAll,
             getUsed: getUsed,
             setFavorites: setFavorites,
-            getFavorites: getFavorites
+            getFavorites: getFavorites,
+
+            compareByName: compareByBrand
         };
     }]);
 
