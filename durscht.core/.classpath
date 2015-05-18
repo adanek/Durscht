@@ -6,6 +6,6 @@
 	<classpathentry kind="src" path="/durscht.contracts"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/durscht.data"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Nocker/Downloads/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Mockito"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
