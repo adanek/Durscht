@@ -17,7 +17,7 @@ GET            /beers/delete/:id              controllers.AdminBeerController.de
 GET            /bars/delete/:id               controllers.AdminBarController.deleteBar(id:Integer)
 GET            /users/delete/:id              controllers.AdminUserController.deleteUser(id:Integer)
 
-GET            /beers/create                  controllers.AdminBeerController.createBeer()
+POST           /beers/filter                  controllers.AdminBeerController.filterBeer()
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import durscht.contracts.ui.IBeer;
 import durscht.core.config.ServiceLocator;
+import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -15,31 +16,21 @@ public class AdminBeerController extends Controller{
         return beers;
     }
 
-    public static Result createBeer(){
+    public static Result filterBeer(){
 
-        JsonNode body = request().body().asJson();
-        String brand = body.findPath("brand").textValue();
-        String type = body.findPath("type").textValue();
-        String description = body.findPath("description").textValue();
+        String brand = request().body().asFormUrlEncoded().get("brand")[0];
+        String type = request().body().asFormUrlEncoded().get("type")[0];
 
-//        String brand = request().body().asFormUrlEncoded().get("brand")[0];
-//        String type = request().body().asFormUrlEncoded().get("type")[0];
-//        String description = request().body().asFormUrlEncoded().get("description")[0];
+        durscht.contracts.ui.IBeer [] beers = ServiceLocator.getBeerHandler().getBeersByPrefix(brand + type);
 
-        IBeer beer = ServiceLocator.getBeerHandler().createNewBeer(brand, type, description);
-
-        JsonNode data = Json.toJson(beer);
-        attachCorsHeaders();
-        return created(data);
-    }
-
-    private static void attachCorsHeaders() {
-
-        String origin = request().getHeader("Origin");
-        CorsController.addCorsHeaders(response(), origin);
+        return ok(choose_beer.render(beers));
     }
 
     public static Result deleteBeer(int id){
+
+
+        Logger.info(String.format("going to delete beer %d", id ));
+
         return redirect("/admin/beers");
     }
 }
