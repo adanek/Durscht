@@ -2,6 +2,7 @@ package durscht.contracts.logic;
 
 import durscht.contracts.ui.IBar;
 import durscht.contracts.ui.IBeer;
+import durscht.contracts.ui.IPost;
 
 public interface IPostHandler {
 
@@ -13,16 +14,19 @@ public interface IPostHandler {
 	 * @return Array of Bars around the passed point
 	 * @throws IllegalArgumentException invalid longitude or latitude data: longitude outside [-180,180] or latitude
 	 *         outside [-90,90]
+	 * @throws IllegalStateException data base errors
 	 */
-	public IBar[] getNearBars(double latitude, double longitude) throws IllegalArgumentException, IllegalStateException;
+	IBar[] getNearBars(double latitude, double longitude) throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * Looks for a given bar in the database for all its beers.
 	 * 
-	 * @param bar The bar whose beers are looked up
+	 * @param barID ID of the bar whose beers are looked up
 	 * @return Array of beers registered for a given bar
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
 	 */
-	public IBeer[] getBeersByBar(int barID) throws IllegalArgumentException, IllegalStateException;
+	IBeer[] getBeersByBar(int barID) throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * Saves the passed information as a Post in the database
@@ -30,10 +34,14 @@ public interface IPostHandler {
 	 * @param barID
 	 * @param beerID
 	 * @param userID
+	 * @param prize
+	 * @param rating
 	 * @param description
-	 * @return index of the created post
+	 * @return index of the saved post
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
 	 */
-	public Integer putPosting(int barID, int beerID, int userID, double prize, int rating, String description)
+	Integer putPosting(int barID, int beerID, int userID, double prize, int rating, String description)
 			throws IllegalArgumentException, IllegalStateException;
 
 	/**
@@ -44,16 +52,25 @@ public interface IPostHandler {
 	 * @param longitude
 	 * @param description
 	 * @param url
-	 * @return
+	 * @return Newly created Bar object
+	 * @throws IllegalStateException
 	 */
-	public IBar createNewBar(String name, double latitude, double longitude, String description, String url)
+	IBar createNewBar(String name, double latitude, double longitude, String description, String url)
 			throws IllegalStateException;
 
 	/**
-	 * Returns all bars around you which serve at least one of the beers mentioned in beers
+	 * Returns all Posts from the database
 	 * 
-	 * @param beers Beer array listing your preferred beers
-	 * @return Bar array that lists all bars around your spot that serve one of the beers
+	 * @return All Posts from the database
+	 * @throws IllegalStateException database errors
 	 */
-	public IBar[] getBarsByBeer(double latitude, double longitude, IBeer[] beers);
+	IPost[] getAllPosts() throws IllegalStateException;
+
+	/**
+	 * Deletes a post from the database.
+	 * 
+	 * @param postID ID of the post to be deleted.
+	 * @throws IllegalArgumentException database errors
+	 */
+	void deletePost(int postID) throws IllegalArgumentException;
 }
