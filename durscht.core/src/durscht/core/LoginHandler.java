@@ -25,16 +25,22 @@ public class LoginHandler {
 	public User login(String name, String password) {
 		IDataHandler dataHandler = getDataHandler();
 
-		User user = new User();
 		durscht.contracts.data.IUser iUser = dataHandler.getUserLogin(name, password);
 		if (iUser == null) {
 			return null;
 		}
-		user.setId(iUser.getId());
-		user.setName(iUser.getName());
-		user.setEmail(iUser.getEmail());
-		user.setDate(iUser.getJoinedDate());
+		User user = LoginHandler.convertDBtoUI(iUser);
+		return user;
+	}
 
+	public User adminLogin(String name, String password) {
+		IDataHandler dataHandler = getDataHandler();
+
+		durscht.contracts.data.IUser iUser = dataHandler.getUserLoginAdmin(name, password);
+		if (iUser == null) {
+			return null;
+		}
+		User user = LoginHandler.convertDBtoUI(iUser);
 		return user;
 	}
 
@@ -50,4 +56,13 @@ public class LoginHandler {
 		return user;
 	}
 
+	protected static User convertDBtoUI(durscht.contracts.data.IUser iUser) {
+		User user = new User();
+		user.setId(iUser.getId());
+		user.setName(iUser.getName());
+		user.setEmail(iUser.getEmail());
+		user.setDate(iUser.getJoinedDate());
+
+		return user;
+	}
 }
