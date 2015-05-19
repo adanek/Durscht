@@ -8,6 +8,7 @@ import durscht.contracts.logic.IBeerHandler;
 import durscht.core.config.ServiceLocator;
 import durscht.core.helper.TrieST;
 import durscht.model.Beer;
+import sun.nio.cs.ext.IBM037;
 
 public class BeerHandler implements IBeerHandler {
 
@@ -30,16 +31,10 @@ public class BeerHandler implements IBeerHandler {
 		IDataHandler dataHandler = getDataHandler();
 
 		beers = new TrieST<Beer>();
-
-		Collection<IBeer> db_beers = dataHandler.getAllBeers();
+		Collection<IBeer> db_beers = dataHandler.getAllBeersVerified();
 
 		for (IBeer ibeer : db_beers) {
-			Beer beer = new Beer();
-			beer.setId(ibeer.getId());
-			beer.setBrand(ibeer.getBrand());
-			beer.setType(ibeer.getType());
-			beer.setDescription(ibeer.getDescription());
-			beers.put(ibeer.getBrand() + ibeer.getType(), beer);
+			beers.put(ibeer.getBrand() + ibeer.getType(), BeerHandler.convertDBtoUI(ibeer));
 		}
 	}
 
@@ -61,7 +56,7 @@ public class BeerHandler implements IBeerHandler {
 			throws IllegalStateException {
 		IDataHandler dataHandler = getDataHandler();
 
-		IBeer ibeer = dataHandler.createBeer(brand, type, description);
+		IBeer ibeer = dataHandler.createBeer(brand, type, description, false);
 
 		Beer beer = new Beer();
 		beer.setId(ibeer.getId());
@@ -84,6 +79,16 @@ public class BeerHandler implements IBeerHandler {
 		}
 
 		return beersList.toArray(new Beer[beersList.size()]);
+	}
+
+	protected static Beer convertDBtoUI(IBeer iBeer) {
+		Beer beer = new Beer();
+		beer.setBrand(iBeer.getBrand());
+		beer.setDescription(iBeer.getDescription());
+		beer.setId(iBeer.getId());
+		beer.setType(iBeer.getType());
+
+		return beer;
 	}
 
 }
