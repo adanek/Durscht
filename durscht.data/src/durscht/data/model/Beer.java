@@ -24,41 +24,61 @@ public class Beer implements IBeer {
 	private int id;
 	private String brand;
 	private String type;
+	private boolean verified;
 	@Lob
 	private String description;
 	@OneToMany(mappedBy = "beer")
 	@Cascade({ CascadeType.DELETE })
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getBrand() {
 		return brand;
 	}
+
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public boolean isVerified() {
+		return verified;
+	}
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public Collection<BeerPost> getBeerPosts() {
 		return beerPosts;
 	}
+
 	public void setBeerPosts(Collection<BeerPost> beerPosts) {
 		this.beerPosts = beerPosts;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -68,6 +88,7 @@ public class Beer implements IBeer {
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -91,6 +112,5 @@ public class Beer implements IBeer {
 			return false;
 		return true;
 	}
-
 
 }

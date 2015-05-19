@@ -20,13 +20,16 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
+import durscht.contracts.data.AchievementCriterionType;
 import durscht.contracts.data.IAchievement;
+import durscht.contracts.data.IAchievementCriterion;
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IBeerPost;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
 import durscht.data.model.Achievement;
+import durscht.data.model.AchievementCriterion;
 import durscht.data.model.Bar;
 import durscht.data.model.Beer;
 import durscht.data.model.BeerPost;
@@ -67,11 +70,10 @@ public class DataHandler implements IDataHandler {
 				configuration.configure("hibernate.cfg.xml");
 				// test DB
 			} else {
-				configuration
-						.configure("durscht/data/testConf/hibernate.cfg.xml");
+				configuration.configure("durscht/data/testConf/hibernate.cfg.xml");
 			}
-			serviceRegistry = new StandardServiceRegistryBuilder()
-					.applySettings(configuration.getProperties()).build();
+			serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
+					configuration.getProperties()).build();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
 		} catch (HibernateException e) {
@@ -110,20 +112,15 @@ public class DataHandler implements IDataHandler {
 	 * @throws IllegalStateException
 	 *             throw this exception when it is not possible to connect
 	 */
-	private Connection connectToDatabase() throws URISyntaxException,
-			IllegalStateException {
+	private Connection connectToDatabase() throws URISyntaxException, IllegalStateException {
 
 		URI dbUri = new URI(
 				"postgres://kydpvhoibhlkkv:zryvjK70cy2693A8I-TtSzXQUk@ec2-23-21-140-156.compute-1.amazonaws.com:5432/dcu5dug781g9t8");
 
 		String username = dbUri.getUserInfo().split(":")[0];
 		String password = dbUri.getUserInfo().split(":")[1];
-		String dbUrl = "jdbc:postgresql://"
-				+ dbUri.getHost()
-				+ ':'
-				+ dbUri.getPort()
-				+ dbUri.getPath()
-				+ "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort()
+				+ dbUri.getPath() + "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
 		Connection conn;
 		try {
@@ -176,8 +173,7 @@ public class DataHandler implements IDataHandler {
 			// Exception -> rollback
 			session.getTransaction().rollback();
 			System.out.println("saving from object not possible");
-			throw new IllegalStateException("saving from object not possible",
-					e);
+			throw new IllegalStateException("saving from object not possible", e);
 		} finally {
 			// close session
 			session.close();
@@ -196,8 +192,7 @@ public class DataHandler implements IDataHandler {
 	 *             commit failed by searching for object, no object with this ID
 	 *             in the database
 	 */
-	private <T> T searchForID(int id, Class<T> typeParameterClass)
-			throws IllegalArgumentException {
+	private <T> T searchForID(int id, Class<T> typeParameterClass) throws IllegalArgumentException {
 
 		Session session = openSession();
 
@@ -220,15 +215,14 @@ public class DataHandler implements IDataHandler {
 			// Exception -> rollback
 			session.getTransaction().rollback();
 			System.out.println("object with this ID is not in the database");
-			throw new IllegalArgumentException(
-					"object with this ID is not in the database", e);
+			throw new IllegalArgumentException("object with this ID is not in the database", e);
 		} finally {
 			// close session
 			session.close();
 		}
 	}
 
-	public IUser createUser(String name, String email, String password,boolean admin)
+	public IUser createUser(String name, String email, String password, boolean admin)
 			throws IllegalStateException {
 
 		// create user instance
@@ -249,7 +243,7 @@ public class DataHandler implements IDataHandler {
 		return user;
 	}
 
-	public IBeer createBeer(String brand, String type, String description)
+	public IBeer createBeer(String brand, String type, String description, boolean verified)
 			throws IllegalStateException {
 
 		// create beer instance
@@ -257,14 +251,15 @@ public class DataHandler implements IDataHandler {
 		beer.setBrand(brand);
 		beer.setType(type);
 		beer.setDescription(description);
+		beer.setVerified(verified);
 
 		// save beer to database
 		saveObjectToDb(beer);
 		return beer;
 	}
 
-	public IBar createBar(String name, double latitude, double longitude,
-			String description, String url) throws IllegalStateException {
+	public IBar createBar(String name, double latitude, double longitude, String description,
+			String url) throws IllegalStateException {
 
 		// create bar instance
 		Bar bar = new Bar();
@@ -279,21 +274,55 @@ public class DataHandler implements IDataHandler {
 		return bar;
 	}
 
-	public IAchievement createAchievement(String name, String description)
+	public IAchievement createAchievement(String name, String description, int criterionID)
 			throws IllegalStateException {
+
+		Session session = openSession();
+		AchievementCriterion criterion;
+
+		// begin transaction
+		session.beginTransaction();
+
+		// search criterion
+		try {
+			Criteria cr = session.createCriteria(AchievementCriterion.class);
+			cr.add(Restrictions.eq("id", criterionID));
+			criterion = (AchievementCriterion) cr.list().get(0);
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("criterionID in database not found");
+			// close session
+			session.close();
+			throw new IllegalArgumentException("criterionID: not in database found", e);
+		}
+
 		// create achievement instance
 		Achievement ach = new Achievement();
 		ach.setName(name);
 		ach.setDescription(description);
+		ach.setCriterion(criterion);
 
 		// save achievement to database
 		saveObjectToDb(ach);
 		return ach;
 	}
 
-	public IBeerPost createPost(int barID, int beerID, int userID,
-			double price, int rating, String descripton)
-			throws IllegalStateException, IllegalArgumentException {
+	public IAchievementCriterion createAchievementCriterion(AchievementCriterionType type, int value)
+			throws IllegalStateException {
+
+		// create user instance
+		AchievementCriterion criterion = new AchievementCriterion();
+		criterion.setType(type);
+		criterion.setValue(value);
+
+		// save user in database
+		saveObjectToDb(criterion);
+		return criterion;
+	}
+
+	public IBeerPost createPost(int barID, int beerID, int userID, double price, int rating,
+			String descripton) throws IllegalStateException, IllegalArgumentException {
 		Session session = openSession();
 		Beer beer;
 		Bar bar;
@@ -313,8 +342,7 @@ public class DataHandler implements IDataHandler {
 			System.out.println("barID in database not found");
 			// close session
 			session.close();
-			throw new IllegalArgumentException("barID: not in database found",
-					e);
+			throw new IllegalArgumentException("barID: not in database found", e);
 		}
 
 		// search beer
@@ -328,8 +356,7 @@ public class DataHandler implements IDataHandler {
 			System.out.println("beerID in database not found");
 			// close session
 			session.close();
-			throw new IllegalArgumentException("beerID: not in database found",
-					e);
+			throw new IllegalArgumentException("beerID: not in database found", e);
 		}
 
 		// search user
@@ -343,8 +370,7 @@ public class DataHandler implements IDataHandler {
 			System.out.println("userID in database not found");
 			// close session
 			session.close();
-			throw new IllegalArgumentException("userID: not in database found",
-					e);
+			throw new IllegalArgumentException("userID: not in database found", e);
 		}
 
 		// create new post and save this to database
@@ -387,480 +413,6 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
-	public IUser getUserLogin(String name, String password)
-			throws IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(SavedUser.class);
-			cr.add(Restrictions.eq("name", name));
-			List<SavedUser> results = cr.list();
-
-			// commit
-			session.getTransaction().commit();
-
-			// only one element in the list because the id is unique
-			for (SavedUser user : results) {
-				try {
-					if (PasswordHash.check(password, user.getPassword()))
-						return user;
-				} catch (Exception e) {
-					throw new IllegalStateException(
-							"Fail by checking the user password");
-				}
-			}
-		} catch (HibernateException e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the user");
-		} finally {
-			// close session
-			session.close();
-		}
-		// no appropriate user found in database
-		return null;
-	}
-
-	public SavedUser getUserByID(int id) throws IllegalArgumentException {
-		return this.<SavedUser> searchForID(id, SavedUser.class);
-	}
-
-	public Bar getBarByID(int id) throws IllegalArgumentException {
-		return this.<Bar> searchForID(id, Bar.class);
-	}
-
-	public Beer getBeerByID(int id) throws IllegalArgumentException {
-		return this.<Beer> searchForID(id, Beer.class);
-	}
-
-	public BeerPost getPostByID(int id) throws IllegalArgumentException {
-		return this.<BeerPost> searchForID(id, BeerPost.class);
-	}
-
-	public Achievement getAchievementByID(int id)
-			throws IllegalArgumentException {
-		return this.<Achievement> searchForID(id, Achievement.class);
-	}
-
-	public Collection<IUser> getAllUsers() throws IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(SavedUser.class);
-			List<IUser> results = cr.list();
-
-			// commit
-			session.getTransaction().commit();
-
-			return results;
-
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the user list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-	
-	public Collection<IBeer> getAllBeers() throws IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(Beer.class);
-			List<IBeer> results = cr.list();
-
-			// commit
-			session.getTransaction().commit();
-
-			return results;
-
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the beer list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-	
-	public Collection<IBar> getAllBars() throws IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(Bar.class);
-			List<IBar> results = cr.list();
-
-			// commit
-			session.getTransaction().commit();
-
-			return results;
-
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the bar list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-
-	public Collection<IAchievement> getAllAchievements()
-			throws IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(Achievement.class);
-			List<IAchievement> results = cr.list();
-
-			// commit
-			session.getTransaction().commit();
-
-			return results;
-
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the achievement list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-	
-	public Collection<IBeerPost> getAllPosts()
-			throws IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(BeerPost.class);
-			List<IBeerPost> results = cr.list();
-
-			// commit
-			session.getTransaction().commit();
-
-			return results;
-
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the post list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-
-	public Collection<IBar> getBarsCoordinates(double fromLatitude,
-			double toLatitude, double fromLongitude, double toLongitude) {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(Bar.class);
-			cr.add(Restrictions.le("latitude", toLatitude));
-			cr.add(Restrictions.ge("latitude", fromLatitude));
-			cr.add(Restrictions.le("longitude", toLongitude));
-			cr.add(Restrictions.ge("longitude", fromLongitude));
-			List<IBar> results = cr.list();
-
-			// commit
-			session.getTransaction().commit();
-
-			return results;
-
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the bar list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-
-	public Collection<IBeer> getAllBeersFromBar(int barID)
-			throws IllegalArgumentException, IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(Bar.class);
-			cr.add(Restrictions.eq("id", barID));
-			List<Bar> results = cr.list();
-
-			if (results.size() == 0)
-				throw new IllegalArgumentException(); // bar not found with this
-														// id
-
-			Collection<BeerPost> posts = results.get(0).getBeerPosts();
-			Collection<IBeer> beers = new ArrayList<>();
-
-			for (BeerPost post : posts) {
-				if (!beers.contains(post.getBeer())) {
-					beers.add(post.getBeer());
-				}
-			}
-
-			// commit
-			session.getTransaction().commit();
-
-			return beers;
-
-		} catch (IllegalArgumentException e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			System.out.println("no beer with this ID in the database");
-			throw new IllegalArgumentException(
-					"no beer with this ID in the database");
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the beer list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-
-	public Collection<IBeerPost> getAllPostsFromBar(int barID)
-			throws IllegalArgumentException, IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(Bar.class);
-			cr.add(Restrictions.eq("id", barID));
-			List<Bar> results = cr.list();
-
-			if (results.size() == 0)
-				throw new IllegalArgumentException(); // bar not found with this
-														// id
-
-			Collection<BeerPost> posts = results.get(0).getBeerPosts();
-
-			Collection<IBeerPost> ret = new ArrayList<>(posts);
-
-			// commit
-			session.getTransaction().commit();
-
-			return ret;
-
-		} catch (IllegalArgumentException e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			System.out.println("no beer with this ID in the database");
-			throw new IllegalArgumentException(
-					"no beer with this ID in the database");
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the post list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-
-	public Collection<IBeerPost> getAllPostsFromUser(int userID)
-			throws IllegalArgumentException, IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(SavedUser.class);
-			cr.add(Restrictions.eq("id", userID));
-			List<SavedUser> results = cr.list();
-
-			if (results.size() == 0)
-				throw new IllegalArgumentException(); // user not found with
-														// this id
-
-			Collection<BeerPost> posts = results.get(0).getBeerPosts();
-
-			Collection<IBeerPost> ret = new ArrayList<>(posts);
-
-			// commit
-			session.getTransaction().commit();
-
-			return ret;
-
-		} catch (IllegalArgumentException e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			System.out.println("no user with this ID in the database");
-			throw new IllegalArgumentException(
-					"no user with this ID in the database");
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the post list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-
-	public IUser assignAchievementToUser(int userID, int achID)
-			throws IllegalArgumentException, IllegalStateException {
-
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			// get user
-			Criteria cr = session.createCriteria(SavedUser.class);
-			cr.add(Restrictions.eq("id", userID));
-			List<SavedUser> results = cr.list();
-
-			if (results.size() == 0)
-				throw new IllegalArgumentException("userID");
-
-			// get user
-			SavedUser user = results.get(0);
-
-			// get achievement
-			cr = session.createCriteria(Achievement.class);
-			cr.add(Restrictions.eq("id", achID));
-			List<Achievement> achResults = cr.list();
-
-			if (achResults.size() == 0)
-				throw new IllegalArgumentException("achID");
-
-			Achievement newAch = achResults.get(0);
-
-			// achievement already in list from user
-			if (user.getAchievements().contains(newAch))
-				throw new IllegalArgumentException(
-						"user has this achievement already");
-
-			// add achievement to users achievements and add user to achievement
-			user.getAchievements().add(newAch);
-			newAch.getUsers().add(user);
-
-			// update user and achievement
-			session.update(user);
-			session.update(newAch);
-
-			// commit
-			session.getTransaction().commit();
-
-			return user;
-
-		} catch (IllegalArgumentException e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			System.out
-					.println("no user with this ID or no achievement with this ID in the database");
-			throw new IllegalArgumentException(e.getMessage());
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			System.out.println("saving from achievement");
-			throw new IllegalStateException("saving from achievement");
-		} finally {
-			// close session
-			session.close();
-		}
-
-	}
-
-	public Collection<IAchievement> getAllAchievementsFromUser(int userID)
-			throws IllegalArgumentException, IllegalStateException {
-		Session session = openSession();
-
-		try {
-
-			// begin transaction
-			session.beginTransaction();
-
-			Criteria cr = session.createCriteria(SavedUser.class);
-			cr.add(Restrictions.eq("id", userID));
-			List<SavedUser> results = cr.list();
-
-			if (results.size() == 0)
-				throw new IllegalArgumentException(); // user not found with
-														// this id
-
-			Collection<Achievement> achievements = results.get(0)
-					.getAchievements();
-
-			Collection<IAchievement> ret = new ArrayList<>(achievements);
-
-			// commit
-			session.getTransaction().commit();
-
-			return ret;
-
-		} catch (IllegalArgumentException e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			System.out.println("no user with this ID in the database");
-			throw new IllegalArgumentException(
-					"no user with this ID in the database");
-		} catch (Exception e) {
-			// Exception -> rollback
-			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the achievement list");
-		} finally {
-			// close session
-			session.close();
-		}
-	}
-
 	/**
 	 * deletes an object from the database, when it is an entity
 	 * 
@@ -897,19 +449,6 @@ public class DataHandler implements IDataHandler {
 		}
 	}
 
-	public void deleteBar(int barID) throws IllegalArgumentException {
-		try {
-			// get bar
-			Bar bar = getBarByID(barID);
-			// delete bar from database
-			deleteObjectFromDb(bar);
-		} catch (IllegalArgumentException e) {
-			System.out.println("deletion or getting bar from ID failed");
-			throw new IllegalArgumentException(
-					"deletion or getting bar from ID failed", e);
-		}
-	}
-
 	public void deleteUser(int userID) throws IllegalArgumentException {
 		try {
 			// get user
@@ -918,8 +457,7 @@ public class DataHandler implements IDataHandler {
 			deleteObjectFromDb(user);
 		} catch (IllegalArgumentException e) {
 			System.out.println("deletion or getting user from ID failed");
-			throw new IllegalArgumentException(
-					"deletion or getting user from ID failed", e);
+			throw new IllegalArgumentException("deletion or getting user from ID failed", e);
 		}
 	}
 
@@ -931,8 +469,39 @@ public class DataHandler implements IDataHandler {
 			deleteObjectFromDb(beer);
 		} catch (IllegalArgumentException e) {
 			System.out.println("deletion or getting beer from ID failed");
-			throw new IllegalArgumentException(
-					"deletion or getting beer from ID failed", e);
+			throw new IllegalArgumentException("deletion or getting beer from ID failed", e);
+		}
+	}
+
+	public void deleteBar(int barID) throws IllegalArgumentException {
+		try {
+			// get bar
+			Bar bar = getBarByID(barID);
+			// delete bar from database
+			deleteObjectFromDb(bar);
+		} catch (IllegalArgumentException e) {
+			System.out.println("deletion or getting bar from ID failed");
+			throw new IllegalArgumentException("deletion or getting bar from ID failed", e);
+		}
+	}
+
+	/**
+	 * deletes a achievement from the database
+	 * 
+	 * @param aID
+	 * @throws IllegalArgumentException
+	 *             deletion or getting achievement from ID failed
+	 */
+	@Deprecated
+	public void deleteAchievement(int aID) throws IllegalArgumentException {
+		try {
+			// get achievement
+			Achievement achievement = getAchievementByID(aID);
+			// delete beer from database
+			deleteObjectFromDb(achievement);
+		} catch (IllegalArgumentException e) {
+			System.out.println("deletion or getting achievement from ID failed");
+			throw new IllegalArgumentException("deletion or getting achievement from ID failed", e);
 		}
 	}
 
@@ -944,31 +513,584 @@ public class DataHandler implements IDataHandler {
 			deleteObjectFromDb(post);
 		} catch (IllegalArgumentException e) {
 			System.out.println("deletion or getting post from ID failed");
-			throw new IllegalArgumentException(
-					"deletion or getting post from ID failed", e);
+			throw new IllegalArgumentException("deletion or getting post from ID failed", e);
 		}
 	}
 
-	public void deleteAchievement(int aID) throws IllegalArgumentException {
+	public IUser assignAchievementToUser(int userID, int achID) throws IllegalArgumentException,
+			IllegalStateException {
+
+		Session session = openSession();
+
 		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			// get user
+			Criteria cr = session.createCriteria(SavedUser.class);
+			cr.add(Restrictions.eq("id", userID));
+			List<SavedUser> results = cr.list();
+
+			if (results.size() == 0)
+				throw new IllegalArgumentException("userID");
+
+			// get user
+			SavedUser user = results.get(0);
+
 			// get achievement
-			Achievement achievement = getAchievementByID(aID);
-			// delete beer from database
-			deleteObjectFromDb(achievement);
+			cr = session.createCriteria(Achievement.class);
+			cr.add(Restrictions.eq("id", achID));
+			List<Achievement> achResults = cr.list();
+
+			if (achResults.size() == 0)
+				throw new IllegalArgumentException("achID");
+
+			Achievement newAch = achResults.get(0);
+
+			// achievement already in list from user
+			if (user.getAchievements().contains(newAch))
+				throw new IllegalArgumentException("user has this achievement already");
+
+			// add achievement to users achievements and add user to achievement
+			user.getAchievements().add(newAch);
+			newAch.getUsers().add(user);
+
+			// update user and achievement
+			session.update(user);
+			session.update(newAch);
+
+			// commit
+			session.getTransaction().commit();
+
+			return user;
+
 		} catch (IllegalArgumentException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
 			System.out
-					.println("deletion or getting achievement from ID failed");
-			throw new IllegalArgumentException(
-					"deletion or getting achievement from ID failed", e);
+					.println("no user with this ID or no achievement with this ID in the database");
+			throw new IllegalArgumentException(e.getMessage());
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("saving from achievement");
+			throw new IllegalStateException("saving from achievement");
+		} finally {
+			// close session
+			session.close();
+		}
+
+	}
+
+	public IBeer verifyBeer(int beerID) throws IllegalArgumentException, IllegalStateException {
+
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			// get beer
+			Criteria cr = session.createCriteria(Beer.class);
+			cr.add(Restrictions.eq("id", beerID));
+			List<Beer> results = cr.list();
+
+			if (results.size() == 0)
+				throw new IllegalArgumentException("beerID");
+
+			Beer beer = results.get(0);
+
+			// verify beer
+			beer.setVerified(true);
+
+			// update beer
+			session.update(beer);
+
+			// commit
+			session.getTransaction().commit();
+
+			return beer;
+
+		} catch (IllegalArgumentException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("no beer with this ID in the database");
+			throw new IllegalArgumentException(e.getMessage());
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("verifieng beer");
+			throw new IllegalStateException("verifieng beer");
+		} finally {
+			// close session
+			session.close();
+		}
+
+	}
+
+	public Collection<IUser> getAllUsers() throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(SavedUser.class);
+			List<IUser> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the user list");
+		} finally {
+			// close session
+			session.close();
 		}
 	}
 
-	public Collection<IBar> findBars(double fromLatitude, double toLatitude,
-			double fromLongitude, double toLongitude, Collection<IBeer> beers)
-			throws IllegalStateException {
+	public Collection<IBeer> getAllBeers() throws IllegalStateException {
+		Session session = openSession();
 
-		Collection<IBar> bars = getBarsCoordinates(fromLatitude, toLatitude,
-				fromLongitude, toLongitude);
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Beer.class);
+			List<IBeer> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the beer list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IBeer> getAllBeersVerified() throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Beer.class);
+			cr.add(Restrictions.eq("verified", true));
+			List<IBeer> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the beer list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IBar> getAllBars() throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			List<IBar> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the bar list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IAchievement> getAllAchievements() throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Achievement.class);
+			List<IAchievement> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the achievement list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IBeerPost> getAllPosts() throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(BeerPost.class);
+			List<IBeerPost> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the post list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public SavedUser getUserByID(int id) throws IllegalArgumentException {
+		return this.<SavedUser> searchForID(id, SavedUser.class);
+	}
+
+	public Beer getBeerByID(int id) throws IllegalArgumentException {
+		return this.<Beer> searchForID(id, Beer.class);
+	}
+
+	public Bar getBarByID(int id) throws IllegalArgumentException {
+		return this.<Bar> searchForID(id, Bar.class);
+	}
+
+	public Achievement getAchievementByID(int id) throws IllegalArgumentException {
+		return this.<Achievement> searchForID(id, Achievement.class);
+	}
+
+	public BeerPost getPostByID(int id) throws IllegalArgumentException {
+		return this.<BeerPost> searchForID(id, BeerPost.class);
+	}
+
+	public IUser getUserLogin(String name, String password) throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(SavedUser.class);
+			cr.add(Restrictions.eq("name", name));
+			List<SavedUser> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			// only one element in the list because the id is unique
+			for (SavedUser user : results) {
+				try {
+					if (PasswordHash.check(password, user.getPassword()))
+						return user;
+				} catch (Exception e) {
+					throw new IllegalStateException("Fail by checking the user password");
+				}
+			}
+		} catch (HibernateException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the user");
+		} finally {
+			// close session
+			session.close();
+		}
+		// no appropriate user found in database
+		return null;
+	}
+
+	public IUser getUserLoginAdmin(String name, String password) throws IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(SavedUser.class);
+			cr.add(Restrictions.eq("name", name));
+			cr.add(Restrictions.eq("admin", true));
+			List<SavedUser> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			// only one element in the list because the id is unique
+			for (SavedUser user : results) {
+				try {
+					if (PasswordHash.check(password, user.getPassword()))
+						return user;
+				} catch (Exception e) {
+					throw new IllegalStateException("Fail by checking the user password");
+				}
+			}
+		} catch (HibernateException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the user");
+		} finally {
+			// close session
+			session.close();
+		}
+		// no appropriate user found in database
+		return null;
+	}
+
+	public Collection<IBar> getBarsCoordinates(double fromLatitude, double toLatitude,
+			double fromLongitude, double toLongitude) {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			cr.add(Restrictions.le("latitude", toLatitude));
+			cr.add(Restrictions.ge("latitude", fromLatitude));
+			cr.add(Restrictions.le("longitude", toLongitude));
+			cr.add(Restrictions.ge("longitude", fromLongitude));
+			List<IBar> results = cr.list();
+
+			// commit
+			session.getTransaction().commit();
+
+			return results;
+
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the bar list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IAchievement> getAllAchievementsFromUser(int userID)
+			throws IllegalArgumentException, IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(SavedUser.class);
+			cr.add(Restrictions.eq("id", userID));
+			List<SavedUser> results = cr.list();
+
+			if (results.size() == 0)
+				throw new IllegalArgumentException(); // user not found with
+														// this id
+
+			Collection<Achievement> achievements = results.get(0).getAchievements();
+
+			Collection<IAchievement> ret = new ArrayList<>(achievements);
+
+			// commit
+			session.getTransaction().commit();
+
+			return ret;
+
+		} catch (IllegalArgumentException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("no user with this ID in the database");
+			throw new IllegalArgumentException("no user with this ID in the database");
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the achievement list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IBeerPost> getAllPostsFromUser(int userID) throws IllegalArgumentException,
+			IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(SavedUser.class);
+			cr.add(Restrictions.eq("id", userID));
+			List<SavedUser> results = cr.list();
+
+			if (results.size() == 0)
+				throw new IllegalArgumentException(); // user not found with
+														// this id
+
+			Collection<BeerPost> posts = results.get(0).getBeerPosts();
+
+			Collection<IBeerPost> ret = new ArrayList<>(posts);
+
+			// commit
+			session.getTransaction().commit();
+
+			return ret;
+
+		} catch (IllegalArgumentException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("no user with this ID in the database");
+			throw new IllegalArgumentException("no user with this ID in the database");
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the post list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IBeer> getAllBeersFromBar(int barID) throws IllegalArgumentException,
+			IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			cr.add(Restrictions.eq("id", barID));
+			List<Bar> results = cr.list();
+
+			if (results.size() == 0)
+				throw new IllegalArgumentException(); // bar not found with this
+														// id
+
+			Collection<BeerPost> posts = results.get(0).getBeerPosts();
+			Collection<IBeer> beers = new ArrayList<>();
+
+			for (BeerPost post : posts) {
+				if (!beers.contains(post.getBeer())) {
+					beers.add(post.getBeer());
+				}
+			}
+
+			// commit
+			session.getTransaction().commit();
+
+			return beers;
+
+		} catch (IllegalArgumentException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("no beer with this ID in the database");
+			throw new IllegalArgumentException("no beer with this ID in the database");
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the beer list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IBeerPost> getAllPostsFromBar(int barID) throws IllegalArgumentException,
+			IllegalStateException {
+		Session session = openSession();
+
+		try {
+
+			// begin transaction
+			session.beginTransaction();
+
+			Criteria cr = session.createCriteria(Bar.class);
+			cr.add(Restrictions.eq("id", barID));
+			List<Bar> results = cr.list();
+
+			if (results.size() == 0)
+				throw new IllegalArgumentException(); // bar not found with this
+														// id
+
+			Collection<BeerPost> posts = results.get(0).getBeerPosts();
+
+			Collection<IBeerPost> ret = new ArrayList<>(posts);
+
+			// commit
+			session.getTransaction().commit();
+
+			return ret;
+
+		} catch (IllegalArgumentException e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			System.out.println("no beer with this ID in the database");
+			throw new IllegalArgumentException("no beer with this ID in the database");
+		} catch (Exception e) {
+			// Exception -> rollback
+			session.getTransaction().rollback();
+			throw new IllegalStateException("something went wrong by getting the post list");
+		} finally {
+			// close session
+			session.close();
+		}
+	}
+
+	public Collection<IBar> findBars(double fromLatitude, double toLatitude, double fromLongitude,
+			double toLongitude, Collection<Integer> beerIDs) throws IllegalStateException {
+
+		Collection<IBar> bars = getBarsCoordinates(fromLatitude, toLatitude, fromLongitude,
+				toLongitude);
+
+		// fetching all beers
+		Collection<IBeer> beers = new ArrayList<>();
+		for (Integer id : beerIDs) {
+			beers.add(getBeerByID(id));
+		}
 
 		Session session = openSession();
 
@@ -997,8 +1119,7 @@ public class DataHandler implements IDataHandler {
 		} catch (Exception e) {
 			// Exception -> rollback
 			session.getTransaction().rollback();
-			throw new IllegalStateException(
-					"something went wrong by getting the bar list");
+			throw new IllegalStateException("something went wrong by getting the bar list");
 		} finally {
 			// close session
 			session.close();
