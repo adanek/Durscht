@@ -1,4 +1,4 @@
-package durscht.core;
+package durscht.model;
 
 import java.util.Date;
 

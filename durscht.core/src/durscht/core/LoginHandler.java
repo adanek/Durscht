@@ -2,6 +2,7 @@ package durscht.core;
 
 import durscht.contracts.data.IDataHandler;
 import durscht.core.config.ServiceLocator;
+import durscht.model.User;
 
 /**
  * Created by Mark on 04.05.2015.

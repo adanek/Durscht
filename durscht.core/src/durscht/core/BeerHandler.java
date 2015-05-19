@@ -7,6 +7,7 @@ import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.IBeerHandler;
 import durscht.core.config.ServiceLocator;
 import durscht.core.helper.TrieST;
+import durscht.model.Beer;
 
 public class BeerHandler implements IBeerHandler {
 
