@@ -60,7 +60,7 @@ public class BeerHandler implements IBeerHandler {
 			throws IllegalStateException {
 		IDataHandler dataHandler = getDataHandler();
 
-		IBeer ibeer = dataHandler.createBeer(brand, type, description);
+		IBeer ibeer = dataHandler.createBeer(brand, type, description, false);
 
 		Beer beer = new Beer();
 		beer.setId(ibeer.getId());
