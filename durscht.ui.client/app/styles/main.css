@@ -1,62 +1,69 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
-    background-image: url('../images/background.jpg');
-    height: 100%;
-}
-
 html {
     position: relative;
+    min-height: 100%;
 
+    //background-image: url('../images/background.jpg');
+    background-color: lightblue;
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    height: 75%;
-
-    background-color: #e3d482;
+    margin-bottom: 30px;
+    background-color: green;
 }
 
-.container {
-    height: 100%;
+article {
+
 }
 
-.fullscreen {
-    height: 100%;
+article header {
+
 }
 
-.footer {
+article footer {
+
+}
+
+body > footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px;
+    height: 30px;
+    line-height: 30px;
 
+
+    text-align: center;
+
+    background-color: #838383;
     color: #f7edb2;
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Main Layout*/
-
-article {
-    height: 100%;
-}
-
-article header {
-    font-size: 2em;
-    text-align: center;
-    margin: 5%;
-}
-
-.article-content {
-    position: absolute;
-    bottom: 60px;
-    width: 90%;
-    margin: 0 5%;
-}
 
 /* Style for rating control */
 .rating {
@@ -117,7 +124,6 @@ article header {
     border: solid #745728 medium;
     border-radius: 5px;
     margin-bottom: 0;
-
 }
 
 .list-group-item {
