@@ -9,6 +9,7 @@ durscht.contracts/durscht.contracts.iml
 durscht.core/durscht.core.iml
 durscht.data/durscht.data.iml
 durscht.ui.client/.idea/
+durscht.ui.client/.tmp/
 durscht.ui.client/bower_components/
 durscht.ui.client/dist/
 durscht.ui.client/node_modules/
