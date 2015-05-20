@@ -2,8 +2,6 @@ package controllers;
 
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
-import durscht.contracts.data.IDataHandler;
-import durscht.contracts.data.IUser;
 import durscht.core.User;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
@@ -11,8 +9,6 @@ import play.libs.Json;
 import play.mvc.*;
 import views.html.main;
 import views.html.menu;
-
-import java.util.Map;
 
 
 public class AuthenticationController extends Controller {
@@ -33,7 +29,7 @@ public class AuthenticationController extends Controller {
 
     //GET /user/id
     @Security.Authenticated(MyAuthenticator.class)
-    public static Result getId(){
+    public static Result getId() {
 
         int pid = Integer.parseInt(session().get("pid"));
 
@@ -49,12 +45,11 @@ public class AuthenticationController extends Controller {
         String name = data.findPath("name").textValue();
         String password = data.findPath("pw").textValue();
 
-        Logger.info(String.format("User tried to login with name: %s and pw: %s.\n", name, password));
-        // Verify login data
-        IUser user = ServiceLocator.getDataHandler().getUserLogin(name, password);
 
-        IUser user1 = ServiceLocator.getDataHandler().getUserByID(1);
-        Logger.info(String.format("%d %s %s %s", user1.getId(), user1.getName(), user1.getEmail(), user1.getJoinedDate().toString()));
+        // Verify login data
+        Logger.info(String.format("User tried to login with name: %s and pw: %s.\n", name, password));
+        User user = ServiceLocator.getLoginHandler().login(name, password);
+
 
         //user does not exist or is unauthorized
         if (user == null) {
@@ -69,17 +64,16 @@ public class AuthenticationController extends Controller {
     }
 
     // POST /user/register
-    public static Result register(){
+    public static Result register() {
 
         JsonNode data = request().body().asJson();
         String username = data.findPath("user").textValue();
         String email = data.findPath("email").textValue();
         String passwd = data.findPath("passwd").textValue();
 
-        IUser user = null;
+        User user = null;
         try {
-            IDataHandler dataHandler = ServiceLocator.getDataHandler();
-            user = dataHandler.createUser(username, email, passwd, false);
+            user = ServiceLocator.getLoginHandler().createUser(username, passwd, email);
         } catch (IllegalStateException e) {
             return Results.internalServerError();
         }
@@ -112,16 +106,14 @@ public class AuthenticationController extends Controller {
         return ok(menu.render());
     }
 
-
-
     private static void attachCorsHeaders() {
 
         Http.Request request = request();
-
         String address = request.remoteAddress();
-        String origin = request().getHeader("Origin");
 
+        String origin = request().getHeader("Origin");
         origin = origin == null ? address : origin;
+
         CorsController.addCorsHeaders(response(), origin);
     }
 }
