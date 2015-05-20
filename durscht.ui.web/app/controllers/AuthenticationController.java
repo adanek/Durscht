@@ -79,7 +79,7 @@ public class AuthenticationController extends Controller {
         IUser user = null;
         try {
             IDataHandler dataHandler = ServiceLocator.getDataHandler();
-            user = dataHandler.createUser(username, email, passwd);
+            user = dataHandler.createUser(username, email, passwd, false);
         } catch (IllegalStateException e) {
             return Results.internalServerError();
         }
