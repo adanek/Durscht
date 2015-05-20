@@ -8,3 +8,8 @@ durscht.contracts/durscht.contracts.iml
 .idea/
 durscht.core/durscht.core.iml
 durscht.data/durscht.data.iml
+durscht.ui.client/.idea/
+durscht.ui.client/bower_components/
+durscht.ui.client/dist/
+durscht.ui.client/node_modules/
+
