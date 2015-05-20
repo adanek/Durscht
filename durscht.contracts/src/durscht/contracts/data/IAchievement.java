@@ -2,10 +2,12 @@ package durscht.contracts.data;
 
 public interface IAchievement {
 
-	public int getId();
+	int getId();
 
-	public String getName();
+	String getName();
 
-	public String getDescription();
+	String getDescription();
+	
+	IAchievementCriterion getCriterion();
 
 }

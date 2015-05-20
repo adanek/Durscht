@@ -22,11 +22,11 @@ public class BeerPost implements IBeerPost {
 	@Id
 	@GeneratedValue
 	private int id;
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private SavedUser user;
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private Beer beer;
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private Bar bar;
 	private double price;
 	private int rating;

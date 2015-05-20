@@ -3,19 +3,20 @@ package durscht.contracts.data;
 import java.util.Date;
 
 public interface IBeerPost {
-	public String getDescription();
-	
-	public int getId();
-	
-	public double getPrice();
-	
-	public int getRating();	
-	
-	public IUser getUser();
 
-	public IBeer getBeer();
+	String getDescription();
 
-	public IBar getBar();
+	int getId();
 
-	public Date getTimeDate();
+	double getPrice();
+
+	int getRating();
+
+	IUser getUser();
+
+	IBeer getBeer();
+
+	IBar getBar();
+
+	Date getTimeDate();
 }
