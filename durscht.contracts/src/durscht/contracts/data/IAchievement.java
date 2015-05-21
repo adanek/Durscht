@@ -1,5 +1,7 @@
 package durscht.contracts.data;
 
+import java.util.Collection;
+
 public interface IAchievement {
 
 	int getId();
@@ -8,6 +10,6 @@ public interface IAchievement {
 
 	String getDescription();
 	
-	IAchievementCriterion getCriterion();
+	Collection<IAchievementCriterion> getCriterion();
 
 }

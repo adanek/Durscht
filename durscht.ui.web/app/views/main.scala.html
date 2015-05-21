@@ -1,15 +1,51 @@
-@(title: String)(content: Html)
-
+@(message: String)
 <!DOCTYPE html>
 
+@import play.i18n.Messages;
+
+
 <html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @content
-    </body>
+	<head>
+		<title>Durscht Webservice</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.css")"/>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("css/main.css")">
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+	</head>
+	<body class="container">
+	
+		<h1 class="text-center">Grias di beim Durscht Web Service</h1>
+
+		<div class="text-center">
+			<div class="btn-group-vertical">
+				<form class="login-form" action="@routes.AuthenticationController.adminLogin()"method="post">
+
+					<div class="form-group text-left">
+						<label for="email">Email address:</label>
+						<input type="text" name="email" class="form-control" id="email" placeholder="Enter email">
+					</div>
+
+					<div class="form-group text-left">
+						<label for="password">Password:</label>
+						<input type="password" name="password" class="form-control" id="password" placeholder="Password">
+					</div>
+
+					<div class="form-group text-left">
+						<button type="submit" class="btn btn-default">@Messages.get("Login")</button>
+					</div>
+					@if(message){
+						<div class="alert alert-danger" role="alert">
+						@message
+						</div>
+					}
+
+				</form>
+			</div>
+		</div>
+
+		<section id="scripts">
+		</section>
+	</body>
 </html>

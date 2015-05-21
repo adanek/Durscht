@@ -1,0 +1,61 @@
+@(beers: Array[durscht.contracts.ui.IBeer])
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <title>Beer Menü</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.css")"/>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+  </head>
+
+  <body class="container">
+
+    <h1 class="text-center">Beer Menü
+      <div>
+        <a class="btn btn-default" href="/user/login"> Zurück zum Durscht Menü</a>
+      </div>
+    </h1>
+        <div>
+          <table class="table">
+              <tr>
+                <th>ID</th>
+                <th>Brand</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th></th>
+              </tr>
+            <form action="@routes.AdminBeerController.filterBeer()" method="post">
+              <tr>
+                <td>Beer</td>
+                <td> <input type="text" name="brand" class="form-control" id="brand">
+                  </td>
+                <td> <input type="text" name="type" class="form-control" id="type">
+                  </td>
+                <td>
+                  </td>
+                <td> <input type="submit" value="filer Beer" class="form-control"/> </td>
+              </tr>
+            </form>
+            <tbody>
+            @for(beer <- beers){
+              <tr>
+                <td>@beer.getId</td>
+                <td>@beer.getBrand</td>
+                <td>@beer.getType</td>
+                <td>@beer.getDescription</td>
+                <td>  <a class="btn btn-default" href=@("/beers/delete/" + beer.getId)> löschen</a>
+                </td>
+              </tr>
+            }
+            </tbody>
+          </table>
+        </div>
+    <section id="scripts">
+		</section>
+  </body>
+</html>

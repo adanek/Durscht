@@ -19,13 +19,10 @@ public class TestAchievement extends TestBase {
 
 	@Test
 	public void createAchievement() {
-
-		//create new criterion
-		int cid = dataHandler.createAchievementCriterion(AchievementCriterionType.TOTAL_NO_BEERS, 10).getId();
 		
 		// create new achievement
 		int id = dataHandler.createAchievement("erster Bierpost",
-				"bekommt der User für seinen ersten Post", cid).getId();
+				"bekommt der User für seinen ersten Post").getId();
 
 		// get created achievement
 		IAchievement ach = dataHandler.getAchievementByID(id);
