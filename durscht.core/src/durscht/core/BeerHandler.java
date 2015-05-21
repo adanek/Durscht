@@ -28,7 +28,6 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	public BeerHandler() {
-		IDataHandler dataHandler = getDataHandler();
 
 		beers = new TrieST<Beer>();
 		Collection<IBeer> db_beers = dataHandler.getAllBeersVerified();
@@ -56,6 +55,7 @@ public class BeerHandler implements IBeerHandler {
 			throws IllegalStateException {
 		IDataHandler dataHandler = getDataHandler();
 
+		// Verification-flag is per default false
 		IBeer ibeer = dataHandler.createBeer(brand, type, description, false);
 
 		Beer beer = new Beer();
@@ -68,7 +68,7 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	@Override
-	public durscht.contracts.ui.IBeer[] getAllBeers() {
+	public durscht.contracts.ui.IBeer[] getAllBeersVerified() {
 		Iterable<String> Keys = beers.keys();
 		if (beers.isEmpty()) {
 			throw new NoSuchElementException("couldn't find a beer");
@@ -79,6 +79,23 @@ public class BeerHandler implements IBeerHandler {
 		}
 
 		return beersList.toArray(new Beer[beersList.size()]);
+	}
+
+	@Override
+	public durscht.contracts.ui.IBeer[] getAllBeersNotVerified() {
+		// TODO
+		// change getAllBeers to getAllBeersNotVerified, when DB method is ready
+		// TODO
+		Collection<IBeer> db_beers = dataHandler.getAllBeers();
+		Beer[] beers = new Beer[db_beers.size()];
+		int i = 0;
+
+		for (IBeer ibeer : db_beers) {
+			beers[i] = BeerHandler.convertDBtoUI(ibeer);
+			i++;
+		}
+
+		return beers;
 	}
 
 	protected static Beer convertDBtoUI(IBeer iBeer) {
