@@ -1,6 +1,7 @@
 /// <reference path="../_references.ts"/>
 (function (app) {
     var controller = function ($scope, $location, authService) {
+        $scope.caption = "Wer warsch jetzt du?";
         $scope.username = "";
         $scope.email = "";
         $scope.password = "";

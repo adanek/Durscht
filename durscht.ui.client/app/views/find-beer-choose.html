@@ -1,40 +1,52 @@
-<article>
-    <header class="well">{{ caption }}</header>
+<header>
+    <div>{{ caption }}</div>
+</header>
 
+<section>
     <div>
         <div class="input-group">
             <ui-select ng-model="beer.selected" theme="bootstrap" class="ui-select">
-                <ui-select-match placeholder="Bier suchen">{{ $select.selected.brand }} - {{ $select.selected.type }}</ui-select-match>
+                <ui-select-match placeholder="Bier suchen">{{ $select.selected.brand }} - {{ $select.selected.type }}
+                </ui-select-match>
                 <ui-select-choices repeat="beer in beers | propsFilter: {brand: $select.search, type: $select.search}">
-                    <div ng-bind-html="beer.brand + ' - '+  beer.type | highlight: $select.search"> {{ beer.type }}</div>
+                    <div ng-bind-html="beer.brand + ' - '+  beer.type | highlight: $select.search"> {{ beer.type }}
+                    </div>
                 </ui-select-choices>
             </ui-select>
-    <span class="input-group-btn">
-        <button class="btn btn-info" ng-click="addBeer()"><span class="glyphicon glyphicon-plus"></span></button>
-    </span>
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="addBeer()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
         </div>
 
-        <h4>Bisher ausgewählt:</h4>
-        <ul class="list-group">
-            <li ng-repeat="beer in selectedBeers" class="list-group-item">
-                {{ beer.brand}} - {{ beer.type }}
-                <a ng-click="removeBeer(beer)"><span class="glyphicon glyphicon-remove"></span></a>
-            </li>
-        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">Bisher ausgewählt:</div>
+
+            <ul class="list-group" ng-show="selectedBeers.length > 0">
+                <li ng-repeat="beer in selectedBeers" class="list-group-item">
+                    {{ beer.brand}} - {{ beer.type }}
+                    <a ng-click="removeBeer(beer)"><span class="glyphicon glyphicon-remove"></span></a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="alert alert-danger" ng-show="errorMessage">
+        {{ errorMessage }}
     </div>
 
-    <div class="article-content">
-
-        <div class="form-group">
-            <button class="form-control" ng-click="searchBars()"><span class="glyphicon glyphicon-search"></span> Und los gehts</button>
-        </div>
-
-        <div class="alert alert-danger" ng-show="errorMessage">
-            {{ errorMessage }}
-        </div>
-
+    <div class="list-group list-group-lg bordered">
+        <button class="form-control" ng-click="searchBars()"><span class="glyphicon glyphicon-search"></span> Und los
+            gehts
+        </button>
     </div>
-</article>
+
+</footer>
+
 
 
 

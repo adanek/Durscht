@@ -1,8 +1,9 @@
-<h3>{{ caption }}</h3>
+<header>
+    <div>{{ caption }}</div>
+</header>
 
-<div ng-show="lng">
-    <p>Longtidude: {{ lng }}</p>
-
-    <p>Latitude: {{ lat }}</p>
-</div>
-<div class="alert alert-danger" ng-show="errorMessage" >{{ errorMessage }}</div>
+<section>
+    <div>
+        <div class="alert alert-danger" ng-show="errorMessage">{{ errorMessage }}</div>
+    </div>
+</section>

@@ -34,6 +34,11 @@
                 $location.path('/login').replace();
             }
         }
+
+        $scope.$on('$viewContentLoaded', function() {
+           console.info("Now");
+            adjustBodySize();
+        });
     };
 
     app.controller("MainCtrl", ['$scope', 'authService', '$location', controller]);

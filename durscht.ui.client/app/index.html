@@ -4,22 +4,26 @@
     <meta charset="utf-8">
     <title>Hab i an Durscht!</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css"/>
-    <link rel="stylesheet" href="bower_components/select2/select2.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+    <link rel="stylesheet" href="bower_components/select2/select2.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
 
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/rating.css">
+    <link rel="stylesheet" href="styles/validation.css">
     <!-- endbuild -->
 </head>
-<body ng-app="durschtApp" ng-controller="MainCtrl" when-ready="resizeBody()" wait-for-interpolation="true">
+<body ng-app="durschtApp" ng-controller="MainCtrl" >
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -30,7 +34,7 @@
 
 </header>
 
-<article ng-view="">
+<article ng-view="" >
 
 </article>
 
@@ -95,14 +99,34 @@
     function adjustBodySize() {
 
         var wh = $(window).height();
-        var fh = $('body > footer').height();
+        var fh = $('body > footer').outerHeight(true);
+        var hh = $('body > header').height();
 
-        $('body').height(wh - fh);
+        // Reset heights
+        $('body').height('auto');
+        $('body > article').height('auto');
+        $('body > article > header').css({lineHeight: 'normal'});
+        $('body > article > section').css({lineHeight: 'normal'});
+
+        var bh = $('body').height();
+        var ah = $('body > article').height();
+
+        var bh = (wh - fh) > bh ? (wh - fh) : bh;
+        var ah = (wh - hh - fh) > ah ? (wh - hh - fh) : ah;
+        var af = $('article > footer').outerHeight(true);
+        af = af > 0 ? af : 0;
+
+        $('body').height(bh);
+        $('body > article').height(ah);
+        $('body > article > header').css({lineHeight: (Math.round(20 * ah / 100))+'px'});
+        $('body > article > header').css({lineHeight: (Math.round(20 * ah / 100))+'px'});
+        $('body > article > section').css({lineHeight: (Math.round(80 * ah / 100) - af)+'px'});
+
     }
 
-    $( window ).load(adjustBodySize)
+    $(window).load(adjustBodySize)
 
-    $( window).resize(adjustBodySize);
+    $(window).resize(adjustBodySize);
 
 </script>
 
