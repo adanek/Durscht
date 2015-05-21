@@ -1,4 +1,4 @@
-@(posts: List[controllers.mock.Post])
+@(posts: Array[durscht.contracts.ui.IPost])
 <!DOCTYPE html>
 
 
@@ -16,7 +16,7 @@
   <body class="container">
     <h1 class="text-center">Post Menü
       <div>
-        <a class="btn btn-default" href="/user/login"> Zurück zum Durscht Menü</a>
+        <a class="btn btn-default" href="/admin/login"> Zurück zum Durscht Menü</a>
       </div>
     </h1>
         <div>
@@ -28,12 +28,12 @@
                   <th></th>
                 </tr>
                 <tr>
-                  <td>New Post</td>
+                  <td>Post</td>
                   <td> <input type="text" name="name" class="form-control" id="name">
                   </td>
                   <td> <input type="text" name="price" class="form-control" id="price">
                   </td>
-                  <td> <a class="btn btn-default" href=@("/bars/create" )> neuer Post</a></td>
+                  <td> <a class="btn btn-default" href=@("/bars/create" )> filter Post</a></td>
                 </tr>
                 <tbody>
                 @for(post <- posts){
