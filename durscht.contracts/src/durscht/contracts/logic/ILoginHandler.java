@@ -14,6 +14,15 @@ public interface ILoginHandler {
 	durscht.contracts.logic.IUser login(String name, String password);
 
 	/**
+	 * Login
+	 *
+	 * @param name
+	 * @param password
+	 * @return linked User or null, if he does not exist or does not have admin rights
+	 */
+	durscht.contracts.logic.IUser adminLogin(String name, String password);
+
+	/**
 	 * Creates new User
 	 *
 	 * @param name
