@@ -53,7 +53,6 @@ public class BeerHandler implements IBeerHandler {
 	@Override
 	public durscht.contracts.ui.IBeer createNewBeer(String brand, String type, String description)
 			throws IllegalStateException {
-		IDataHandler dataHandler = getDataHandler();
 
 		// Verification-flag is per default false
 		IBeer ibeer = dataHandler.createBeer(brand, type, description, false);
@@ -96,6 +95,15 @@ public class BeerHandler implements IBeerHandler {
 		}
 
 		return beers;
+	}
+
+	@Override
+	public durscht.contracts.ui.IBeer verifyBeer(durscht.contracts.ui.IBeer uiBeer) {
+		Beer beer = convertDBtoUI(dataHandler.verifyBeer(uiBeer.getId()));
+		// Adds verified beers to cached beers
+		beers.put(beer.getBrand() + beer.getType(), beer);
+
+		return beer;
 	}
 
 	protected static Beer convertDBtoUI(IBeer iBeer) {

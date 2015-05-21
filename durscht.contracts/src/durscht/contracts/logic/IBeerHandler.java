@@ -36,4 +36,12 @@ public interface IBeerHandler {
 	 * @return Array of IBeer
 	 */
 	IBeer[] getAllBeersNotVerified();
+
+	/**
+	 * Verifies a beer
+	 *
+	 * @param uiBeer
+	 * @return verified beer
+	 */
+	public durscht.contracts.ui.IBeer verifyBeer(durscht.contracts.ui.IBeer uiBeer);
 }
