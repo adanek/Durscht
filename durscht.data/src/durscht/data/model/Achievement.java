@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.ForeignKey;
 
 import durscht.contracts.data.IAchievement;
@@ -30,8 +33,9 @@ public class Achievement implements IAchievement {
 	private String description;
 	// @ManyToMany(mappedBy = "achievements")
 	// private Collection<SavedUser> users = new LinkedList<>();
-	@ManyToOne
-	private AchievementCriterion criterion;
+	@ManyToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.JOIN)
+	private Collection<AchievementCriterion> criterion = new LinkedList<>();
 
 	@Override
 	public int getId() {
@@ -60,13 +64,12 @@ public class Achievement implements IAchievement {
 		this.description = description;
 	}
 
-	@Override
-	public IAchievementCriterion getCriterion() {
-		return criterion;
+	public Collection<IAchievementCriterion> getCriterion() {
+		return new LinkedList<IAchievementCriterion>(criterion);
 	}
 
-	public void setCriterion(AchievementCriterion crit) {
-		this.criterion = crit;
+	public void setCriterion(Collection<AchievementCriterion> criterion) {
+		this.criterion = criterion;
 	}
 
 	@Override
