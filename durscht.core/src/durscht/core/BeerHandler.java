@@ -70,9 +70,7 @@ public class BeerHandler implements IBeerHandler {
 	@Override
 	public durscht.contracts.ui.IBeer[] getAllBeersVerified() {
 		Iterable<String> Keys = beers.keys();
-		if (beers.isEmpty()) {
-			throw new NoSuchElementException("couldn't find a beer");
-		}
+
 		List<Beer> beersList = new LinkedList<Beer>();
 		for (String name : Keys) {
 			beersList.add(beers.get(name));
@@ -83,10 +81,8 @@ public class BeerHandler implements IBeerHandler {
 
 	@Override
 	public durscht.contracts.ui.IBeer[] getAllBeersNotVerified() {
-		// TODO
-		// change getAllBeers to getAllBeersNotVerified, when DB method is ready
-		// TODO
-		Collection<IBeer> db_beers = dataHandler.getAllBeers();
+		Collection<IBeer> db_beers = dataHandler.getAllBeersUnverified();
+
 		Beer[] beers = new Beer[db_beers.size()];
 		int i = 0;
 
@@ -101,7 +97,7 @@ public class BeerHandler implements IBeerHandler {
 	@Override
 	public durscht.contracts.ui.IBeer verifyBeer(durscht.contracts.ui.IBeer uiBeer) {
 		Beer beer = convertDBtoUI(dataHandler.verifyBeer(uiBeer.getId()));
-		// Adds verified beers to cached beers
+		// Adds verified beer to cached beers
 		beers.put(beer.getBrand().toLowerCase() + beer.getType().toLowerCase(), beer);
 
 		return beer;
