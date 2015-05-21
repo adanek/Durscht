@@ -33,14 +33,15 @@ public class BeerHandler implements IBeerHandler {
 		Collection<IBeer> db_beers = dataHandler.getAllBeersVerified();
 
 		for (IBeer ibeer : db_beers) {
-			beers.put(ibeer.getBrand() + ibeer.getType(), BeerHandler.convertDBtoUI(ibeer));
+			// Keys contain only lower case letters
+			beers.put(ibeer.getBrand().toLowerCase() + ibeer.getType().toLowerCase(), BeerHandler.convertDBtoUI(ibeer));
 		}
 	}
 
 	@Override
 	public durscht.contracts.ui.IBeer[] getBeersByPrefix(String prefix) {
-
-		Iterable<String> prefixKeys = beers.keysWithPrefix(prefix);
+		// Keys contain only lower case letters
+		Iterable<String> prefixKeys = beers.keysWithPrefix(prefix.toLowerCase());
 
 		List<Beer> beersWithPrefix = new LinkedList<Beer>();
 		for (String name : prefixKeys) {
@@ -101,7 +102,7 @@ public class BeerHandler implements IBeerHandler {
 	public durscht.contracts.ui.IBeer verifyBeer(durscht.contracts.ui.IBeer uiBeer) {
 		Beer beer = convertDBtoUI(dataHandler.verifyBeer(uiBeer.getId()));
 		// Adds verified beers to cached beers
-		beers.put(beer.getBrand() + beer.getType(), beer);
+		beers.put(beer.getBrand().toLowerCase() + beer.getType().toLowerCase(), beer);
 
 		return beer;
 	}

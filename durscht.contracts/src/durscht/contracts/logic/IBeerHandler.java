@@ -5,7 +5,7 @@ import durscht.contracts.ui.IBeer;
 public interface IBeerHandler {
 
 	/**
-	 * Returns all verified beers with prefix <prefix>
+	 * Returns all verified beers with prefix <prefix>. This method is case insensitive.
 	 *
 	 * @param prefix
 	 * @return Array of IBeer
