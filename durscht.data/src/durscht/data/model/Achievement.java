@@ -28,8 +28,8 @@ public class Achievement implements IAchievement {
 	private String name;
 	@Lob
 	private String description;
-	@ManyToMany(mappedBy = "achievements")
-	private Collection<SavedUser> users = new LinkedList<>();
+	// @ManyToMany(mappedBy = "achievements")
+	// private Collection<SavedUser> users = new LinkedList<>();
 	@ManyToOne
 	private AchievementCriterion criterion;
 
@@ -60,12 +60,13 @@ public class Achievement implements IAchievement {
 		this.description = description;
 	}
 
-	public Collection<SavedUser> getUsers() {
-		return users;
+	@Override
+	public IAchievementCriterion getCriterion() {
+		return criterion;
 	}
 
-	public void setUsers(Collection<SavedUser> users) {
-		this.users = users;
+	public void setCriterion(AchievementCriterion crit) {
+		this.criterion = crit;
 	}
 
 	@Override
@@ -95,14 +96,4 @@ public class Achievement implements IAchievement {
 			return false;
 		return true;
 	}
-
-	@Override
-	public IAchievementCriterion getCriterion() {
-		return criterion;
-	}
-	
-	public void setCriterion(AchievementCriterion crit){
-		this.criterion = crit;
-	}
-
 }
