@@ -10,6 +10,9 @@ import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.IPostHandler;
 import durscht.contracts.ui.IPost;
 import durscht.core.config.ServiceLocator;
+import durscht.model.Bar;
+import durscht.model.Beer;
+import durscht.model.Post;
 
 public class PostHandler implements IPostHandler {
 
