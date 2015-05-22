@@ -95,8 +95,7 @@ public interface IDataHandler {
 	 * @throws IllegalArgumentException
 	 *             deletion or getting user from ID failed
 	 */
-	//void deleteUser(int userID) throws IllegalArgumentException;
-	//muss noch beachtet werden, dass achievement zuteilung gelöscht wird
+	void deleteUser(int userID) throws IllegalArgumentException;
 
 	/**
 	 * deletes a beer from the database

@@ -141,6 +141,12 @@ public class DatabaseUpdate {
 			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
 			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
 
+			//assign achievements to user
+			handler.assignAchievementToUser(userid1, achid1);
+			handler.assignAchievementToUser(userid1, achid2);
+			handler.assignAchievementToUser(userid2, achid1);
+			handler.assignAchievementToUser(userid2, achid2);
+			
 			// test user login
 /*			IUser testuser1 = handler.getUserLogin("admin", "admin");
 			IUser testuser2 = handler.getUserLogin("user2", "user2");
@@ -216,6 +222,7 @@ public class DatabaseUpdate {
 			handler.deleteBeer(beerid3);
 			Collection<IBeerPost> testposts9 = handler.getAllPosts(); // sollte Post2,4 liefern
 */
+				
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
 			return;
