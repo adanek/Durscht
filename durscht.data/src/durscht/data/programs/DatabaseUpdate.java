@@ -148,12 +148,15 @@ public class DatabaseUpdate {
 			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
 
 			// test getbyID methods
-			IAchievement testach1 = handler.getAchievementByID(achid1);
-			Collection<IAchievementCriterion> testachcrit1 = testach1.getCriterion();
-			IAchievement testach2 = handler.getAchievementByID(achid2);
-			Collection<IAchievementCriterion> testachcrit2 = testach2.getCriterion();
-			IAchievement testach3 = handler.getAchievementByID(achid3);
-			Collection<IAchievementCriterion> testachcrit3 = testach3.getCriterion();
+			Collection<IAchievementCriterion> testachcrit1 = handler.getAllCriterionFromAchievement(achid1);
+			Collection<IAchievementCriterion> testachcrit2 = handler.getAllCriterionFromAchievement(achid2);
+			Collection<IAchievementCriterion> testachcrit3 = handler.getAllCriterionFromAchievement(achid3);
+			Collection<IAchievementCriterion> testachcrit4 = handler.getAllCriterionFromAchievement(achid4);
+			Collection<IAchievementCriterion> testachcrit5 = handler.getAllCriterionFromAchievement(achid5);
+			Collection<IAchievementCriterion> testachcrit6 = handler.getAllCriterionFromAchievement(achid6);
+			Collection<IAchievementCriterion> testachcrit7 = handler.getAllCriterionFromAchievement(achid7);
+			Collection<IAchievementCriterion> testachcrit8 = handler.getAllCriterionFromAchievement(achid8);
+			Collection<IAchievementCriterion> testachcrit9 = handler.getAllCriterionFromAchievement(achid9);
 
 			// test user login
 			/*
