@@ -38,8 +38,8 @@ public class SavedUser implements IUser {
 	@OneToMany(mappedBy = "user")
 	@Cascade({ CascadeType.DELETE })
 	private Collection<BeerPost> beerPosts = new LinkedList<>();
-	//@ManyToMany
-	//private Collection<Achievement> achievements = new LinkedList<>();
+	@ManyToMany
+	private Collection<Achievement> achievements = new LinkedList<>();
 
 	public int getId() {
 		return id;
@@ -87,6 +87,14 @@ public class SavedUser implements IUser {
 
 	public void setBeerPosts(Collection<BeerPost> beerPosts) {
 		this.beerPosts = beerPosts;
+	}
+
+	public Collection<Achievement> getAchievements() {
+		return achievements;
+	}
+
+	public void setAchievements(Collection<Achievement> achievements) {
+		this.achievements = achievements;
 	}
 
 	public boolean isAdmin() {

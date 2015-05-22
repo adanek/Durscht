@@ -28,20 +28,25 @@ public class AchievementCriterion implements IAchievementCriterion {
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public AchievementCriterionType getType() {
 		return type;
 	}
+
 	public void setType(AchievementCriterionType type) {
 		this.type = type;
 	}
+
 	public int getValue() {
 		return value;
 	}
+
 	public void setValue(int value) {
 		this.value = value;
 	}
-	
+
 }
