@@ -31,10 +31,9 @@ public class Achievement implements IAchievement {
 	private String name;
 	@Lob
 	private String description;
-	// @ManyToMany(mappedBy = "achievements")
-	// private Collection<SavedUser> users = new LinkedList<>();
-	@ManyToMany(fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	@ManyToMany(mappedBy = "achievements")
+	private Collection<SavedUser> users = new LinkedList<>();
+	@ManyToMany
 	private Collection<AchievementCriterion> criterion = new LinkedList<>();
 
 	@Override
@@ -62,6 +61,14 @@ public class Achievement implements IAchievement {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Collection<SavedUser> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Collection<SavedUser> users) {
+		this.users = users;
 	}
 
 	public Collection<AchievementCriterion> getCriterion() {

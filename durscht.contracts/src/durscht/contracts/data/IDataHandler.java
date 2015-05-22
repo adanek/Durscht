@@ -95,7 +95,8 @@ public interface IDataHandler {
 	 * @throws IllegalArgumentException
 	 *             deletion or getting user from ID failed
 	 */
-	void deleteUser(int userID) throws IllegalArgumentException;
+	//void deleteUser(int userID) throws IllegalArgumentException;
+	//muss noch beachtet werden, dass achievement zuteilung gelöscht wird
 
 	/**
 	 * deletes a beer from the database
@@ -150,6 +151,23 @@ public interface IDataHandler {
 	 */
 	public IAchievement assignCriterionToAchievement(int achID, int critID)
 			throws IllegalArgumentException, IllegalStateException;
+	
+	/**
+	 * assign achievement to a user
+	 * 
+	 * @return User new User object
+	 * 
+	 * @throws IllegalArgumentException
+	 *             user or achievement with this ID not in database, which
+	 *             argument is wrong is reported in the exception message, or
+	 *             achievement has user already
+	 * 
+	 * @throws IllegalStateException
+	 *             database error
+	 */
+
+	IUser assignAchievementToUser(int userID, int achID) throws IllegalArgumentException,
+			IllegalStateException;
 
 	/**
 	 * get all users that are saved in the database
@@ -293,6 +311,23 @@ public interface IDataHandler {
 	 */
 	Collection<IBar> getBarsCoordinates(double fromLatitude, double toLatitude,
 			double fromLongitude, double toLongitude) throws IllegalStateException;
+	
+	/**
+	 * get all achievements from a user
+	 * 
+	 * @param userID
+	 * 
+	 * @return a list of achievements
+	 * 
+	 * @throws IllegalArgumentException
+	 *             userID not in database
+	 * 
+	 * @throws IllegalStateException
+	 *             database error
+	 */
+
+	Collection<IAchievement> getAllAchievementsFromUser(int userID)
+			throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * get all posts from a user
@@ -364,31 +399,4 @@ public interface IDataHandler {
 	 */
 	void closeDatabaseConnection() throws IllegalStateException;
 
-	/*
-	 * /** assign achievement to a user
-	 * 
-	 * @return User new User object
-	 * 
-	 * @throws IllegalArgumentException user or achievement with this ID not in
-	 * database, which argument is wrong is reported in the exception message,
-	 * or achievement has user already
-	 * 
-	 * @throws IllegalStateException database error
-	 *//*
-		 * IUser assignAchievementToUser(int userID, int achID) throws
-		 * IllegalArgumentException, IllegalStateException;
-		 * 
-		 * /** get all achievements from a user
-		 * 
-		 * @param userID
-		 * 
-		 * @return a list of achievements
-		 * 
-		 * @throws IllegalArgumentException userID not in database
-		 * 
-		 * @throws IllegalStateException database error
-		 *//*
-			 * Collection<IAchievement> getAllAchievementsFromUser(int userID)
-			 * throws IllegalArgumentException, IllegalStateException;
-			 */
 }
