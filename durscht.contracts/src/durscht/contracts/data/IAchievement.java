@@ -9,7 +9,4 @@ public interface IAchievement {
 	String getName();
 
 	String getDescription();
-	
-	Collection<IAchievementCriterion> getCriterion();
-
 }

@@ -64,8 +64,8 @@ public class Achievement implements IAchievement {
 		this.description = description;
 	}
 
-	public Collection<IAchievementCriterion> getCriterion() {
-		return new LinkedList<IAchievementCriterion>(criterion);
+	public Collection<AchievementCriterion> getCriterion() {
+		return criterion;
 	}
 
 	public void setCriterion(Collection<AchievementCriterion> criterion) {

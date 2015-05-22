@@ -56,8 +56,7 @@ public interface IDataHandler {
 	 * @throws IllegalStateException
 	 *             creating object in database failed
 	 */
-	IAchievement createAchievement(String name, String description)
-			throws IllegalStateException;
+	IAchievement createAchievement(String name, String description) throws IllegalStateException;
 
 	/**
 	 * create a new achievement criterion in the database
@@ -138,11 +137,16 @@ public interface IDataHandler {
 
 	/**
 	 * add a criterion to a achievement
-	 * @param achID achievement ID
-	 * @param critID criterion ID
-	 * @return achievement with the new criteria
-	 * @throws IllegalArgumentException	when one of the parameter IDs are wrong
-	 * @throws IllegalStateException database error
+	 * 
+	 * @param achID
+	 *            achievement ID
+	 * @param critID
+	 *            criterion ID
+	 * @return achievement with the new criterion
+	 * @throws IllegalArgumentException
+	 *             when one of the parameter IDs are wrong
+	 * @throws IllegalStateException
+	 *             database error
 	 */
 	public IAchievement assignCriterionToAchievement(int achID, int critID)
 			throws IllegalArgumentException, IllegalStateException;
@@ -327,6 +331,20 @@ public interface IDataHandler {
 	 */
 	Collection<IBeerPost> getAllPostsFromBar(int barID) throws IllegalArgumentException,
 			IllegalStateException;
+
+	/**
+	 * get all criterion from achievement
+	 * 
+	 * @param achID
+	 *            achievement ID
+	 * @return collection of criterion
+	 * @throws IllegalArgumentException
+	 *             achID not in database
+	 * @throws IllegalStateException
+	 *             database error
+	 */
+	Collection<IAchievementCriterion> getAllCriterionFromAchievement(int achID)
+			throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * search bars by coordinates and beers
