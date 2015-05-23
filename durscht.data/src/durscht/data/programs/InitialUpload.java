@@ -17,11 +17,13 @@ public class InitialUpload {
 		int userid3 = handler.createUser("user3", "user3@gmx.at", "user3", false).getId();
 
 		// create achievement critera
-		int cid1 = handler.createAchievementCriterion(AchievementCriterionType.TOTAL_NO_BEERS,
-				10).getId();
-		int cid2 = handler.createAchievementCriterion(AchievementCriterionType.CRIT2, 10)
+		int crit1 = handler
+				.createAchievementCriterion(AchievementCriterionType.TOTAL_POSTS, 10).getId();
+		int crit2 = handler
+				.createAchievementCriterion(AchievementCriterionType.TOTAL_POSTS, 20).getId();
+		int crit3 = handler.createAchievementCriterion(AchievementCriterionType.WEEK_POSTS, 5)
 				.getId();
-		int cid3 = handler.createAchievementCriterion(AchievementCriterionType.CRIT3, 10)
+		int crit4 = handler.createAchievementCriterion(AchievementCriterionType.WEEK_POSTS, 10)
 				.getId();
 
 		// create new beers
@@ -56,20 +58,27 @@ public class InitialUpload {
 
 		// create new achievement
 		int achid1 = handler
-				.createAchievement(
-						"500 posts",
-						"The user will get this achievement when he drinks 500 beers and add a post to the app",
-						cid1).getId();
+				.createAchievement("500 posts",
+						"The user will get this achievement when he drinks 500 beers and add a post to the app")
+				.getId();
 		int achid2 = handler
-				.createAchievement(
-						"50 posts",
-						"The user will get this achievement when he drinks 50 beers and add a post to the app",
-						cid3).getId();
+				.createAchievement("50 posts",
+						"The user will get this achievement when he drinks 50 beers and add a post to the app")
+				.getId();
 		int achid3 = handler
-				.createAchievement(
-						"100 posts",
-						"The user will get this achievement when he drinks 100 beers and add a post to the app",
-						cid3).getId();
+				.createAchievement("100 posts",
+						"The user will get this achievement when he drinks 100 beers and add a post to the app")
+				.getId();
+		
+		// assign criterion to achievements
+		handler.assignCriterionToAchievement(achid1, crit1);
+		handler.assignCriterionToAchievement(achid1, crit3);
+		handler.assignCriterionToAchievement(achid2, crit2);
+		handler.assignCriterionToAchievement(achid2, crit4);
+		handler.assignCriterionToAchievement(achid3, crit1);
+		handler.assignCriterionToAchievement(achid3, crit2);
+		handler.assignCriterionToAchievement(achid3, crit3);
+		handler.assignCriterionToAchievement(achid3, crit4);
 
 		// create posts
 		int post1 = handler.createPost(barid1, beerid1, userid1, 3.0, 2, "Post1").getId();

@@ -1,7 +1,12 @@
 package durscht.core;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
@@ -17,6 +22,8 @@ import durscht.model.Post;
 public class PostHandler implements IPostHandler {
 
 	private final double BAR_SEARCH_RADIUS = 2.5;
+	private final String BLACKLIST_FILE_LOCATION = "src//blacklist.txt";
+	private Collection<String> blacklist = new ArrayList<String>();
 
 	private IDataHandler dataHandler;
 
@@ -29,6 +36,20 @@ public class PostHandler implements IPostHandler {
 
 	public void setDataHandler(IDataHandler dataHandler) {
 		this.dataHandler = dataHandler;
+	}
+
+	public PostHandler() {
+		/* Set up Blacklist Collection, containing all forbidden words */
+		File f = new File(BLACKLIST_FILE_LOCATION);
+		try (Scanner in = new Scanner(f);) {
+			while (in.hasNext()) {
+				blacklist.add(in.next());
+			}
+		}
+		catch (FileNotFoundException e) {
+			System.out.println(e);
+			System.exit(0);
+		}
 	}
 
 	@Override
@@ -85,6 +106,8 @@ public class PostHandler implements IPostHandler {
 
 		IDataHandler dataHandler = getDataHandler();
 
+		description = replaceBlackWords(description);
+
 		IBeerPost post = dataHandler.createPost(barID, beerID, userID, prize, rating, description);
 
 		achievementAlgorithm(userID);
@@ -92,6 +115,34 @@ public class PostHandler implements IPostHandler {
 		return post.getId();
 	}
 
+	/**
+	 * Replaces every occurrence of a blacklist-word within a user input by asterisks.
+	 * 
+	 * @param comment User input string.
+	 * @return modified user input string after masking out all blacklist-words.
+	 */
+	private String replaceBlackWords(String comment) {
+		/**
+		 * regex patterns
+		 * 
+		 * \\bWORD\\b : matches an exact word 'WORD' \\bWORD\\B : matches any word with prefix 'WORD' WORD : matches
+		 * every occurrence of 'WORD'
+		 */
+
+		for (String word : blacklist) {
+			Pattern stopWords = Pattern.compile(word, Pattern.CASE_INSENSITIVE);
+			Matcher matcher = stopWords.matcher(comment);
+			comment = matcher.replaceAll(new String(new char[word.length()]).replace("\0", "*"));
+		}
+
+		return comment;
+	}
+
+	/**
+	 * Checks for a user if he will be awarded with a new achievement.
+	 * 
+	 * @param userID ID of the user who is examined for new achievements.
+	 */
 	private void achievementAlgorithm(int userID) {
 
 	}
@@ -133,6 +184,12 @@ public class PostHandler implements IPostHandler {
 		getDataHandler().deletePost(postID);
 	}
 
+	/**
+	 * Converts a DB IBeerPost to a UI IPost object.
+	 * 
+	 * @param ipost IBeerPost Post object from the database
+	 * @return UI IPost object containing ipost's information
+	 */
 	protected static Post convertDBtoUI(IBeerPost ipost) {
 		Post post = new Post();
 		post.setId(ipost.getId());
