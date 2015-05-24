@@ -2,13 +2,18 @@ package durscht.data.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Collection;
+
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IDataHandler;
 import durscht.data.handler.DataHandler;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestBar extends TestBase {
 
 	@Test
@@ -30,4 +35,15 @@ public class TestBar extends TestBase {
 
 	}
 
+	@Test
+	public void getBarsCoordinates(){
+		
+		//get all bars within certain range
+		Collection<IBar> bars = dataHandler.getBarsCoordinates(11.0, 12.0, 47.0, 48.0);
+		
+		//bars collection must not be empty
+		assertFalse(bars.isEmpty());
+		
+	}
+	
 }

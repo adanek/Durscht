@@ -4,12 +4,14 @@ import java.util.Date;
 
 public interface IUser {
 
-	public int getId();
+	int getId();
 
-	public String getName();
+	String getName();
 
-	public String getEmail();
+	String getEmail();
 
-	public Date getJoinedDate();
+	Date getJoinedDate();
+	
+	boolean isAdmin();
 
 }

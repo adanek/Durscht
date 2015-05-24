@@ -1,12 +1,14 @@
 package durscht.contracts.data;
 
 public interface IBeer {
-		
-	String getBrand();
+
+	int getId();
 	
+	String getBrand();
+
 	String getType();
 	
+	boolean isVerified();
+
 	String getDescription();
-	
-	int getId();
 }

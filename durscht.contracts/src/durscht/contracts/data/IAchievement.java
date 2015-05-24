@@ -1,11 +1,12 @@
 package durscht.contracts.data;
 
+import java.util.Collection;
+
 public interface IAchievement {
 
-	public int getId();
+	int getId();
 
-	public String getName();
+	String getName();
 
-	public String getDescription();
-
+	String getDescription();
 }

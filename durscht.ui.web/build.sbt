@@ -10,5 +10,9 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
   cache,
-  javaWs
+  javaWs  
 )
+
+libraryDependencies += filters
+
+fork in run := true

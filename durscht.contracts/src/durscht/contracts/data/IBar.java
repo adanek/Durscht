@@ -1,18 +1,16 @@
 package durscht.contracts.data;
 
-import java.util.Collection;
-
 public interface IBar {
 
-	public int getId();
+	int getId();
 
-	public String getName();
+	String getName();
 
-	public String getUrl();
+	String getUrl();
 
-	public double getLatitude();
+	double getLatitude();
 
-	public double getLongitude();
+	double getLongitude();
 
-	public String getDescription();
+	String getDescription();
 }

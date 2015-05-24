@@ -22,4 +22,16 @@ public interface IBar {
 	 * @return the distance to the bar
 	 */
 	double getDistance();
+
+	/**
+	 * Gets the latitude on which the bar is located
+	 * @return the latitude of the bar
+	 */
+	double getLatitude();
+
+	/**
+	 * Gets the longitude on which the bar is located
+	 * @return the longitude of the bar
+	 */
+	double getLongitude();
 }

@@ -1,0 +1,58 @@
+@(users: Array[controllers.mock.User])
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <title>User Menü</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.css")"/>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+  </head>
+
+  <body class="container">
+
+    <h1 class="text-center">User Menü
+      <div>
+        <a class="btn btn-default" href="/user/login"> Zurück zum Durscht Menü</a>
+      </div>
+    </h1>
+    <div>
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Joined Date</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>New User</td>
+          <td> <input type="text" name="name" class="form-control" id="name">
+          </td>
+          <td> <input type="text" name="email" class="form-control" id="email">
+          </td>
+          <td></td>
+          <td> <a class="btn btn-default" href=@("/bars/create" )> neuer User</a></td>
+        </tr>
+        <tbody>
+        @for(user <- users){
+          <tr>
+            <td>@user.getId</td>
+            <td>@user.getName</td>
+            <td>@user.getEmail</td>
+            <td>@user.getJoinedDate</td>
+            <td>  <a class="btn btn-default" href=@("/users/delete/" + user.getId)> löschen</a>
+            </td>
+          </tr>
+        }
+        </tbody>
+      </table>
+    </div>
+    <section id="scripts">
+		</section>
+  </body>
+</html>

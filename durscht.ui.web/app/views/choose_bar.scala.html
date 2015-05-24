@@ -1,0 +1,56 @@
+@(bars: Array[controllers.mock.Bar])
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <title>Bar Menü</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.css")"/>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+  </head>
+
+  <body class="container">
+    <h1 class="text-center">Bar Menü
+      <div>
+        <a class="btn btn-default" href="/user/login"> Zurück zum Durscht Menü</a>
+      </div>
+    </h1>
+
+    <div>
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Distance</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>New Bar</td>
+          <td> <input type="text" name="name" class="form-control" id="name">
+          </td>
+          <td> <input type="text" name="distance" class="form-control" id="distance">
+          </td>
+          <td> <a class="btn btn-default" href=@("/bars/create" )> neue Bar</a></td>
+        </tr>
+        <tbody>
+        @for(bar <- bars){
+          <tr>
+            <td>@bar.getId</td>
+            <td>@bar.getName</td>
+            <td>@bar.getDistance</td>
+            <td>  <a class="btn btn-default" href=@("/bars/delete/" + bar.getId)> löschen</a>
+            </td>
+          </tr>
+        }
+        </tbody>
+      </table>
+    </div>
+
+    <section id="scripts">
+		</section>
+  </body>
+</html>

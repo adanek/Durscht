@@ -1,11 +1,22 @@
 package durscht.contracts.data;
 
+import java.util.Date;
+
 public interface IBeerPost {
-	public String getDescription();
-	
-	public int getId();
-	
-	public double getPrice();
-	
-	public int getRating();	
+
+	String getDescription();
+
+	int getId();
+
+	double getPrice();
+
+	int getRating();
+
+	IUser getUser();
+
+	IBeer getBeer();
+
+	IBar getBar();
+
+	Date getTimeDate();
 }

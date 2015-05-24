@@ -2,6 +2,7 @@ package durscht.core;
 
 import durscht.contracts.data.IDataHandler;
 import durscht.core.config.ServiceLocator;
+import durscht.model.User;
 
 /**
  * Created by Mark on 04.05.2015.
@@ -24,16 +25,22 @@ public class LoginHandler {
 	public User login(String name, String password) {
 		IDataHandler dataHandler = getDataHandler();
 
-		User user = new User();
 		durscht.contracts.data.IUser iUser = dataHandler.getUserLogin(name, password);
 		if (iUser == null) {
 			return null;
 		}
-		user.setId(iUser.getId());
-		user.setName(iUser.getName());
-		user.setEmail(iUser.getEmail());
-		user.setDate(iUser.getJoinedDate());
+		User user = LoginHandler.convertDBtoUI(iUser);
+		return user;
+	}
 
+	public User adminLogin(String name, String password) {
+		IDataHandler dataHandler = getDataHandler();
+
+		durscht.contracts.data.IUser iUser = dataHandler.getUserLoginAdmin(name, password);
+		if (iUser == null) {
+			return null;
+		}
+		User user = LoginHandler.convertDBtoUI(iUser);
 		return user;
 	}
 
@@ -41,8 +48,7 @@ public class LoginHandler {
 		IDataHandler dataHandler = getDataHandler();
 
 		User user = new User();
-		durscht.contracts.data.IUser iUser = dataHandler.createUser(name, email, password);
-
+		durscht.contracts.data.IUser iUser = dataHandler.createUser(name, email, password, false);
 		user.setId(iUser.getId());
 		user.setName(iUser.getName());
 		user.setEmail(iUser.getEmail());
@@ -50,4 +56,13 @@ public class LoginHandler {
 		return user;
 	}
 
+	protected static User convertDBtoUI(durscht.contracts.data.IUser iUser) {
+		User user = new User();
+		user.setId(iUser.getId());
+		user.setName(iUser.getName());
+		user.setEmail(iUser.getEmail());
+		user.setDate(iUser.getJoinedDate());
+
+		return user;
+	}
 }

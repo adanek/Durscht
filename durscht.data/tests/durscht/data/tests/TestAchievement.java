@@ -11,6 +11,7 @@ import org.junit.runners.MethodSorters;
 
 import durscht.contracts.data.IAchievement;
 import durscht.contracts.data.IDataHandler;
+import durscht.contracts.data.AchievementCriterionType;
 import durscht.data.handler.DataHandler;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -18,7 +19,7 @@ public class TestAchievement extends TestBase {
 
 	@Test
 	public void createAchievement() {
-
+		
 		// create new achievement
 		int id = dataHandler.createAchievement("erster Bierpost",
 				"bekommt der User für seinen ersten Post").getId();
