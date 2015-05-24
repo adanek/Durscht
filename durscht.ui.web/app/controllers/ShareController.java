@@ -6,8 +6,7 @@ import controllers.mock.Beer;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.ILogicFacade;
 import durscht.contracts.logic.IPostHandler;
-import durscht.contracts.ui.IBar;
-import durscht.contracts.ui.IBeer;
+
 import durscht.core.config.ServiceLocator;
 import play.libs.Json;
 import play.mvc.Controller;

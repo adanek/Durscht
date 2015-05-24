@@ -1,7 +1,8 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import durscht.contracts.ui.IBeer;
+
+import durscht.contracts.logic.model.IBeer;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
 import play.libs.Json;
@@ -12,7 +13,7 @@ import views.html.choose_beer;
 public class AdminBeerController extends Controller{
 
     public static IBeer[] allBeers(){
-        durscht.contracts.ui.IBeer [] beers = ServiceLocator.getBeerHandler().getAllBeers();
+        IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeersNotVerified();
         return beers;
     }
 
@@ -21,7 +22,7 @@ public class AdminBeerController extends Controller{
         String brand = request().body().asFormUrlEncoded().get("brand")[0];
         String type = request().body().asFormUrlEncoded().get("type")[0];
 
-        durscht.contracts.ui.IBeer [] beers = ServiceLocator.getBeerHandler().getBeersByPrefix(brand + type);
+        IBeer[] beers = ServiceLocator.getBeerHandler().getBeersByPrefix(brand + type);
 
         return ok(choose_beer.render(beers));
     }

@@ -1,11 +1,13 @@
 package controllers.mock;
 
-import durscht.contracts.ui.IPost;
+
+
+import durscht.contracts.logic.model.IPost;
 
 import java.util.Date;
 
 
-public class Post implements IPost{
+public class Post implements IPost {
 
     private String username;
     private int rating;
