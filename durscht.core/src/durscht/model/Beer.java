@@ -1,5 +1,5 @@
 package durscht.model;
-import durscht.contracts.ui.IBeer;
+import durscht.contracts.logic.model.IBeer;
 
 
 public class Beer implements IBeer {

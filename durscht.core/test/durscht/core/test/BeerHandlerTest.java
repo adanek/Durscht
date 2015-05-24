@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.IBeerHandler;
-import durscht.contracts.ui.IBeer;
+import durscht.contracts.logic.model.IBeer;
 import durscht.core.config.ServiceLocator;
 import durscht.core.helper.TrieST;
 import durscht.model.Beer;

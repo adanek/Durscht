@@ -1,5 +1,7 @@
 package durscht.contracts.logic;
 
+import durscht.contracts.logic.model.IUser;
+
 /**
  * Created by Mark on 04.05.2015.
  */
@@ -11,7 +13,7 @@ public interface ILoginHandler {
 	 * @param password
 	 * @return linked User or null, if he does not exist
 	 */
-	durscht.contracts.logic.IUser login(String name, String password);
+	IUser login(String name, String password);
 
 	/**
 	 * Login
@@ -20,7 +22,7 @@ public interface ILoginHandler {
 	 * @param password
 	 * @return linked User or null, if he does not exist or does not have admin rights
 	 */
-	durscht.contracts.logic.IUser adminLogin(String name, String password);
+	IUser adminLogin(String name, String password);
 
 	/**
 	 * Creates new User
@@ -30,5 +32,5 @@ public interface ILoginHandler {
 	 * @param email
 	 * @return new User
 	 */
-	durscht.contracts.logic.IUser createUser(String name, String password, String email);
+	IUser createUser(String name, String password, String email);
 }

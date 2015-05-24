@@ -1,6 +1,6 @@
 package durscht.model;
 
-import durscht.contracts.logic.IUser;
+import durscht.contracts.logic.model.IUser;
 
 import java.util.Date;
 

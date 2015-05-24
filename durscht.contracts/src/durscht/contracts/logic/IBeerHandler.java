@@ -1,6 +1,6 @@
 package durscht.contracts.logic;
 
-import durscht.contracts.ui.IBeer;
+import durscht.contracts.logic.model.IBeer;
 
 public interface IBeerHandler {
 
@@ -43,5 +43,5 @@ public interface IBeerHandler {
 	 * @param uiBeer
 	 * @return verified beer
 	 */
-	public durscht.contracts.ui.IBeer verifyBeer(durscht.contracts.ui.IBeer uiBeer);
+	public IBeer verifyBeer(IBeer uiBeer);
 }

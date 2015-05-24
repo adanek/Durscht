@@ -1,8 +1,8 @@
 package durscht.contracts.logic;
 
-import durscht.contracts.ui.IBar;
-import durscht.contracts.ui.IBeer;
-import durscht.contracts.ui.IPost;
+import durscht.contracts.logic.model.IBar;
+import durscht.contracts.logic.model.IBeer;
+import durscht.contracts.logic.model.IPost;
 
 public interface IPostHandler {
 
