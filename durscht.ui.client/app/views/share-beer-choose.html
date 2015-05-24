@@ -1,27 +1,36 @@
-<div>
-
-    <h1>Soso, {{ name }} also.</h1>
-
-    <!-- Before beers are loaded -->
-    <div ng-show="beers == null">
-        <p>Dieses Lokal ist mir wohlbekannt.</p>
-        <p>Lass mich kurz überlegen, was meine Bekannten hier genossen haben...</p>
+<header>
+    <div>
+        {{ caption }}
     </div>
+</header>
 
-    <!-- After beers are loaded -->
-    <div ng-show="beers != null">
+<section>
+    <div>
+        <!-- Before beers are loaded -->
+        <div class="my-panel" ng-show="beers == null">
+            <p>Dieses Lokal ist mir wohlbekannt.</p>
 
-        <p>Hat dieses Bier deinen Durscht gelöscht?</p>
+            <p>Lass mich kurz überlegen, was meine Bekannten hier genossen haben...</p>
+        </div>
 
-        <ul class="list-group" ng-show="beers != null">
-            <a class="list-group-item" ng-repeat="beer in beers" ng-click="setBeer(beer)">
-                {{ beer.brand }} - {{ beer.type }}
-            </a>
-        </ul>
+        <!-- After beers are loaded -->
 
-        <ul class="list-group">
+        <div class="panel panel-default bordered" ng-show="beers != null">
+            <div class="panel-heading">Hat dieses Bier deinen Durscht gelöscht?</div>
+
+            <ul class="list-group" ng-show="beers != null">
+                <a class="list-group-item" ng-repeat="beer in beers" ng-click="setBeer(beer)">
+                    {{ beer.brand }} - {{ beer.type }}
+                </a>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div>
+        <div class="list-group bordered" ng-show="beers != null">
             <a class="list-group-item" ng-click="createBeer()">{{ createBeerText }}</a>
-        </ul>
-
+        </div>
     </div>
-</div>
+</footer>

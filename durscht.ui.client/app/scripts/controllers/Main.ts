@@ -36,36 +36,40 @@
         }
 
         $scope.$on('$viewContentLoaded', function() {
-           console.info("Now");
-            adjustBodySize();
+           console.info("adjust body height");
+            setTimeout(adjustBodySize, 200);
         });
 
         function adjustBodySize() {
 
             var wh = $(window).height();
-            var fh = $('body > footer').outerHeight(true);
-            var hh = $('body > header').height();
+            var ph = $('body > header').height();
+            var pf = $('body > footer').outerHeight(true);
+            var bh; //body height
 
-            // Reset heights
+            // Set the body height
             $('body').height('auto');
-            $('body > article').height('auto');
-            $('body > article > header').css({lineHeight: 'normal'});
-            $('body > article > section').css({lineHeight: 'normal'});
-
-            var bh = $('body').height();
-            var ah = $('body > article').height();
-
-            var bh = (wh - fh) > bh ? (wh - fh) : bh;
-            var ah = (wh - hh - fh) > ah ? (wh - hh - fh) : ah;
-            var af = $('article > footer').outerHeight(true);
-            af = af > 0 ? af : 0;
-
+            bh = $('body').height();
+            bh = wh -pf;
             $('body').height(bh);
-            $('body > article').height(ah);
-            $('body > article > header').css({lineHeight: (Math.round(20 * ah / 100))+'px'});
-            $('body > article > header').css({lineHeight: (Math.round(20 * ah / 100))+'px'});
-            $('body > article > section').css({lineHeight: (Math.round(80 * ah / 100) - af)+'px'});
 
+
+            // Set the article header height
+            $('body > article > header').css({lineHeight: (Math.round(20 * wh / 100))+'px'});
+
+            // Calculate the heights of the article parts
+            var ahh = $('body > article > header').outerHeight(true); // height of the article header
+            var ash = $('body > article > section').outerHeight(true); // height of the article section
+            var afh = $('article > footer').outerHeight(true); // height of the article section
+            var contentHeight = "";
+            var ah = $('body > article').height(bh - ph);
+
+
+
+
+            // set the bootom margin for the article
+            //$('body > article').css('margin-bottom', afh);
+            console.info('vals: ' + ahh + ' ' + ash + ' ' + afh + ' ' + ah);
         }
     };
 

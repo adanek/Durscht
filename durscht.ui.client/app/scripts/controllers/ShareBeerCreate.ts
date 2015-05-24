@@ -17,7 +17,7 @@
         $scope.type = "";
         $scope.description = "";
 
-        barService.getAllBeers().success(function (data) {
+        beerService.getAll().success(function (data) {
             $scope.beers = data.sort(function (a:Beer, b:Beer) {
                 return a.brand.localeCompare(b.brand);
             });
