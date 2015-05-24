@@ -13,6 +13,18 @@ durscht.contracts/doc/
 durscht.core/doc/
 out/
 
+durscht.ui.client/bower_components/
+durscht.ui.client/node_modules/
+durscht.ui.client/dist/
+durscht.ui.client/.tmp/durscht.contracts/durscht.contracts.iml
+.idea/
+durscht.core/durscht.core.iml
+durscht.data/durscht.data.iml
+durscht.contracts/META-INF/
+durscht.contracts/doc/
+durscht.core/doc/
+out/
+
 durscht.ui.client/.idea/
 durscht.ui.client/bower_components/
 durscht.ui.client/node_modules/
