@@ -25,8 +25,8 @@ public class User implements IUser{
         return email;
     }
 
-    public Date getJoinedDate(){
-        return date;
+    public String getJoinedDate(){
+        return date.toString();
     }
 
     public void setId(int id) {
