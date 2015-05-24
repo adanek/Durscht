@@ -29,6 +29,7 @@ public class BeerHandler implements IBeerHandler {
 	public BeerHandler() {
 
 		beers = new TrieST<Beer>();
+		dataHandler = ServiceLocator.getDataHandler();
 		Collection<IBeer> db_beers = dataHandler.getAllBeersVerified();
 
 		for (IBeer ibeer : db_beers) {
