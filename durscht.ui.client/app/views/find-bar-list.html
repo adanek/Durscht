@@ -1,6 +1,17 @@
-<h1 class="text-center">{{ caption }}</h1>
+<header>
+    <div>
+        {{ caption }}
+    </div>
+</header>
 
-<div class="list-group">
-    <a class="list-group-item" ng-repeat="bar in bars">{{ bar.name }} <small>{{ bar.distance }}km</small></a>
-</div>
+<section>
+    <div>
+        <div class="list-group bordered">
+            <a class="list-group-item" ng-repeat="bar in bars">{{ bar.name }} <small>{{ bar.distance }}km</small></a>
+        </div>
+    </div>
+</section>
+
+
+
 

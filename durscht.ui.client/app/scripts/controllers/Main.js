@@ -30,7 +30,7 @@
         };
         $scope.$on('$viewContentLoaded', function () {
             console.info("adjust body height");
-            setTimeout(adjustBodySize, 200);
+            setTimeout(adjustBodySize, 100);
         });
         function adjustBodySize() {
             var wh = $(window).height();
@@ -49,9 +49,11 @@
             var ash = $('body > article > section').outerHeight(true); // height of the article section
             var afh = $('article > footer').outerHeight(true); // height of the article section
             var contentHeight = "";
-            var ah = $('body > article').height(bh - ph);
             // set the bootom margin for the article
-            //$('body > article').css('margin-bottom', afh);
+            $('body > article').css('margin-bottom', afh);
+            var ah = ahh + ash;
+            var ahMin = bh - ph;
+            $('body > article').height(ahMin > ah ? ahMin : ah);
             console.info('vals: ' + ahh + ' ' + ash + ' ' + afh + ' ' + ah);
         }
     };
