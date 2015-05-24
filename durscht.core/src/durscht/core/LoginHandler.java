@@ -22,7 +22,7 @@ public class LoginHandler {
 		this.dataHandler = dataHandler;
 	}
 
-	public User login(String name, String password) {
+	public durscht.contracts.logic.model.IUser login(String name, String password) {
 		IDataHandler dataHandler = getDataHandler();
 
 		durscht.contracts.data.IUser iUser = dataHandler.getUserLogin(name, password);
@@ -33,7 +33,7 @@ public class LoginHandler {
 		return user;
 	}
 
-	public User adminLogin(String name, String password) {
+	public durscht.contracts.logic.model.IUser adminLogin(String name, String password) {
 		IDataHandler dataHandler = getDataHandler();
 
 		durscht.contracts.data.IUser iUser = dataHandler.getUserLoginAdmin(name, password);
@@ -44,7 +44,7 @@ public class LoginHandler {
 		return user;
 	}
 
-	public User createUser(String name, String password, String email) {
+	public durscht.contracts.logic.model.IUser createUser(String name, String password, String email) {
 		IDataHandler dataHandler = getDataHandler();
 
 		User user = new User();
