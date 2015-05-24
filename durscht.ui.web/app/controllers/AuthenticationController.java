@@ -13,8 +13,6 @@ import play.mvc.*;
 import views.html.main;
 import views.html.menu;
 
-import java.util.Map;
-
 
 public class AuthenticationController extends Controller {
 
@@ -50,14 +48,13 @@ public class AuthenticationController extends Controller {
         String name = data.findPath("name").textValue();
         String password = data.findPath("pw").textValue();
 
-        Logger.info(String.format("User tried to login with name: %s and pw: %s.\n", name, password));
-        // Verify login data
-//        IUser user = ServiceLocator.getDataHandler().getUserLogin(name, password);
-//
-//        IUser user1 = ServiceLocator.getDataHandler().getUserByID(1);
-//        Logger.info(String.format("%d %s %s %s", user1.getId(), user1.getName(), user1.getEmail(), user1.getJoinedDate().toString()));
 
-        User user = null;
+        // Verify login data
+        Logger.info(String.format("User tried to login with name: %s and pw: %s.\n", name, password));
+        User user = ServiceLocator.getLoginHandler().login(name, password);
+
+        IUser user1 = ServiceLocator.getDataHandler().getUserByID(1);
+        Logger.info(String.format("%d %s %s %s", user1.getId(), user1.getName(), user1.getEmail(), user1.getJoinedDate().toString()));
 
         LoginHandler loginHandler = ServiceLocator.getLoginHandler();
         user = loginHandler.login(name, password);
@@ -83,10 +80,9 @@ public class AuthenticationController extends Controller {
         String email = data.findPath("email").textValue();
         String passwd = data.findPath("passwd").textValue();
 
-        IUser user = null;
+        User user = null;
         try {
-            IDataHandler dataHandler = ServiceLocator.getDataHandler();
-            user = dataHandler.createUser(username, email, passwd);
+            user = ServiceLocator.getLoginHandler().createUser(username, passwd, email);
         } catch (IllegalStateException e) {
             return Results.internalServerError();
         }
@@ -120,14 +116,15 @@ public class AuthenticationController extends Controller {
     }
 
 
+
     private static void attachCorsHeaders() {
 
         Http.Request request = request();
-
         String address = request.remoteAddress();
-        String origin = request().getHeader("Origin");
 
+        String origin = request().getHeader("Origin");
         origin = origin == null ? address : origin;
+
         CorsController.addCorsHeaders(response(), origin);
     }
 }

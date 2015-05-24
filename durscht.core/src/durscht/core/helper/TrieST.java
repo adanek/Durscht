@@ -1,24 +1,5 @@
 package durscht.core.helper;
 
-/*************************************************************************
- *  Compilation:  javac TrieST.java
- *  Execution:    java TrieST < words.txt
- *  Dependencies: StdIn.java
- *
- *  A string symbol table for extended ASCII strings, implemented
- *  using a 256-way trie.
- *
- *  % java TrieST < shellsST.txt 
- *  by 4
- *  sea 6
- *  sells 1
- *  she 0
- *  shells 3
- *  shore 7
- *  the 5
- *
- *************************************************************************/
-
 /**
  *  The <tt>TrieST</tt> class represents an symbol table of key-value
  *  pairs, with string keys and generic values.
