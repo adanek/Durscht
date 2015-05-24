@@ -3,7 +3,9 @@ package controllers;
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.mock.User;
-import durscht.contracts.ui.IUser;
+
+import durscht.contracts.logic.model.IUser;
+import durscht.core.config.ServiceLocator;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -17,19 +19,7 @@ import views.html.menu;
 
 public class AuthenticationController extends Controller {
 
-    //GET /logout
-    @Security.Authenticated(MyAuthenticator.class)
-    public static Result logout() {
 
-        String pid = session().get("pid");
-        Logger.info(String.format("User %s has loged out.\n", pid));
-
-        //clear session data
-        session().clear();
-
-        attachCorsHeaders();
-        return ok();
-    }
 
     //GET /user/id
     @Security.Authenticated(MyAuthenticator.class)
@@ -54,10 +44,7 @@ public class AuthenticationController extends Controller {
         // Verify login data
         Logger.info(String.format("User tried to login with name: %s and pw: %s.\n", name, password));
         IUser user = null;
-        //user = ServiceLocator.getLoginHandler().login(name, password);
-
-        // Create mock user until LoginHandler is ready
-        user = new User(1, "admin", "admin@durscht.com", "admin", "01.01.2015");
+        user = ServiceLocator.getLoginHandler().login(name, password);
 
         Logger.info("Returned from method login");
         //user does not exist or is unauthorized
@@ -69,6 +56,20 @@ public class AuthenticationController extends Controller {
         //store session data
         session().clear();
         session().put("pid", Integer.toString(user.getId()));
+        return ok();
+    }
+
+    //GET /logout
+    @Security.Authenticated(MyAuthenticator.class)
+    public static Result logout() {
+
+        String pid = session().get("pid");
+        Logger.info(String.format("User %s has loged out.\n", pid));
+
+        //clear session data
+        session().clear();
+
+        attachCorsHeaders();
         return ok();
     }
 
@@ -97,7 +98,7 @@ public class AuthenticationController extends Controller {
 
         // Verify login data
         IUser user = null;
-        //user = ServiceLocator.getLoginHandler().login(email, password);
+        ServiceLocator.getLoginHandler().adminLogin(email, password);
 
         //user does not exist or is unauthorized
         if (user == null) {
@@ -114,13 +115,14 @@ public class AuthenticationController extends Controller {
 
     private static void attachCorsHeaders() {
 
-        Http.Request request = request();
-        String address = request.remoteAddress();
-
-        String origin = request().getHeader("Origin");
-        origin = origin == null ? address : origin;
-
-        CorsController.addCorsHeaders(response(), origin);
+        CorsController.addCorsHeaders();
+//        Http.Request request = request();
+//        String address = request.remoteAddress();
+//
+//        String origin = request().getHeader("Origin");
+//        origin = origin == null ? address : origin;
+//
+//        CorsController.addCorsHeaders(response(), origin);
     }
 }
 

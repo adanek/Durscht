@@ -1,7 +1,7 @@
 package controllers;
 
 import controllers.mock.Bar;
-import durscht.contracts.ui.IBar;
+
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.choose_bar;

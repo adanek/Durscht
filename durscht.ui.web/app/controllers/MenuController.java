@@ -4,8 +4,7 @@ import controllers.mock.Bar;
 import controllers.mock.Beer;
 import controllers.mock.Post;
 import durscht.contracts.data.IBeerPost;
-import durscht.contracts.ui.IBar;
-import durscht.contracts.ui.IBeer;
+
 import durscht.core.BeerHandler;
 import durscht.core.config.ServiceLocator;
 import durscht.data.model.BeerPost;

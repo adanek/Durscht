@@ -1,9 +1,11 @@
 package controllers.mock;
 
-import java.util.Date;
-import durscht.contracts.ui.IUser;
+import durscht.contracts.logic.model.IUser;
 
-public class User implements IUser{
+import java.util.Date;
+
+
+public class User implements IUser {
 
     private final int id;
     private String name;
