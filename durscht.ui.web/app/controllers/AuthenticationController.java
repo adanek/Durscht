@@ -2,24 +2,17 @@ package controllers;
 
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.mock.User;
-
 import durscht.contracts.logic.model.IUser;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.main;
 import views.html.menu;
 
-
-
 public class AuthenticationController extends Controller {
-
-
 
     //GET /user/id
     @Security.Authenticated(MyAuthenticator.class)
@@ -28,13 +21,13 @@ public class AuthenticationController extends Controller {
         int pid = Integer.parseInt(session().get("pid"));
 
         JsonNode data = Json.toJson(pid);
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return ok(data);
     }
 
     // POST /user/login
     public static Result login() {
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
 
         // Extract data from request
         JsonNode data = request().body().asJson();
@@ -46,10 +39,11 @@ public class AuthenticationController extends Controller {
         IUser user = null;
         user = ServiceLocator.getLoginHandler().login(name, password);
 
+
         Logger.info("Returned from method login");
         //user does not exist or is unauthorized
         if (user == null) {
-            Logger.info("User no user found");
+            Logger.info("No user found");
             return unauthorized();
         }
 
@@ -69,7 +63,7 @@ public class AuthenticationController extends Controller {
         //clear session data
         session().clear();
 
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return ok();
     }
 
@@ -82,12 +76,12 @@ public class AuthenticationController extends Controller {
         String passwd = data.findPath("passwd").textValue();
 
         IUser user = null;
-        //user = ServiceLocator.getLoginHandler().createUser(username, passwd, email);
+        user = ServiceLocator.getLoginHandler().createUser(username, passwd, email);
 
         session().clear();
         session().put("pid", Integer.toString(user.getId()));
 
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return ok();
     }
 
@@ -109,20 +103,7 @@ public class AuthenticationController extends Controller {
         session().clear();
         session().put("pid", Integer.toString(user.getId()));
 
-
         return ok(menu.render());
-    }
-
-    private static void attachCorsHeaders() {
-
-        CorsController.addCorsHeaders();
-//        Http.Request request = request();
-//        String address = request.remoteAddress();
-//
-//        String origin = request().getHeader("Origin");
-//        origin = origin == null ? address : origin;
-//
-//        CorsController.addCorsHeaders(response(), origin);
     }
 }
 

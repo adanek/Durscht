@@ -3,7 +3,6 @@ package controllers;
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.mock.Bar;
-import durscht.contracts.logic.ILogicFacade;
 import durscht.contracts.logic.IPostHandler;
 import durscht.contracts.logic.model.IBar;
 import durscht.contracts.logic.model.IBeer;
@@ -25,10 +24,8 @@ public class BarController extends Controller {
         bars.add(new Bar(1, "Wunderbar", 2.3, null));
         bars.add(new Bar(2, "Sonderbar", 5.1, null));
 
-
-
         JsonNode data = Json.toJson(bars);
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return ok(data);
     }
 
@@ -48,7 +45,7 @@ public class BarController extends Controller {
         IBar bar = postHandler.createNewBar(name, lat, lng, remark, url);
 
         JsonNode responseData = Json.toJson(bar);
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return created(responseData);
     }
 
@@ -58,7 +55,7 @@ public class BarController extends Controller {
         IBeer[] beers = ServiceLocator.getPostHandler().getBeersByBar(barId);
 
         JsonNode data = Json.toJson(beers);
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return ok(data);
     }
 
@@ -81,14 +78,7 @@ public class BarController extends Controller {
         }
 
         JsonNode data = Json.toJson(bars);
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return ok(data);
-    }
-
-
-    private static void attachCorsHeaders() {
-
-        String origin = request().getHeader("Origin");
-        CorsController.addCorsHeaders(response(), origin);
     }
 }
