@@ -9,6 +9,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class BeerController extends Controller {
 
@@ -17,8 +21,13 @@ public class BeerController extends Controller {
 
         // Get all beers from BeerHandler
         IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeersVerified();
+        IBeer[] beers2 = ServiceLocator.getBeerHandler().getAllBeersNotVerified();
 
-        JsonNode data = Json.toJson(beers);
+        List<IBeer> bs = new ArrayList<>();
+        bs.addAll(Arrays.asList(beers));
+        bs.addAll(Arrays.asList(beers2));
+
+        JsonNode data = Json.toJson(bs);
         CorsController.addCorsHeaders();
         return ok(data);
     }
@@ -43,8 +52,13 @@ public class BeerController extends Controller {
     public static Result getUsed() {
 
         IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeersVerified();
+        IBeer[] beers2 = ServiceLocator.getBeerHandler().getAllBeersNotVerified();
 
-        JsonNode data = Json.toJson(beers);
+        List<IBeer> bs = new ArrayList<>();
+        bs.addAll(Arrays.asList(beers));
+        bs.addAll(Arrays.asList(beers2));
+
+        JsonNode data = Json.toJson(bs);
         CorsController.addCorsHeaders();
         return ok(data);
     }
