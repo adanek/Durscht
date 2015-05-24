@@ -4,6 +4,7 @@ import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.data.IUser;
+import durscht.core.LoginHandler;
 import durscht.core.User;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
@@ -33,7 +34,7 @@ public class AuthenticationController extends Controller {
 
     //GET /user/id
     @Security.Authenticated(MyAuthenticator.class)
-    public static Result getId(){
+    public static Result getId() {
 
         int pid = Integer.parseInt(session().get("pid"));
 
@@ -51,11 +52,17 @@ public class AuthenticationController extends Controller {
 
         Logger.info(String.format("User tried to login with name: %s and pw: %s.\n", name, password));
         // Verify login data
-        IUser user = ServiceLocator.getDataHandler().getUserLogin(name, password);
+//        IUser user = ServiceLocator.getDataHandler().getUserLogin(name, password);
+//
+//        IUser user1 = ServiceLocator.getDataHandler().getUserByID(1);
+//        Logger.info(String.format("%d %s %s %s", user1.getId(), user1.getName(), user1.getEmail(), user1.getJoinedDate().toString()));
 
-        IUser user1 = ServiceLocator.getDataHandler().getUserByID(1);
-        Logger.info(String.format("%d %s %s %s", user1.getId(), user1.getName(), user1.getEmail(), user1.getJoinedDate().toString()));
+        User user = null;
 
+        LoginHandler loginHandler = ServiceLocator.getLoginHandler();
+        user = loginHandler.login(name, password);
+
+        Logger.info("Returned from method login");
         //user does not exist or is unauthorized
         if (user == null) {
             Logger.info("User no user found");
@@ -69,7 +76,7 @@ public class AuthenticationController extends Controller {
     }
 
     // POST /user/register
-    public static Result register(){
+    public static Result register() {
 
         JsonNode data = request().body().asJson();
         String username = data.findPath("user").textValue();
@@ -111,7 +118,6 @@ public class AuthenticationController extends Controller {
 
         return ok(menu.render());
     }
-
 
 
     private static void attachCorsHeaders() {
