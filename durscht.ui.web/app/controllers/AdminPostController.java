@@ -20,6 +20,8 @@ public class AdminPostController extends Controller{
     }
 
     public static Result deletePost(int id){
+        ServiceLocator.getPostHandler().deletePost(id);
+
         return redirect("/admin/posts");
     }
 

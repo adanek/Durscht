@@ -45,6 +45,9 @@
         srv.compareByDistance = function (a, b) {
             return a.distance - b.distance;
         };
+        srv.getBarDetails = function (barid) {
+            return $http.get(serviceHost + '/bars/details/' + barid);
+        };
         return srv;
     }
     app.factory('barService', ['serviceHost', '$http', 'posting', 'locationService', 'beerService', service]);

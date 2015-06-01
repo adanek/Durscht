@@ -28,10 +28,14 @@ public class AdminBeerController extends Controller{
     }
 
     public static Result deleteBeer(int id){
-
-
         Logger.info(String.format("going to delete beer %d", id ));
 
         return redirect("/admin/beers");
+    }
+
+    public static Result verifyBeer(int id){
+        //ServiceLocator.getBeerHandler().verifyBeer(id);
+
+        return ok(choose_beer.render(allBeers()));
     }
 }
