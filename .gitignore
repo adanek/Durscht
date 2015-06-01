@@ -1,7 +1,7 @@
 .gitignore
 *.classpath
 .idea/
-out/
+out/doc/
 
 durscht.contracts/durscht.contracts.iml
 durscht.contracts/META-INF/
