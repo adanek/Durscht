@@ -23,18 +23,18 @@ public class LoginHandler {
 	}
 
 	public durscht.contracts.logic.model.IUser login(String name, String password) {
-		System.out.printf("Beginn LoginHandler %s %s/n", name, password);
+		System.out.println("Beginn LoginHandler " + name + " "  + password);
 
 		IDataHandler dataHandler = getDataHandler();
 
 		durscht.contracts.data.IUser iUser = dataHandler.getUserLogin(name, password);
-		System.out.printf("LoginHandler returned from datahandler/n");
+		System.out.println("LoginHandler returned from datahandler");
 		if (iUser == null) {
-			System.out.printf("user is null/n");
+			System.out.println("user is null");
 			return null;
 		}
 		User user = LoginHandler.convertDBtoUI(iUser);
-		System.out.printf("Before End LoginHandler %s/n", user.getName());
+		System.out.println("Before End LoginHandler " + user.getName());
 		return user;
 	}
 

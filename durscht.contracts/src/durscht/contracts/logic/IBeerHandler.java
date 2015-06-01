@@ -40,8 +40,16 @@ public interface IBeerHandler {
 	/**
 	 * Verifies a beer
 	 *
-	 * @param uiBeer
+	 * @param id
 	 * @return verified beer
 	 */
-	public IBeer verifyBeer(IBeer uiBeer);
+	IBeer verifyBeer(int id);
+
+	/**
+	 * Deletes a unverified beer
+	 *
+	 * @param id
+	 * @throws IllegalArgumentException if beer is verified
+	 */
+	void deleteBeer(int id) throws IllegalArgumentException;
 }
