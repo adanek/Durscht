@@ -17,6 +17,8 @@ GET            /beers/delete/:id        controllers.AdminBeerController.deleteBe
 GET            /bars/delete/:id         controllers.AdminBarController.deleteBar(id:Integer)
 GET            /users/delete/:id        controllers.AdminUserController.deleteUser(id:Integer)
 
+GET            /beers/verify/:id        controllers.AdminBeerController.verifyBeer(id:Integer)
+
 POST           /beers/filter            controllers.AdminBeerController.filterBeer()
 
 

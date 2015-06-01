@@ -34,4 +34,10 @@ public class AdminBeerController extends Controller{
 
         return redirect("/admin/beers");
     }
+
+    public static Result verifyBeer(int id){
+        //ServiceLocator.getBeerHandler().verifyBeer(id);
+
+        return ok(choose_beer.render(allBeers()));
+    }
 }

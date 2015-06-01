@@ -25,6 +25,7 @@
                   <th>ID</th>
                   <th>Name</th>
                   <th>Price</th>
+                  <th>Description</th>
                   <th></th>
                 </tr>
                 <tr>
@@ -33,6 +34,7 @@
                   </td>
                   <td> <input type="text" name="price" class="form-control" id="price">
                   </td>
+                  <td></td>
                   <td> <a class="btn btn-default" href=@("/bars/create" )> filter Post</a></td>
                 </tr>
                 <tbody>
@@ -41,6 +43,7 @@
                     <td>@post.getId</td>
                     <td>@post.getUsername</td>
                     <td>@post.getPrice</td>
+                    <td>@post.getDescription</td>
                     <td>  <a class="btn btn-default" href=@("/posts/delete/" + post.getId)> löschen</a>
                     </td>
                   </tr>
