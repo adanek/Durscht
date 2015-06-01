@@ -2,7 +2,6 @@
 'use strict';
 (function (app) {
     var ctrl = function ($scope, $location, barService, $routeParams) {
-        var caption;
         var barId = $routeParams.barId;
         var bar;
         var beers;

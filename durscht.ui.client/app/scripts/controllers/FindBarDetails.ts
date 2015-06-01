@@ -5,8 +5,6 @@
 
     var ctrl = function ($scope, $location, barService:BarService, $routeParams) {
 
-        var caption:string ;
-
         var barId : number = $routeParams.barId;
         var bar : Bar;
         var beers : Array<Beer>;

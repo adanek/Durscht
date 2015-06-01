@@ -2,7 +2,7 @@
 'use strict';
 (function (app) {
     var ctrl = function ($scope, $location, barService) {
-        var caption = "In diesen Bars wirst du fündig:";
+        var caption = 'In diesen Bars wirst du fündig:';
         var bars = [];
         $scope.caption = caption;
         $scope.bars = bars;

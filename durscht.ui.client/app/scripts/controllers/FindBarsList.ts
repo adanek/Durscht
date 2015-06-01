@@ -5,7 +5,7 @@
 
     var ctrl = function ($scope, $location, barService:BarService) {
 
-        var caption:string = "In diesen Bars wirst du fündig:";
+        var caption:string = 'In diesen Bars wirst du fündig:';
         var bars:Array<Bar> = [];
 
         $scope.caption = caption;
