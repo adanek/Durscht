@@ -4,7 +4,7 @@
 
 <html>
   <head>
-    <title>Bar Menü</title>
+    <title>Bar Menu</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
@@ -14,9 +14,9 @@
   </head>
 
   <body class="container">
-    <h1 class="text-center">Bar Menü
+    <h1 class="text-center">Bar Menu
       <div>
-        <a class="btn btn-default" href="/admin/login"> Zurück zum Durscht Menü</a>
+        <a class="btn btn-default" href="/admin/login"> Back to Durscht Menu</a>
       </div>
     </h1>
 
@@ -34,7 +34,7 @@
           </td>
           <td> <input type="text" name="distance" class="form-control" id="distance">
           </td>
-          <td> <a class="btn btn-default" href=@("/bars/create" )> neue Bar</a></td>
+          <td> <a class="btn btn-default" href=@("/bars/filter" )> filter Bar</a></td>
         </tr>
         <tbody>
         @for(bar <- bars){
@@ -42,7 +42,7 @@
             <td>@bar.getId</td>
             <td>@bar.getName</td>
             <td>@bar.getDistance</td>
-            <td>  <a class="btn btn-default" href=@("/bars/delete/" + bar.getId)> löschen</a>
+            <td>  <a class="btn btn-default" href=@("/bars/delete/" + bar.getId)> delete</a>
             </td>
           </tr>
         }

@@ -4,7 +4,7 @@
 
 <html>
   <head>
-    <title>Post Menü</title>
+    <title>Post Menu</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
@@ -14,9 +14,9 @@
   </head>
 
   <body class="container">
-    <h1 class="text-center">Post Menü
+    <h1 class="text-center">Post Menu
       <div>
-        <a class="btn btn-default" href="/admin/login"> Zurück zum Durscht Menü</a>
+        <a class="btn btn-default" href="/admin/login"> Back to Durscht Menu</a>
       </div>
     </h1>
         <div>
@@ -44,7 +44,7 @@
                     <td>@post.getUsername</td>
                     <td>@post.getPrice</td>
                     <td>@post.getDescription</td>
-                    <td>  <a class="btn btn-default" href=@("/posts/delete/" + post.getId)> löschen</a>
+                    <td>  <a class="btn btn-default" href=@("/posts/delete/" + post.getId)> delete</a>
                     </td>
                   </tr>
                 }
