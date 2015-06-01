@@ -1,0 +1,11 @@
+durscht.contracts.data
+durscht.contracts.logic
+durscht.contracts.logic.model
+durscht.core
+durscht.core.config
+durscht.core.helper
+durscht.data.handler
+durscht.data.model
+durscht.data.programs
+durscht.data.tests
+durscht.model
