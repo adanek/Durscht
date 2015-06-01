@@ -3,6 +3,7 @@ package controllers;
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.mock.Bar;
+import durscht.contracts.logic.IBarHandler;
 import durscht.contracts.logic.IPostHandler;
 import durscht.contracts.logic.model.IBar;
 import durscht.contracts.logic.model.IBeer;
@@ -80,5 +81,11 @@ public class BarController extends Controller {
         JsonNode data = Json.toJson(bars);
         CorsController.addCorsHeaders();
         return ok(data);
+    }
+
+    public static Result getDetails(Integer barId){
+
+
+        return ok();
     }
 }
