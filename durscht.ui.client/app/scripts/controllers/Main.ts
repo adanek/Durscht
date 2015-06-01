@@ -10,9 +10,10 @@
 
             if(authenticated == true){
 
+                $scope.logedIn = true;
                 $scope.authBtnText = "Logout";
             } else {
-
+                $scope.logedIn = false;
                 $scope.authBtnText = "Login";
             }
         }

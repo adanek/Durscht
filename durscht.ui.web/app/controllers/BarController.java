@@ -85,7 +85,11 @@ public class BarController extends Controller {
 
     public static Result getDetails(Integer barId){
 
+        IBar bar = new Bar(1, "TestBar", 0.3, null, 41.11, 11.7);
 
-        return ok();
+
+        JsonNode data = Json.toJson(bar);
+        CorsController.addCorsHeaders();
+        return ok(data);
     }
 }

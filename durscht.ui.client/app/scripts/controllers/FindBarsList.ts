@@ -3,7 +3,7 @@
 
 (function (app) {
 
-    var ctrl = function ($scope, $location, barService:BarService, searchService:SearchService) {
+    var ctrl = function ($scope, $location, barService:BarService) {
 
         var caption:string = "In diesen Bars wirst du fündig:";
         var bars:Array<Bar> = [];
@@ -20,12 +20,11 @@
         });
 
         $scope.showDetails = function(barId:number){
-            searchService.barId = barId;
-            $location.path('/find/bar/details').replace();
+            $location.path('/find/bar/details/' + barId).replace();
             $scope.$apply();
         }
     }
 
-    app.controller('FindBarListCtrl', ['$scope', '$location', 'barService', 'searchService', ctrl]);
+    app.controller('FindBarListCtrl', ['$scope', '$location', 'barService', ctrl]);
 
 })(angular.module('durschtApp'));

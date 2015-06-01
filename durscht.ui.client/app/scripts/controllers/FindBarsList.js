@@ -1,7 +1,7 @@
 /// <reference path="../_references.ts"/>
 'use strict';
 (function (app) {
-    var ctrl = function ($scope, $location, barService, searchService) {
+    var ctrl = function ($scope, $location, barService) {
         var caption = "In diesen Bars wirst du fündig:";
         var bars = [];
         $scope.caption = caption;
@@ -13,11 +13,10 @@
             $scope.bars = bars;
         });
         $scope.showDetails = function (barId) {
-            searchService.barId = barId;
-            $location.path('/find/bar/details').replace();
+            $location.path('/find/bar/details/' + barId).replace();
             $scope.$apply();
         };
     };
-    app.controller('FindBarListCtrl', ['$scope', '$location', 'barService', 'searchService', ctrl]);
+    app.controller('FindBarListCtrl', ['$scope', '$location', 'barService', ctrl]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=FindBarsList.js.map
