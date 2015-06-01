@@ -17,7 +17,7 @@
 
     <h1 class="text-center">Beer Menü
       <div>
-        <a class="btn btn-default" href="/admin/login"> Zurück zum Durscht Menü</a>
+        <a class="btn btn-default" href="/admin/login"> Back to Durscht Menu</a>
       </div>
     </h1>
         <div>
@@ -27,6 +27,7 @@
                 <th>Brand</th>
                 <th>Type</th>
                 <th>Description</th>
+                <th></th>
                 <th></th>
               </tr>
             <form action="@routes.AdminBeerController.filterBeer()" method="post">
@@ -39,6 +40,7 @@
                 <td>
                   </td>
                 <td> <input type="submit" value="filer Beer" class="form-control"/> </td>
+                <td> <input type="submit" value="verify Beer" class="form-control"/> </td>
               </tr>
             </form>
             <tbody>
@@ -48,7 +50,9 @@
                 <td>@beer.getBrand</td>
                 <td>@beer.getType</td>
                 <td>@beer.getDescription</td>
-                <td>  <a class="btn btn-default" href=@("/beers/delete/" + beer.getId)> löschen</a>
+                <td>  <a class="btn btn-default" href=@("/beers/delete/" + beer.getId)> delete</a>
+                </td>
+                <td> <a class="btn btn-default" href=@("/beers/verify/" + beer.getId)> verify</a>
                 </td>
               </tr>
             }
