@@ -92,7 +92,7 @@ public class AuthenticationController extends Controller {
 
         // Verify login data
         IUser user = null;
-        ServiceLocator.getLoginHandler().adminLogin(email, password);
+        user = ServiceLocator.getLoginHandler().adminLogin(email, password);
 
         //user does not exist or is unauthorized
         if (user == null) {
