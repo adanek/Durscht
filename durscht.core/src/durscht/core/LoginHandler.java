@@ -23,7 +23,7 @@ public class LoginHandler {
 	}
 
 	public durscht.contracts.logic.model.IUser login(String name, String password) {
-		System.out.printf("Beginn LoginHandler %s %s/ns", name, password);
+		System.out.printf("Beginn LoginHandler %s %s/n", name, password);
 
 		IDataHandler dataHandler = getDataHandler();
 
@@ -34,7 +34,7 @@ public class LoginHandler {
 			return null;
 		}
 		User user = LoginHandler.convertDBtoUI(iUser);
-		System.out.printf("Before End LoginHandler %s"/n, user.getName());
+		System.out.printf("Before End LoginHandler %s/n", user.getName());
 		return user;
 	}
 
