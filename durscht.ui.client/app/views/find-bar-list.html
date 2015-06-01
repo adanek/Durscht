@@ -7,7 +7,7 @@
 <section>
     <div>
         <div class="list-group bordered">
-            <a class="list-group-item" ng-repeat="bar in bars">{{ bar.name }} <small>{{ bar.distance }}km</small></a>
+            <a class="list-group-item" ng-click="showDetails(bar.id)"ng-repeat="bar in bars">{{ bar.name}} <small>{{ bar.distance }}km</small></a>
         </div>
     </div>
 </section>
