@@ -87,6 +87,21 @@ public class BarHandler implements IBarHandler {
 		return barList.toArray(new Bar[barList.size()]);
 	}
 
+	@Override
+	public void deleteBar(int barID) throws IllegalArgumentException {
+		getDataHandler().deleteBar(barID);
+	}
+
+	@Override
+	public durscht.contracts.logic.model.IBar createNewBar(String name, double latitude, double longitude,
+			String description, String url) throws IllegalStateException {
+		IDataHandler dataHandler = getDataHandler();
+
+		IBar ibar = dataHandler.createBar(name, latitude, longitude, description, url);
+
+		return BarHandler.convertDBtoUI(ibar);
+	}
+
 	protected static Bar convertDBtoUI(IBar ibar) {
 		Bar bar = new Bar();
 		bar.setId(ibar.getId());
@@ -95,10 +110,5 @@ public class BarHandler implements IBarHandler {
 				ibar.getLongitude()));
 
 		return bar;
-	}
-
-	@Override
-	public void deleteBar(int barID) throws IllegalArgumentException {
-		getDataHandler().deleteBar(barID);
 	}
 }
