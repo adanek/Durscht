@@ -2,8 +2,8 @@ package durscht.contracts.logic;
 
 import java.util.List;
 
-import durscht.contracts.ui.IBar;
-import durscht.contracts.ui.IPost;
+import durscht.contracts.logic.model.IBar;
+import durscht.contracts.logic.model.IPost;
 
 public interface IBarHandler {
 

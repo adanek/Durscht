@@ -59,6 +59,10 @@
             return a.distance - b.distance;
         }
 
+        srv.getBarDetails = function(barid:number){
+            return $http.get(serviceHost + '/bars/details/' + barid);
+        }
+
         return srv;
     }
 

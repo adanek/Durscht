@@ -1,6 +1,6 @@
 package durscht.contracts.logic;
 
-import durscht.contracts.ui.IBeer;
+import durscht.contracts.logic.model.IBeer;
 
 public interface IBeerHandler {
 
@@ -40,8 +40,16 @@ public interface IBeerHandler {
 	/**
 	 * Verifies a beer
 	 *
-	 * @param uiBeer
+	 * @param id
 	 * @return verified beer
 	 */
-	public durscht.contracts.ui.IBeer verifyBeer(durscht.contracts.ui.IBeer uiBeer);
+	IBeer verifyBeer(int id);
+
+	/**
+	 * Deletes a unverified beer
+	 *
+	 * @param id
+	 * @throws IllegalArgumentException if beer is verified
+	 */
+	void deleteBeer(int id) throws IllegalArgumentException;
 }

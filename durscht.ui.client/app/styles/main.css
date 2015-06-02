@@ -1,101 +1,90 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
-    background-image: url('../images/background.jpg');
-    height: 100%;
-}
-
 html {
     position: relative;
+    min-height: 100%;
 
+    background-image: url('../images/background.jpg');
+    //background-size: auto 100%;
+//    background-color: lightblue;
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    height: 75%;
 
-    background-color: #e3d482;
+    font-family: 'Architects Daughter', cursive;
+    margin-bottom: 35px;
+    background-color: transparent;
 }
 
-.container {
-    height: 100%;
+body > header {
+    height: 30px;
 }
 
-.fullscreen {
-    height: 100%;
-}
-
-.footer {
+body > footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px;
+    height: 30px;
+    margin-top: 5px;
+    line-height: 30px;
 
+    text-align: center;
+
+   // background-color: #838383;
     color: #f7edb2;
+}
 
+article {
+    position: relative;
+    text-align: center;
+    margin: 0 5%;
+    width: 90%;
+}
+
+article > header,
+article > section {
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+article > header > div,
+article > section > div {
+    width: 100%;
+    display: inline-block;
+    line-height: normal;
+
+}
+
+.vertical-center {
+    vertical-align: middle;
+}
+
+article > header {
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: rgba(255,255,255,0.85);
+    border-radius: 5px;
+    border: solid #745728 medium;
+    padding: 0 5%;
+    margin-bottom: 15px;
+}
+
+article > header > div {
+    vertical-align: middle;
+}
+
+article > section > div {
+    vertical-align: top;
+}
+
+article footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 /* Main Layout*/
-
-article {
-    height: 100%;
-}
-
-article header {
-    font-size: 2em;
-    text-align: center;
-    margin: 5%;
-}
-
-.article-content {
-    position: absolute;
-    bottom: 60px;
-    width: 90%;
-    margin: 0 5%;
-}
-
-/* Style for rating control */
-.rating {
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0.5em;
-    text-align: center;
-}
-
-.rating i {
-    width: 80px;
-    height: 80px;
-}
-
-@media screen and (max-width: 450px) {
-    .rating i {
-        width: 50px;
-        height: 50px;
-    }
-}
-
-.rating-enable {
-    background-image: url("../images/beer-full.png");
-    background-size: 100% 100%;
-}
-
-.rating-disable {
-    background-image: url("../images/beer-empty.png");
-    background-size: 100% 100%;
-}
-
-.form-group .help-block {
-    display: none;
-}
-
-.form-group.has-error .help-block {
-    display: block;
-}
 
 .ui-select {
     min-width: 100%;
@@ -114,12 +103,25 @@ article header {
 }
 
 .list-group {
-    border: solid #745728 medium;
-    border-radius: 5px;
     margin-bottom: 0;
-
 }
 
 .list-group-item {
     background-color: whitesmoke;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.bordered {
+    border: solid #745728 medium;
+    border-radius: 5px;
+}
+
+.my-panel {
+    background-color: rgba(255,255,255,0.85);
+    border: solid #745728 medium;
+    border-radius: 5px;
+    padding: 1em;
 }

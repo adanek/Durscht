@@ -8,7 +8,7 @@ import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeerPost;
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.IBarHandler;
-import durscht.contracts.ui.IPost;
+import durscht.contracts.logic.model.IPost;
 import durscht.core.config.ServiceLocator;
 import durscht.model.Bar;
 import durscht.model.Post;
@@ -31,7 +31,7 @@ public class BarHandler implements IBarHandler {
 	}
 
 	@Override
-	public durscht.contracts.ui.IBar[] findBars(double latitude, double longitude, List<Integer> favoriteBeers)
+	public durscht.contracts.logic.model.IBar[] findBars(double latitude, double longitude, List<Integer> favoriteBeers)
 			throws IllegalArgumentException, IllegalStateException {
 		if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180) {
 			throw new IllegalArgumentException("invalid latitude or longitude");
@@ -73,7 +73,7 @@ public class BarHandler implements IBarHandler {
 	}
 
 	@Override
-	public durscht.contracts.ui.IBar[] getAllBars() throws IllegalStateException {
+	public durscht.contracts.logic.model.IBar[] getAllBars() throws IllegalStateException {
 		IDataHandler dataHandler = getDataHandler();
 
 		Collection<IBar> ibars = dataHandler.getAllBars();

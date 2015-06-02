@@ -1,6 +1,6 @@
 package durscht.model;
 
-import durscht.contracts.ui.IBar;
+import durscht.contracts.logic.model.IBar;
 
 public class Bar implements IBar {
 

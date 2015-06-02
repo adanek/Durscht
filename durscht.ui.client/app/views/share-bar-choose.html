@@ -1,16 +1,24 @@
-<div>
-    <h1 class="text-center">{{ caption }}</h1>
+<header>
+    <div>
+        {{ caption }}
+    </div>
+</header>
 
-    <div ng-show="bars != null">
-        <div class="list-group">
+<section>
+    <div>
+        <div class="list-group bordered" ng-show="bars != null">
             <a class="list-group-item" ng-repeat="bar in bars" ng-click="setBar(bar)">
                 {{bar.name}}
                 <small>({{bar.distance.toFixed(2)}} km)</small>
             </a>
         </div>
+    </div>
+</section>
 
-        <div class="list-group">
+<footer>
+    <div>
+        <div class="list-group bordered" ng-show="bars != null">
             <a class="list-group-item" ng-click="createBar()">{{ createBarText }}</a>
         </div>
     </div>
-</div>
+</footer>

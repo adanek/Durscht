@@ -1,49 +1,58 @@
-<div>
-
-    <h1 class="text-center">{{ caption }}</h1>
-
-    <form name="addBeerForm" novalidate ng-submit="add()" ng-show="!showBeerForm">
-
-        <div class="form-group" show-errors>
-            <label for="beer">Marke:</label>
-            <input id="beer" name="beer" type="text" ng-model="beer" class="form-control" placeholder="Tipp hier den Namen des Bieres ein"
-                   typeahead="beer as beer.brand + ' - ' + beer.type for beer in beers | filter:$viewValue | limitTo:8" typeahead-append-to-body="false" required>
-            <p class="help-block">Den Namen des Bieres brauche ich schon!</p>
-        </div>
-
-        <div class="form-group">
-            <input type="submit" class="form-control btn btn-default" value="Speichern"/>
-        </div>
-    </form>
-
-    <div class="form-group" ng-show="!showBeerForm">
-        <button class="form-control btn btn-default" ng-click="newBeer()">Das Bier war nicht dabei</button>
+<header>
+    <div>
+        {{ caption }}
     </div>
+</header>
 
-    <form name="createBeerForm" novalidate ng-submit="create()" ng-show="showBeerForm">
+<section>
+    <div>
+        <form name="addBeerForm" class="my-panel text-left" novalidate ng-submit="add()" ng-show="!showBeerForm">
 
-        <div class="form-group" show-errors>
-            <label for="brand">Marke:</label>
-            <input id="brand" name="brand" type="text" ng-model="brand" class="form-control" required/>
-            <p class="help-block">Die Marke des Bieres brauche ich unbedingt!</p>
+            <div class="form-group" show-errors>
+                <label for="beer">Marke:</label>
+                <input id="beer" name="beer" type="text" ng-model="beer" class="form-control" placeholder="Tipp hier den Namen des Bieres ein"
+                       typeahead="beer as beer.brand + ' - ' + beer.type for beer in beers | filter:$viewValue | limitTo:8" typeahead-append-to-body="false" required>
+                <p class="help-block">Den Namen des Bieres brauche ich schon!</p>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="form-control btn btn-default" value="Speichern"/>
+            </div>
+        </form>
+
+        <form name="createBeerForm" class="my-panel text-left" novalidate ng-submit="create()" ng-show="showBeerForm">
+
+            <div class="form-group" show-errors>
+                <label for="brand">Marke:</label>
+                <input id="brand" name="brand" type="text" ng-model="brand" class="form-control" required/>
+                <p class="help-block">Die Marke des Bieres brauche ich unbedingt!</p>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label for="type">Sorte:</label>
+                <input id="type" name="type" type="text" ng-model="type" class="form-control" required>
+                <p class="help-block">Die Sorte des Biers brauche ich auch!</p>
+            </div>
+
+            <div class="form-group">
+                <label>Beschreibung:</label>
+                <textarea rows="3" class="form-control" ng-model="description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="form-control btn btn-default" value="Speichern"/>
+            </div>
+        </form>
+
+        <div class="alert-danger" ng-show="error">{{ error }}</div>
+
+    </div>
+</section>
+
+<footer>
+    <div>
+        <div class="form-group bordered" ng-show="!showBeerForm">
+            <button class="form-control btn btn-default" ng-click="newBeer()">Das Bier war nicht dabei</button>
         </div>
-
-        <div class="form-group" show-errors>
-            <label for="type">Sorte:</label>
-            <input id="type" name="type" type="text" ng-model="type" class="form-control" required>
-            <p class="help-block">Die Sorte des Biers brauche ich auch!</p>
-        </div>
-
-        <div class="form-group">
-            <label>Beschreibung:</label>
-            <textarea rows="3" class="form-control" ng-model="description"></textarea>
-        </div>
-
-        <div class="form-group">
-            <input type="submit" class="form-control btn btn-default" value="Speichern"/>
-        </div>
-    </form>
-
-    <div class="alert-danger" ng-show="error">{{ error }}</div>
-
-</div>
+    </div>
+</footer>

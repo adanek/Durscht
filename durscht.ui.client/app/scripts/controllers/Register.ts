@@ -3,6 +3,8 @@
 (function (app) {
     var controller = function ($scope, $location, authService:AuthenticationService) {
 
+        $scope.caption = "Wer warsch jetzt du?"
+
         $scope.username = "";
         $scope.email = "";
         $scope.password = "";

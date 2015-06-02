@@ -2,7 +2,7 @@ package durscht.model;
 
 import java.util.Date;
 
-import durscht.contracts.ui.IPost;
+import durscht.contracts.logic.model.IPost;
 
 public class Post implements IPost {
 

@@ -2,16 +2,16 @@ package controllers;
 
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.mock.Beer;
-import durscht.contracts.data.IBeer;
-import durscht.contracts.data.IDataHandler;
+import durscht.contracts.logic.model.IBeer;
 import durscht.core.config.ServiceLocator;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class BeerController extends Controller {
@@ -19,50 +19,47 @@ public class BeerController extends Controller {
     @Security.Authenticated(MyAuthenticator.class)
     public static Result getAllBeers() {
 
-        // Replace this we Beerhandler as soon as its ready
-        IDataHandler dh = ServiceLocator.getDataHandler();
-        Collection<IBeer> beerList = dh.getAllBeers();
-        durscht.contracts.data.IBeer[] allBeers = beerList.toArray(new durscht.contracts.data.IBeer[beerList.size()]);
+        // Get all beers from BeerHandler
+        IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeersVerified();
+        IBeer[] beers2 = ServiceLocator.getBeerHandler().getAllBeersNotVerified();
 
-        durscht.contracts.ui.IBeer[] beers = new durscht.contracts.ui.IBeer[allBeers.length];
-        for(int i = 0; i < allBeers.length; i++){
-            durscht.contracts.data.IBeer beer = allBeers[i];
-            beers[i] = new Beer(beer.getId(), beer.getBrand(), beer.getType(), beer.getDescription());
-        }
+        List<IBeer> bs = new ArrayList<>();
+        bs.addAll(Arrays.asList(beers));
+        bs.addAll(Arrays.asList(beers2));
 
-        JsonNode data = Json.toJson(beers);
-        attachCorsHeaders();
+        JsonNode data = Json.toJson(bs);
+        CorsController.addCorsHeaders();
         return ok(data);
     }
 
     //POST /beer/create
-    public static Result create(){
+    public static Result create() {
 
-        // Get data from request
+        // Extract data from request
         JsonNode body = request().body().asJson();
         String brand = body.findPath("brand").textValue();
         String type = body.findPath("type").textValue();
         String description = body.findPath("description").textValue();
 
-        durscht.contracts.ui.IBeer beer = ServiceLocator.getBeerHandler().createNewBeer(brand, type, description);
+        // Create new beer
+        IBeer beer = ServiceLocator.getBeerHandler().createNewBeer(brand, type, description);
 
         JsonNode data = Json.toJson(beer);
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return created(data);
     }
 
-    public static Result getUsed(){
+    public static Result getUsed() {
 
-        durscht.contracts.ui.IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeers();
+        IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeersVerified();
+        IBeer[] beers2 = ServiceLocator.getBeerHandler().getAllBeersNotVerified();
 
-        JsonNode data = Json.toJson(beers);
-        attachCorsHeaders();
+        List<IBeer> bs = new ArrayList<>();
+        bs.addAll(Arrays.asList(beers));
+        bs.addAll(Arrays.asList(beers2));
+
+        JsonNode data = Json.toJson(bs);
+        CorsController.addCorsHeaders();
         return ok(data);
-    }
-
-    private static void attachCorsHeaders() {
-
-        String origin = request().getHeader("Origin");
-        CorsController.addCorsHeaders(response(), origin);
     }
 }

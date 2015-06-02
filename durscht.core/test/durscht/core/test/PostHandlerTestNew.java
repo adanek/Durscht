@@ -71,7 +71,7 @@ public class PostHandlerTestNew {
 						Mockito.anyDouble())).thenReturn(bars);
 		postHandler.setDataHandler(dataHandler);
 
-		durscht.contracts.ui.IBar ibar = postHandler.getNearBars(47, 11)[0];
+		durscht.contracts.logic.model.IBar ibar = postHandler.getNearBars(47, 11)[0];
 
 		assertEquals(26, ibar.getId());
 		assertEquals("TechCafe", ibar.getName());
@@ -90,7 +90,7 @@ public class PostHandlerTestNew {
 		Mockito.when(dataHandler.getAllBeersFromBar(26)).thenReturn(beers);
 		postHandler.setDataHandler(dataHandler);
 
-		durscht.contracts.ui.IBeer ibeer = postHandler.getBeersByBar(26)[0];
+		durscht.contracts.logic.model.IBeer ibeer = postHandler.getBeersByBar(26)[0];
 
 		int expected = 10;
 		assertEquals(expected, ibeer.getId());
@@ -126,7 +126,7 @@ public class PostHandlerTestNew {
 		Mockito.when(dataHandler.createBar("barname", 0, 0, "descr", "www.bar.at")).thenReturn(bar);
 		postHandler.setDataHandler(dataHandler);
 
-		durscht.contracts.ui.IBar ibar = postHandler.createNewBar("barname", 0, 0, "descr", "www.bar.at");
+		durscht.contracts.logic.model.IBar ibar = postHandler.createNewBar("barname", 0, 0, "descr", "www.bar.at");
 
 		assertEquals(26, ibar.getId());
 		assertEquals("barname", ibar.getName());

@@ -8,7 +8,6 @@ import durscht.contracts.logic.IBeerHandler;
 import durscht.core.config.ServiceLocator;
 import durscht.core.helper.TrieST;
 import durscht.model.Beer;
-import sun.nio.cs.ext.IBM037;
 
 public class BeerHandler implements IBeerHandler {
 
@@ -30,6 +29,7 @@ public class BeerHandler implements IBeerHandler {
 	public BeerHandler() {
 
 		beers = new TrieST<Beer>();
+		dataHandler = ServiceLocator.getDataHandler();
 		Collection<IBeer> db_beers = dataHandler.getAllBeersVerified();
 
 		for (IBeer ibeer : db_beers) {
@@ -39,7 +39,7 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	@Override
-	public durscht.contracts.ui.IBeer[] getBeersByPrefix(String prefix) {
+	public durscht.contracts.logic.model.IBeer[] getBeersByPrefix(String prefix) {
 		// Keys contain only lower case letters
 		Iterable<String> prefixKeys = beers.keysWithPrefix(prefix.toLowerCase());
 
@@ -52,7 +52,7 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	@Override
-	public durscht.contracts.ui.IBeer createNewBeer(String brand, String type, String description)
+	public durscht.contracts.logic.model.IBeer createNewBeer(String brand, String type, String description)
 			throws IllegalStateException {
 
 		// Verification-flag is per default false
@@ -68,7 +68,7 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	@Override
-	public durscht.contracts.ui.IBeer[] getAllBeersVerified() {
+	public durscht.contracts.logic.model.IBeer[] getAllBeersVerified() {
 		Iterable<String> Keys = beers.keys();
 
 		List<Beer> beersList = new LinkedList<Beer>();
@@ -80,7 +80,7 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	@Override
-	public durscht.contracts.ui.IBeer[] getAllBeersNotVerified() {
+	public durscht.contracts.logic.model.IBeer[] getAllBeersNotVerified() {
 		Collection<IBeer> db_beers = dataHandler.getAllBeersUnverified();
 
 		Beer[] beers = new Beer[db_beers.size()];
@@ -95,12 +95,22 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	@Override
-	public durscht.contracts.ui.IBeer verifyBeer(durscht.contracts.ui.IBeer uiBeer) {
-		Beer beer = convertDBtoUI(dataHandler.verifyBeer(uiBeer.getId()));
+	public durscht.contracts.logic.model.IBeer verifyBeer(int id) {
+		dataHandler.verifyBeer(id);
 		// Adds verified beer to cached beers
+		Beer beer = BeerHandler.convertDBtoUI(dataHandler.getBeerByID(id));
 		beers.put(beer.getBrand().toLowerCase() + beer.getType().toLowerCase(), beer);
 
 		return beer;
+	}
+
+	@Override
+	public void deleteBeer(int id) throws IllegalArgumentException {
+		IBeer beer = dataHandler.getBeerByID(id);
+		if (beer.isVerified()) {
+			throw new IllegalArgumentException("Beer is verified and cannot be deleted!");
+		}
+		dataHandler.deleteBeer(id);
 	}
 
 	protected static Beer convertDBtoUI(IBeer iBeer) {

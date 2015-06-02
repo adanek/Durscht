@@ -1,0 +1,30 @@
+/* Style for rating control */
+.rating {
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5em;
+    text-align: center;
+}
+
+.rating i {
+    width: 80px;
+    height: 80px;
+}
+
+@media screen and (max-width: 450px) {
+    .rating i {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.rating-enable {
+    background-image: url("../images/beer-full.png");
+    background-size: 100% 100%;
+}
+
+.rating-disable {
+    background-image: url("../images/beer-empty.png");
+    background-size: 100% 100%;
+}

@@ -34,6 +34,47 @@
                 $location.path('/login').replace();
             }
         }
+
+        $scope.$on('$viewContentLoaded', function() {
+           console.info("adjust body height");
+            setTimeout(adjustBodySize, 100);
+        });
+
+        function adjustBodySize() {
+
+            var wh = $(window).height();
+            var ph = $('body > header').height();
+            var pf = $('body > footer').outerHeight(true);
+            var bh; //body height
+
+            // Set the body height
+            $('body').height('auto');
+            bh = $('body').height();
+            bh = wh -pf;
+            $('body').height(bh);
+
+
+            // Set the article header height
+            $('body > article > header').css({lineHeight: (Math.round(20 * wh / 100))+'px'});
+
+            // Calculate the heights of the article parts
+            var ahh = $('body > article > header').outerHeight(true); // height of the article header
+            var ash = $('body > article > section').outerHeight(true); // height of the article section
+            var afh = $('article > footer').outerHeight(true); // height of the article section
+            var contentHeight = "";
+
+
+            // set the bootom margin for the article
+            $('body > article').css('margin-bottom', afh);
+
+            var ah = ahh + ash;
+            var ahMin = bh - ph;
+
+            $('body > article').height(ahMin > ah ? ahMin : ah);
+            console.info('vals: ' + ahh + ' ' + ash + ' ' + afh + ' ' + ah);
+
+
+        }
     };
 
     app.controller("MainCtrl", ['$scope', 'authService', '$location', controller]);

@@ -35,117 +35,117 @@ public class DatabaseUpdate {
 
 		try {
 
-			DataHandler.setTestDB(true);
+			//DataHandler.setTestDB(true);
 			// get handler
 			IDataHandler handler = new DataHandler();
 
-			// create new users
-			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin", true).getId();
-			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2", false).getId();
-			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3", false).getId();
-
-			// create achievement critera
-			int crit1 = handler.createAchievementCriterion(AchievementCriterionType.TOTAL_POSTS, 5)
-					.getId();
-			int crit2 = handler
-					.createAchievementCriterion(AchievementCriterionType.TOTAL_POSTS, 10).getId();
-			int crit3 = handler
-					.createAchievementCriterion(AchievementCriterionType.TOTAL_POSTS, 20).getId();
-			int crit4 = handler.createAchievementCriterion(AchievementCriterionType.WEEK_POSTS, 3)
-					.getId();
-			int crit5 = handler.createAchievementCriterion(AchievementCriterionType.WEEK_POSTS, 5)
-					.getId();
-			int crit6 = handler.createAchievementCriterion(AchievementCriterionType.WEEK_POSTS, 10)
-					.getId();
-
-			// create new beers
-			int beerid1 = handler.createBeer("Gösser", "Radler", "Herbes österreichisches Bier",
-					false).getId();
-			int beerid2 = handler.createBeer("Stiegl", "Goldlager",
-					"Originales traditionelles Salzburger Bier", true).getId();
-			int beerid3 = handler.createBeer("Ottakringer", "Helles", "Traditionelles Wiener Bier",
-					false).getId();
-			int beerid4 = handler.createBeer("Starkenberger", "Märzen",
-					"Heimisches Bier aus dem Schloss Starkenberg in Tarrenz", true).getId();
-
-			// create new Bars
-			int barid1 = handler.createBar("Theresien Bräu", 47.269258, 11.4040792,
-					"Traditionelles Lokal in Innsbruck, das ein eigenes Bier braut",
-					"www.brauwirtshaus.at").getId();
-
-			int barid2 = handler
-					.createBar(
-							"11er Haus",
-							47.268653,
-							11.392825,
-							"Sehr bekannte Bar in Innsbruck, die sehr viele Biersorten der ganzen Welt anbietet.",
-							"http://innsbruckplus.at/elferhaus/").getId();
-			int barid3 = handler
-					.createBar(
-							"Stadtcafe",
-							47.268785,
-							11.395963,
-							"Bekanntestes Nachtlokal in Innsbruck, das hauptsächlich von der Studentenszene besucht wird.",
-							"www.tagnacht.at/stadtcafe/").getId();
-
-			// create new achievement
-			int achid1 = handler
-					.createAchievement("5 posts",
-							"The user will get this achievement when he drinks 5 beers and add a post to the app")
-					.getId();
-			int achid2 = handler
-					.createAchievement("10 posts",
-							"The user will get this achievement when he drinks 10 beers and add a post to the app")
-					.getId();
-			int achid3 = handler
-					.createAchievement("20 posts",
-							"The user will get this achievement when he drinks 20 beers and add a post to the app")
-					.getId();
-			int achid4 = handler.createAchievement("3 posts in one week",
-					"The user will get this achievement when he make 3 posts in one week").getId();
-			int achid5 = handler.createAchievement("5 posts in one week",
-					"The user will get this achievement when he make 5 posts in one week").getId();
-			int achid6 = handler.createAchievement("10 posts in one week",
-					"The user will get this achievement when he make 10 posts in one week").getId();
-			int achid7 = handler
-					.createAchievement("BRONZE BEER",
-							"The user will get the bronze beer if he make 5 posts in total and make 3 posts in one week")
-					.getId();
-			int achid8 = handler
-					.createAchievement("SILVER BEER",
-							"The user will get the bronze beer if he make 10 posts in total and make 5 posts in one week")
-					.getId();
-			int achid9 = handler
-					.createAchievement("GOLD BEER",
-							"The user will get the bronze beer if he make 20 posts in total and make 10 posts in one week")
-					.getId();
-
-			// assign criterion to achievements
-			handler.assignCriterionToAchievement(achid1, crit1);
-			handler.assignCriterionToAchievement(achid2, crit2);
-			handler.assignCriterionToAchievement(achid3, crit3);
-			handler.assignCriterionToAchievement(achid4, crit4);
-			handler.assignCriterionToAchievement(achid5, crit5);
-			handler.assignCriterionToAchievement(achid6, crit6);
-			handler.assignCriterionToAchievement(achid7, crit1);
-			handler.assignCriterionToAchievement(achid8, crit2);
-			handler.assignCriterionToAchievement(achid9, crit3);
-			handler.assignCriterionToAchievement(achid7, crit4);
-			handler.assignCriterionToAchievement(achid8, crit5);
-			handler.assignCriterionToAchievement(achid9, crit6);
-
-			// create posts
-			int post1 = handler.createPost(barid1, beerid1, userid1, 3.0, 2, "Post1").getId();
-			int post2 = handler.createPost(barid1, beerid2, userid2, 3.0, 2, "Post2").getId();
-			int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3").getId();
-			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
-			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
-
-			//assign achievements to user
-			handler.assignAchievementToUser(userid1, achid1);
-			handler.assignAchievementToUser(userid1, achid2);
-			handler.assignAchievementToUser(userid2, achid1);
-			handler.assignAchievementToUser(userid2, achid2);
+//			// create new users
+//			int userid1 = handler.createUser("admin", "admin@gmx.at", "admin", true).getId();
+//			int userid2 = handler.createUser("user2", "user2@gmx.at", "user2", false).getId();
+//			int userid3 = handler.createUser("user3", "user3@gmx.at", "user3", false).getId();
+//
+//			// create achievement critera
+//			int crit1 = handler.createAchievementCriterion(AchievementCriterionType.TOTAL_POSTS, 5)
+//					.getId();
+//			int crit2 = handler
+//					.createAchievementCriterion(AchievementCriterionType.TOTAL_POSTS, 10).getId();
+//			int crit3 = handler
+//					.createAchievementCriterion(AchievementCriterionType.TOTAL_POSTS, 20).getId();
+//			int crit4 = handler.createAchievementCriterion(AchievementCriterionType.WEEK_POSTS, 3)
+//					.getId();
+//			int crit5 = handler.createAchievementCriterion(AchievementCriterionType.WEEK_POSTS, 5)
+//					.getId();
+//			int crit6 = handler.createAchievementCriterion(AchievementCriterionType.WEEK_POSTS, 10)
+//					.getId();
+//
+//			// create new beers
+//			int beerid1 = handler.createBeer("Gösser", "Radler", "Herbes österreichisches Bier",
+//					false).getId();
+//			int beerid2 = handler.createBeer("Stiegl", "Goldlager",
+//					"Originales traditionelles Salzburger Bier", true).getId();
+//			int beerid3 = handler.createBeer("Ottakringer", "Helles", "Traditionelles Wiener Bier",
+//					false).getId();
+//			int beerid4 = handler.createBeer("Starkenberger", "Märzen",
+//					"Heimisches Bier aus dem Schloss Starkenberg in Tarrenz", true).getId();
+//
+//			// create new Bars
+//			int barid1 = handler.createBar("Theresien Bräu", 47.269258, 11.4040792,
+//					"Traditionelles Lokal in Innsbruck, das ein eigenes Bier braut",
+//					"www.brauwirtshaus.at").getId();
+//
+//			int barid2 = handler
+//					.createBar(
+//							"11er Haus",
+//							47.268653,
+//							11.392825,
+//							"Sehr bekannte Bar in Innsbruck, die sehr viele Biersorten der ganzen Welt anbietet.",
+//							"http://innsbruckplus.at/elferhaus/").getId();
+//			int barid3 = handler
+//					.createBar(
+//							"Stadtcafe",
+//							47.268785,
+//							11.395963,
+//							"Bekanntestes Nachtlokal in Innsbruck, das hauptsächlich von der Studentenszene besucht wird.",
+//							"www.tagnacht.at/stadtcafe/").getId();
+//
+//			// create new achievement
+//			int achid1 = handler
+//					.createAchievement("5 posts",
+//							"The user will get this achievement when he drinks 5 beers and add a post to the app")
+//					.getId();
+//			int achid2 = handler
+//					.createAchievement("10 posts",
+//							"The user will get this achievement when he drinks 10 beers and add a post to the app")
+//					.getId();
+//			int achid3 = handler
+//					.createAchievement("20 posts",
+//							"The user will get this achievement when he drinks 20 beers and add a post to the app")
+//					.getId();
+//			int achid4 = handler.createAchievement("3 posts in one week",
+//					"The user will get this achievement when he make 3 posts in one week").getId();
+//			int achid5 = handler.createAchievement("5 posts in one week",
+//					"The user will get this achievement when he make 5 posts in one week").getId();
+//			int achid6 = handler.createAchievement("10 posts in one week",
+//					"The user will get this achievement when he make 10 posts in one week").getId();
+//			int achid7 = handler
+//					.createAchievement("BRONZE BEER",
+//							"The user will get the bronze beer if he make 5 posts in total and make 3 posts in one week")
+//					.getId();
+//			int achid8 = handler
+//					.createAchievement("SILVER BEER",
+//							"The user will get the bronze beer if he make 10 posts in total and make 5 posts in one week")
+//					.getId();
+//			int achid9 = handler
+//					.createAchievement("GOLD BEER",
+//							"The user will get the bronze beer if he make 20 posts in total and make 10 posts in one week")
+//					.getId();
+//
+//			// assign criterion to achievements
+//			handler.assignCriterionToAchievement(achid1, crit1);
+//			handler.assignCriterionToAchievement(achid2, crit2);
+//			handler.assignCriterionToAchievement(achid3, crit3);
+//			handler.assignCriterionToAchievement(achid4, crit4);
+//			handler.assignCriterionToAchievement(achid5, crit5);
+//			handler.assignCriterionToAchievement(achid6, crit6);
+//			handler.assignCriterionToAchievement(achid7, crit1);
+//			handler.assignCriterionToAchievement(achid8, crit2);
+//			handler.assignCriterionToAchievement(achid9, crit3);
+//			handler.assignCriterionToAchievement(achid7, crit4);
+//			handler.assignCriterionToAchievement(achid8, crit5);
+//			handler.assignCriterionToAchievement(achid9, crit6);
+//
+//			// create posts
+//			int post1 = handler.createPost(barid1, beerid1, userid1, 3.0, 2, "Post1").getId();
+//			int post2 = handler.createPost(barid1, beerid2, userid2, 3.0, 2, "Post2").getId();
+//			int post3 = handler.createPost(barid2, beerid3, userid1, 3.0, 2, "Post3").getId();
+//			int post4 = handler.createPost(barid2, beerid4, userid3, 3.0, 2, "Post4").getId();
+//			int post5 = handler.createPost(barid2, beerid3, userid2, 3.0, 2, "Post5").getId();
+//
+//			//assign achievements to user
+//			handler.assignAchievementToUser(userid1, achid1);
+//			handler.assignAchievementToUser(userid1, achid2);
+//			handler.assignAchievementToUser(userid2, achid1);
+//			handler.assignAchievementToUser(userid2, achid2);
 			
 			// test user login
 /*			IUser testuser1 = handler.getUserLogin("admin", "admin");
@@ -222,7 +222,8 @@ public class DatabaseUpdate {
 			handler.deleteBeer(beerid3);
 			Collection<IBeerPost> testposts9 = handler.getAllPosts(); // sollte Post2,4 liefern
 */
-				
+			int id = handler.getUserLogin("admin", "admin").getId();
+			System.out.println("ID: " + id);
 			handler.closeDatabaseConnection();
 		} catch (Exception e) {
 			return;
