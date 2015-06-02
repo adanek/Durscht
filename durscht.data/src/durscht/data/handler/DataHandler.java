@@ -85,6 +85,8 @@ public class DataHandler implements IDataHandler {
 		} catch (IllegalStateException e) {
 			System.out.println("no connection to database");
 			throw new IllegalStateException("no connection to database");
+		} catch(Exception e){
+			System.out.println("some connection error");
 		}
 	}
 
@@ -876,6 +878,9 @@ public class DataHandler implements IDataHandler {
 
 		System.out.println("getUserLogin started");
 		
+		System.out.println("User: "+ name);
+		System.out.println("Password: " + password);
+		
 		try {
 
 			// begin transaction
@@ -904,6 +909,7 @@ public class DataHandler implements IDataHandler {
 					throw new IllegalStateException("Fail by checking the user password");
 				}
 			}
+			System.out.println("no users found");
 		} catch (HibernateException e) {
 			// Exception -> rollback
 			System.out.println("Error!!");
