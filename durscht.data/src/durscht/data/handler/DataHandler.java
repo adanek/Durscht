@@ -874,11 +874,15 @@ public class DataHandler implements IDataHandler {
 	public IUser getUserLogin(String name, String password) throws IllegalStateException {
 		Session session = openSession();
 
+		System.out.println("getUserLogin started");
+		
 		try {
 
 			// begin transaction
 			session.beginTransaction();
 
+			System.out.println("Transaction started");
+			
 			Criteria cr = session.createCriteria(SavedUser.class);
 			cr.add(Restrictions.eq("name", name));
 			List<SavedUser> results = cr.list();
@@ -886,17 +890,23 @@ public class DataHandler implements IDataHandler {
 			// commit
 			session.getTransaction().commit();
 
+			System.out.println("Transaction committed");
+			
 			// only one element in the list because the id is unique
 			for (SavedUser user : results) {
 				try {
+					System.out.println("PW check started");
 					if (PasswordHash.check(password, user.getPassword()))
+						System.out.println("Return user");
 						return user;
 				} catch (Exception e) {
+					System.out.println("PW check failed");
 					throw new IllegalStateException("Fail by checking the user password");
 				}
 			}
 		} catch (HibernateException e) {
 			// Exception -> rollback
+			System.out.println("Error!!");
 			session.getTransaction().rollback();
 			throw new IllegalStateException("something went wrong by getting the user");
 		} finally {
