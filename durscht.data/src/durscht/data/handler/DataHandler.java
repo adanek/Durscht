@@ -878,6 +878,9 @@ public class DataHandler implements IDataHandler {
 
 		System.out.println("getUserLogin started");
 		
+		System.out.println("User: "+ name);
+		System.out.println("Password: " + password);
+		
 		try {
 
 			// begin transaction
@@ -906,6 +909,7 @@ public class DataHandler implements IDataHandler {
 					throw new IllegalStateException("Fail by checking the user password");
 				}
 			}
+			System.out.println("no users found");
 		} catch (HibernateException e) {
 			// Exception -> rollback
 			System.out.println("Error!!");
