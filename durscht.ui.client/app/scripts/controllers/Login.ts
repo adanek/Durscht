@@ -20,7 +20,7 @@
                     .success(function () {
                         $location.path('/share/user').replace();
                     })
-                    .error(function (data, status, headers, config) {
+                    .error(function (data, status, headers, config) {  // jshint ignore:line
                         var msg;
                         switch (status) {
                             case 401:
@@ -31,9 +31,6 @@
                         }
 
                         $scope.errorMessage = msg;
-                        //$scope.$apply(function () {
-                        //
-                        //});
                     });
             }
         }

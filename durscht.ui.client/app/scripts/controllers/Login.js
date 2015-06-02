@@ -20,9 +20,6 @@
                             msg = 'Ups, da ging was schief!';
                     }
                     $scope.errorMessage = msg;
-                    //$scope.$apply(function () {
-                    //
-                    //});
                 });
             }
         };

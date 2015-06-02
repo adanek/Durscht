@@ -31,7 +31,8 @@
 
 <!-- Add your site or application content here -->
 <header>
-
+    <a ng-show="logedIn" ng-click="onAuthBtnClick()"><span class="glyphicon glyphicon-log-out"></span> {{ authBtnText }}</a>
+    <a ng-show="!logedIn" ng-click="onAuthBtnClick()"><span class="glyphicon glyphicon-log-in"></span>  {{ authBtnText }}</a>
 </header>
 
 <article ng-view=""  >
