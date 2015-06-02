@@ -974,13 +974,8 @@ public class DataHandler implements IDataHandler {
 						System.out.println("Return user");
 						return user;
 				} catch (Exception e) {
-<<<<<<< HEAD
-					throw new IllegalStateException(
-							"Fail by checking the user password");
-=======
 					System.out.println("PW check failed");
 					throw new IllegalStateException("Fail by checking the user password");
->>>>>>> master
 				}
 			}
 			System.out.println("no users found");
