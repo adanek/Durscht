@@ -49,11 +49,11 @@ public class DataHandler implements IDataHandler {
 			Configuration configuration = new Configuration();
 			// productive DB
 			if (testDB == false) {
-				configuration.configure("hibernate.cfg.xml");
+				configuration.configure();
 				// test DB
 			} else {
 				configuration
-						.configure("durscht/data/testConf/hibernate.cfg.xml");
+						.configure("durscht/data/testConf/hibernateTest.cfg.xml");
 			}
 			serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();
