@@ -85,6 +85,8 @@ public class DataHandler implements IDataHandler {
 		} catch (IllegalStateException e) {
 			System.out.println("no connection to database");
 			throw new IllegalStateException("no connection to database");
+		} catch(Exception e){
+			System.out.println("some connection error");
 		}
 	}
 
