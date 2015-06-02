@@ -95,8 +95,8 @@ public interface IDataHandler {
 	 * @throws IllegalArgumentException
 	 *             deletion or getting user from ID failed
 	 */
-	//void deleteUser(int userID) throws IllegalArgumentException;
-	//muss noch beachtet werden, dass achievement zuteilung gelöscht wird
+	// void deleteUser(int userID) throws IllegalArgumentException;
+	// muss noch beachtet werden, dass achievement zuteilung gelöscht wird
 
 	/**
 	 * deletes a beer from the database
@@ -151,7 +151,7 @@ public interface IDataHandler {
 	 */
 	public IAchievement assignCriterionToAchievement(int achID, int critID)
 			throws IllegalArgumentException, IllegalStateException;
-	
+
 	/**
 	 * assign achievement to a user
 	 * 
@@ -311,7 +311,7 @@ public interface IDataHandler {
 	 */
 	Collection<IBar> getBarsCoordinates(double fromLatitude, double toLatitude,
 			double fromLongitude, double toLongitude) throws IllegalStateException;
-	
+
 	/**
 	 * get all achievements from a user
 	 * 
@@ -339,7 +339,8 @@ public interface IDataHandler {
 	 * @throws IllegalStateException
 	 *             database error
 	 */
-	Collection<IBeerPost> getAllPostsFromUser(int userID) throws IllegalArgumentException;
+	Collection<IBeerPost> getAllPostsFromUser(int userID) throws IllegalArgumentException,
+			IllegalStateException;
 
 	/**
 	 * get all beers that are in this bar available

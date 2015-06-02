@@ -95,12 +95,22 @@ public class BeerHandler implements IBeerHandler {
 	}
 
 	@Override
-	public durscht.contracts.logic.model.IBeer verifyBeer(durscht.contracts.logic.model.IBeer uiBeer) {
-		Beer beer = convertDBtoUI(dataHandler.verifyBeer(uiBeer.getId()));
+	public durscht.contracts.logic.model.IBeer verifyBeer(int id) {
+		dataHandler.verifyBeer(id);
 		// Adds verified beer to cached beers
+		Beer beer = BeerHandler.convertDBtoUI(dataHandler.getBeerByID(id));
 		beers.put(beer.getBrand().toLowerCase() + beer.getType().toLowerCase(), beer);
 
 		return beer;
+	}
+
+	@Override
+	public void deleteBeer(int id) throws IllegalArgumentException {
+		IBeer beer = dataHandler.getBeerByID(id);
+		if (beer.isVerified()) {
+			throw new IllegalArgumentException("Beer is verified and cannot be deleted!");
+		}
+		dataHandler.deleteBeer(id);
 	}
 
 	protected static Beer convertDBtoUI(IBeer iBeer) {
