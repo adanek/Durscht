@@ -73,6 +73,16 @@ public class BeerHandlerTest {
 		}
 
 		@Override
+		public IBeer verifyBeer(int id) {
+			return null;
+		}
+
+		@Override
+		public void deleteBeer(int id) throws IllegalArgumentException {
+
+		}
+
+
 		public IBeer verifyBeer(IBeer uiBeer) {
 			return null;
 		}

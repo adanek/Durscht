@@ -6,8 +6,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -31,7 +31,8 @@
 
 <!-- Add your site or application content here -->
 <header>
-
+    <a ng-show="logedIn" ng-click="onAuthBtnClick()"><span class="glyphicon glyphicon-log-out"></span> {{ authBtnText }}</a>
+    <a ng-show="!logedIn" ng-click="onAuthBtnClick()"><span class="glyphicon glyphicon-log-in"></span>  {{ authBtnText }}</a>
 </header>
 
 <article ng-view=""  >
