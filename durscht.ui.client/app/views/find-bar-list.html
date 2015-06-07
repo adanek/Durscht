@@ -6,6 +6,11 @@
 
 <section>
     <div>
+        <div class="bordered">
+        <ui-gmap-google-map center="map.center" zoom="map.zoom">
+            <ui-gmap-marker coords="marker.coords" idkey="marker.id" ng-repeat="marker in markers"></ui-gmap-marker>
+        </ui-gmap-google-map>
+        </div>
         <div class="list-group bordered">
             <a class="list-group-item" ng-click="showDetails(bar.id)"ng-repeat="bar in bars">{{ bar.name}} <small>{{ bar.distance }}km</small></a>
         </div>

@@ -12,6 +12,8 @@ interface Bar {
 	id:number;
 	name: string;
 	distance: number;
+	latitude: number;
+	longitude: number;
 	beers: Array<Beer>;		
 }
 
@@ -70,4 +72,14 @@ interface LocationService {
 	latitude: number;
 	longitude: number;
 	locate: ()=> ng.IPromise<void>;
+}
+
+interface Marker {
+	id: number;
+	coords: Coords;
+}
+
+interface Coords {
+	latitude: number;
+	longitude: number;
 }

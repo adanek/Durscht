@@ -1,13 +1,19 @@
 /// <reference path="_references.ts"/>
 'use strict';
 (function () {
-    var app = angular.module('durschtApp', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.showErrors', 'ngSanitize', 'ui.select']);
+    var app = angular.module('durschtApp', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.showErrors', 'ngSanitize', 'ui.select', 'uiGmapgoogle-maps']);
     app.config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.withCredentials = true;
     }]);
     app.config(['showErrorsConfigProvider', function (showErrorsConfigProvider) {
         showErrorsConfigProvider.showSuccess(true);
     }]);
+    app.config(function (uiGmapGoogleMapApiProvider) {
+        uiGmapGoogleMapApiProvider.configure({
+            v: '3.17',
+            libraries: 'weather,geometry,visualization'
+        });
+    });
     app.config(function ($routeProvider) {
         $routeProvider.when('/', {
             templateUrl: 'views/main.html',
@@ -59,9 +65,9 @@
         });
     });
     // heroku
-    app.constant('serviceHost', 'https://durscht-service.herokuapp.com');
+    //app.constant('serviceHost', 'https://durscht-service.herokuapp.com');
     // local
-    //app.constant('serviceHost', 'http://192.168.1.11:9000');
+    app.constant('serviceHost', 'http://192.168.1.11:9000');
     //app.constant('serviceHost', 'http://localhost:9000');
     //app.constant('serviceHost', 'http://192.168.229.135:9000');
     app.filter('propsFilter', function () {
