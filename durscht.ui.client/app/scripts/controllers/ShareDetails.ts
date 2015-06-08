@@ -11,7 +11,7 @@
 
         $scope.sentPost = function () {
 
-            posting.remark = $scope.remark;
+            posting.description = $scope.remark;
             posting.price = $scope.price;
             posting.rating = $scope.rating;
 

@@ -6,13 +6,19 @@
 
 <section>
     <div>
-        <div class="bordered">
-        <ui-gmap-google-map center="map.center" zoom="map.zoom">
+
+        <div class="my-panel" ng-show="bars.length == 0">
+            <img src="images/searching.gif"></im>
+        </div>
+
+        <div class="bordered" ng-if="bars.length > 0" ng-cloak>
+        <ui-gmap-google-map center="map.center" zoom="map.zoom" ng-cloak>
             <ui-gmap-marker coords="marker.coords" idkey="marker.id" ng-repeat="marker in markers"></ui-gmap-marker>
         </ui-gmap-google-map>
         </div>
-        <div class="list-group bordered">
-            <a class="list-group-item" ng-click="showDetails(bar.id)"ng-repeat="bar in bars">{{ bar.name}} <small>{{ bar.distance }}km</small></a>
+        <p></p>
+        <div class="list-group bordered" ng-show="bars.length > 0">
+            <a class="list-group-item" ng-click="showDetails(bar)"ng-repeat="bar in bars">{{ bar.name}} <small>{{ bar.distance }} km</small></a>
         </div>
     </div>
 </section>

@@ -10,21 +10,25 @@
 (function (app) {
     app.service('posting', ['$http', 'serviceHost', function ($http, serviceHost) {
         var posting = this;
+        posting.id = -1;
         posting.userId = -1;
-        posting.userName = "";
+        posting.username = "";
         posting.bar = null;
         posting.beer = null;
-        posting.remark = null;
+        posting.description = null;
         posting.price = 0.0;
         posting.rating = 0;
+        posting.date = 0;
         posting.reset = function () {
+            posting.id = -1;
             posting.userId = -1;
-            posting.userName = "";
+            posting.username = "";
             posting.bar = null;
             posting.beer = null;
-            posting.remark = null;
+            posting.description = null;
             posting.price = 0.0;
             posting.rating = 0;
+            posting.date = 0;
         };
         posting.save = function () {
             return $http.post(serviceHost + '/share/createPost', {
@@ -33,8 +37,11 @@
                 beer: posting.beer.id,
                 price: posting.price,
                 rating: posting.rating,
-                remark: posting.remark
+                remark: posting.description
             });
+        };
+        posting.compareByDateDsc = function (a, b) {
+            return b.date - a.date;
         };
     }]);
 })(angular.module('durschtApp'));

@@ -1,19 +1,18 @@
 /// <reference path="../_references.ts"/>
 'use strict';
 (function (app) {
-    var ctrl = function ($scope, $location, barService, $routeParams) {
-        var barId = $routeParams.barId;
-        var bar;
-        var posts;
-        barService.getBarDetails(barId).success(function (data) {
-            bar = data;
-            $scope.caption = bar.name;
-        });
-        barService.getPosts(barId).success(function (data) {
+    var ctrl = function ($scope, $location, barService, searchService, posting) {
+        var bar = searchService.choosenBar;
+        var posts = [];
+        $scope.caption = 'Meinungen über ' + bar.name;
+        $scope.posts = posts;
+        // Load posts form server
+        barService.getPosts(searchService.choosenBar.id).success(function (data) {
             posts = data;
+            posts.sort(posting.compareByDateDsc);
             $scope.posts = posts;
         });
     };
-    app.controller('FindBarPostsCtrl', ['$scope', '$location', 'barService', '$routeParams', ctrl]);
+    app.controller('FindBarPostsCtrl', ['$scope', '$location', 'barService', 'searchService', 'posting', ctrl]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=FindBarPosts.js.map

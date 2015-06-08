@@ -1,19 +1,30 @@
 <header>
     <div>
-        {{ caption }}
+        {{ caption }}<br>
+        <small>{{ distance }} km entfernt</small>
+        <br>
+        <small><a href="{{ weblink }}" target="_blank">{{ weblink }}</a></small>
     </div>
 </header>
 
 <section>
     <div>
-        <p>Diese Bar ist {{ distance }}km von dir entfernt</p>
-
-        <div class="panel panel-default">
+        <div class="panel panel-default bordered">
             <div class="panel-heading">Dieses Bier kannst du hier geniessen:</div>
-            <ul class="list-group">
+
+            <img id="img-loading-dots" src="images/loading.gif" alt="Lade bekannte Biere..." ng-show="!beers">
+
+            <ul class="list-group" ng-show="beers.length > 0">
                 <li class="list-group-item" ng-repeat="beer in beers"> {{ beer.brand }} - {{ beer.type }}</li>
             </ul>
+
         </div>
 
     </div>
 </section>
+
+<footer>
+    <div class="bordered">
+        <button class="btn btn-default form-control" ng-click="showPosts()">Was die anderen so sagen</button>
+    </div>
+</footer>

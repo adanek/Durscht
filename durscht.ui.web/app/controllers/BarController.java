@@ -7,6 +7,7 @@ import durscht.contracts.logic.IBarHandler;
 import durscht.contracts.logic.IPostHandler;
 import durscht.contracts.logic.model.IBar;
 import durscht.contracts.logic.model.IBeer;
+import durscht.contracts.logic.model.IPost;
 import durscht.core.config.ServiceLocator;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -97,12 +98,12 @@ public class BarController extends Controller {
         return ok(data);
     }
 
-    public static Result getDetails(Integer barId){
+    public static Result getPosts(Integer barId){
 
-        IBar bar = new Bar(1, "TestBar", 0.3, null, 47.269258, 11.4040792);
         IBarHandler barHandler = ServiceLocator.getBarHandler();
+        IPost[] posts = barHandler.getPostsFromBar(barId);
 
-        JsonNode data = Json.toJson(bar);
+        JsonNode data = Json.toJson(posts);
         CorsController.addCorsHeaders();
         return ok(data);
     }

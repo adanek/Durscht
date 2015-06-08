@@ -15,7 +15,7 @@
                 web: website,
                 remark: remark,
                 longitude: posting.longitude,
-                latitude: posting.latitude,
+                latitude: posting.latitude
             });
         };
         srv.getBeersFromBar = function (barId) {
