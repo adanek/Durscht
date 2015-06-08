@@ -15,7 +15,8 @@
     app.service('posting', ['$http', 'serviceHost', function($http, serviceHost){
         var posting : Posting = this;
 
-        posting.user = -1;
+        posting.userId = -1;
+        posting.userName = "";
         posting.bar = null;
         posting.beer = null;
         posting.remark = null;
@@ -24,7 +25,8 @@
 
 
         posting.reset = function(){
-            posting.user = -1;
+            posting.userId = -1;
+            posting.userName = "";
             posting.bar = null;
             posting.beer = null;
             posting.remark = null;
@@ -35,7 +37,7 @@
         posting.save = function(){
 
             return $http.post(serviceHost + '/share/createPost',{
-                user: posting.user,
+                user: posting.userId,
                 bar: posting.bar.id,
                 beer: posting.beer.id,
                 price: posting.price,

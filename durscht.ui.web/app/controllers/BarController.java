@@ -3,7 +3,6 @@ package controllers;
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.mock.Bar;
-import durscht.contracts.logic.IBarHandler;
 import durscht.contracts.logic.IPostHandler;
 import durscht.contracts.logic.model.IBar;
 import durscht.contracts.logic.model.IBeer;
@@ -22,8 +21,8 @@ public class BarController extends Controller {
     public static Result getBarsWithBeers(){
 
         List<IBar> bars = new ArrayList<IBar>();
-        bars.add(new Bar(1, "Wunderbar", 2.3, null));
-        bars.add(new Bar(2, "Sonderbar", 5.1, null));
+        bars.add(new Bar(14, "Wunderbar", 2.3, null, 47.269258, 11.4040792));
+        bars.add(new Bar(15, "Sonderbar", 5.1, null, 47.273216, 11.4422239));
 
         JsonNode data = Json.toJson(bars);
         CorsController.addCorsHeaders();
@@ -50,7 +49,6 @@ public class BarController extends Controller {
         return created(responseData);
     }
 
-    @Security.Authenticated(MyAuthenticator.class)
     public static Result getBeersFromBar(int barId){
 
         IBeer[] beers = ServiceLocator.getPostHandler().getBeersByBar(barId);
@@ -85,7 +83,7 @@ public class BarController extends Controller {
 
     public static Result getDetails(Integer barId){
 
-        IBar bar = new Bar(1, "TestBar", 0.3, null, 41.11, 11.7);
+        IBar bar = new Bar(1, "TestBar", 0.3, null, 47.269258, 11.4040792);
 
 
         JsonNode data = Json.toJson(bar);

@@ -40,6 +40,20 @@ public interface IBarHandler {
 	IPost[] getPostsFromBar(int barID) throws IllegalArgumentException, IllegalStateException;
 
 	/**
+	 * Creates a new Bar in the database
+	 * 
+	 * @param name
+	 * @param latitude
+	 * @param longitude
+	 * @param description
+	 * @param url
+	 * @return Newly created Bar object
+	 * @throws IllegalStateException
+	 */
+	IBar createNewBar(String name, double latitude, double longitude, String description, String url)
+			throws IllegalStateException;
+
+	/**
 	 * Deletes a bar from the database.
 	 * 
 	 * @param barID ID of the bar to be deleted.

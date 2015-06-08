@@ -5,7 +5,7 @@
         posting.reset();
         $scope.caption = "Kann ich mal deinen Ausweis sehen?";
         authService.getId().success(function (data) {
-            posting.user = parseInt(data);
+            posting.userId = parseInt(data);
             authService.setAuthenticated(true);
             $location.path('/share/location').replace();
         }).error(function (data, status, headers, config) {

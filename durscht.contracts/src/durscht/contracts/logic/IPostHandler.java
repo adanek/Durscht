@@ -1,5 +1,6 @@
 package durscht.contracts.logic;
 
+import durscht.contracts.logic.model.IAchievement;
 import durscht.contracts.logic.model.IBar;
 import durscht.contracts.logic.model.IBeer;
 import durscht.contracts.logic.model.IPost;
@@ -45,20 +46,6 @@ public interface IPostHandler {
 			throws IllegalArgumentException, IllegalStateException;
 
 	/**
-	 * Creates a new Bar in the database
-	 * 
-	 * @param name
-	 * @param latitude
-	 * @param longitude
-	 * @param description
-	 * @param url
-	 * @return Newly created Bar object
-	 * @throws IllegalStateException
-	 */
-	IBar createNewBar(String name, double latitude, double longitude, String description, String url)
-			throws IllegalStateException;
-
-	/**
 	 * Returns all Posts from the database
 	 * 
 	 * @return All Posts from the database
@@ -73,4 +60,14 @@ public interface IPostHandler {
 	 * @throws IllegalArgumentException database errors
 	 */
 	void deletePost(int postID) throws IllegalArgumentException;
+
+	/**
+	 * Returns all achievements a user receives for his posts. (update before internally)
+	 * 
+	 * @param userID ID of the user whose achievements are returned
+	 * @return Achievement-array denoting what achievements a user gained
+	 * @throws IllegalArgumentException wrong userID
+	 * @throws IllegalStateException database error
+	 */
+	IAchievement[] getAchievementsByUser(int userID) throws IllegalArgumentException, IllegalStateException;
 }

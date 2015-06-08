@@ -10,6 +10,7 @@ public class Bar implements IBar {
 	private double distance;
 	private IBeer[] beers;
 	private double latitdue;
+	private double longitude;
 
 	public Bar(int id, String name, double distance, IBeer[] beers, double latitdue, double longitude) {
 		this.id = id;
@@ -19,8 +20,6 @@ public class Bar implements IBar {
 		this.latitdue = latitdue;
 		this.longitude = longitude;
 	}
-
-	private double longitude;
 
 	public Bar(int id, String name, double distance, IBeer[] beers) {
 		super();

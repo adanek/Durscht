@@ -12,6 +12,8 @@ interface Bar {
 	id:number;
 	name: string;
 	distance: number;
+	latitude: number;
+	longitude: number;
 	beers: Array<Beer>;		
 }
 
@@ -24,6 +26,7 @@ interface BarService {
     addBeerToBar: (bar: Bar, beer: Beer) => ng.IPromise<void>;
 	getBarsWithFavoriteBeers: () => ng.IHttpPromise<Array<Bar>>;
 	getBarDetails: (barId:number) => ng.IHttpPromise<Bar>;
+	getPosts: (barId: number) => ng.IHttpPromise<Array<Posting>>;
 
 	compareByName: (a: Bar, b:Bar) => number;
 	compareByDistance: (a: Bar, b:Bar) => number;
@@ -40,7 +43,8 @@ interface BeerService {
 }
 
 interface Posting {
-	user: number;
+	userId: number;
+    userName: string;
 	bar: Bar;
 	beer: Beer;
 	remark: string;
@@ -48,6 +52,7 @@ interface Posting {
 	rating: number;
 	longitude: number;
     latitude: number;
+    created: string;
 
 	reset: () => void;
     save: () => ng.IHttpPromise<void>;
@@ -70,4 +75,14 @@ interface LocationService {
 	latitude: number;
 	longitude: number;
 	locate: ()=> ng.IPromise<void>;
+}
+
+interface Marker {
+	id: number;
+	coords: Coords;
+}
+
+interface Coords {
+	latitude: number;
+	longitude: number;
 }

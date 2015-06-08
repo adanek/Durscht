@@ -1,0 +1,27 @@
+<header>
+    <div>
+        {{ caption }}
+    </div>
+</header>
+
+<section>
+    <div>
+
+        <div class="list-group bordered">
+            <a href="#" class="list-group-item" ng-repeat="post in posts">
+                <h4 class="list-group-item-heading">{{ post.userName }}</h4>
+                <p class="list-group-item-text">{{ post.remark }}</p>
+                <p class="list-group-item-text">
+                    <span> {{ post.rating }} </span>
+                    <span> {{ post.price }}</span>
+                    <span> {{ post.created }}</span>
+                </p>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+
+

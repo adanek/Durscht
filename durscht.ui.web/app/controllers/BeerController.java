@@ -52,11 +52,9 @@ public class BeerController extends Controller {
     public static Result getUsed() {
 
         IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeersVerified();
-        IBeer[] beers2 = ServiceLocator.getBeerHandler().getAllBeersNotVerified();
 
         List<IBeer> bs = new ArrayList<>();
         bs.addAll(Arrays.asList(beers));
-        bs.addAll(Arrays.asList(beers2));
 
         JsonNode data = Json.toJson(bs);
         CorsController.addCorsHeaders();

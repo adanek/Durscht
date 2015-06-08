@@ -128,3 +128,7 @@ article footer {
     border-radius: 5px;
     padding: 1em;
 }
+
+.angular-google-map-container {
+    height: 200px;
+}
