@@ -1,7 +1,7 @@
 .gitignore
 *.classpath
 .idea/
-out/
+out/doc/
 
 durscht.contracts/durscht.contracts.iml
 durscht.contracts/META-INF/
@@ -11,7 +11,7 @@ durscht.core/doc/
 durscht.core/durscht.core.iml
 
 durscht.data/durscht.data.iml
-
+durscht.test/
 durscht.ui.web/.idea/
 durscht.ui.web/.settings/
 
@@ -21,3 +21,5 @@ durscht.ui.client/node_modules/
 durscht.ui.client/dist/
 durscht.ui.client/.tmp/
 
+
+durscht.test/durscht.test.iml

@@ -19,10 +19,11 @@ interface BarService {
 
 	getNearBars:() => ng.IHttpPromise<Array<Bar>>;
 	createBar: (name:String, url:String, remark:String) => ng.IHttpPromise<Bar>;
-	getBeersFromBar: (bar:Bar) => ng.IHttpPromise<Array<Beer>>;
+	getBeersFromBar: (barId:number) => ng.IHttpPromise<Array<Beer>>;
 	getAllBeers: () => ng.IHttpPromise<Array<Beer>>;
     addBeerToBar: (bar: Bar, beer: Beer) => ng.IPromise<void>;
 	getBarsWithFavoriteBeers: () => ng.IHttpPromise<Array<Bar>>;
+	getBarDetails: (barId:number) => ng.IHttpPromise<Bar>;
 
 	compareByName: (a: Bar, b:Bar) => number;
 	compareByDistance: (a: Bar, b:Bar) => number;
@@ -50,6 +51,10 @@ interface Posting {
 
 	reset: () => void;
     save: () => ng.IHttpPromise<void>;
+}
+
+interface SearchService {
+    barId:number;
 }
 
 interface AuthenticationService {

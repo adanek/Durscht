@@ -18,8 +18,8 @@
                 latitude: posting.latitude
             });
         };
-        srv.getBeersFromBar = function (bar) {
-            return $http.get(serviceHost + '/bar/getBeers/' + bar.id);
+        srv.getBeersFromBar = function (barId) {
+            return $http.get(serviceHost + '/bar/getBeers/' + barId);
         };
         srv.getAllBeers = function () {
             return $http.get(serviceHost + '/beer/getAll');
@@ -44,6 +44,9 @@
         };
         srv.compareByDistance = function (a, b) {
             return a.distance - b.distance;
+        };
+        srv.getBarDetails = function (barid) {
+            return $http.get(serviceHost + '/bar/details/' + barid);
         };
         return srv;
     }

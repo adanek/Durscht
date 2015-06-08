@@ -47,8 +47,8 @@
         $scope.searchBars = function () {
 
             // Check if at least one beer is selected
-            if($scope.selectedBeers.length == 0){
-                $scope.errorMessage = "Du musst mindestens ein Bier auswählen!"
+            if($scope.selectedBeers.length === 0){
+                $scope.errorMessage = 'Du musst mindestens ein Bier auswählen!'
                 return;
             }
 

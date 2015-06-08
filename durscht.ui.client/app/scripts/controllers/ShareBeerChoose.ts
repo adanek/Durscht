@@ -4,10 +4,12 @@
 
     var controller = function($scope, $location, posting:Posting, barService: BarService ){
 
+
         $scope.name = posting.bar.name || "TestBar";
         $scope.createBeerText = "Nö, ganz a anders";
+        $scope.caption = "Soso, " + $scope.name +" also";
 
-        barService.getBeersFromBar(posting.bar).success(function(data){
+        barService.getBeersFromBar(posting.bar.id).success(function(data){
             $scope.beers = data;
             posting.bar.beers = data;
             $scope.$apply();

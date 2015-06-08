@@ -2,7 +2,7 @@
 'use strict';
 (function (app) {
     var ctrl = function ($scope, $location, barService) {
-        var caption = "In diesen Bars wirst du fündig:";
+        var caption = 'In diesen Bars wirst du fündig:';
         var bars = [];
         $scope.caption = caption;
         $scope.bars = bars;
@@ -12,6 +12,10 @@
             bars.sort(barService.compareByDistance);
             $scope.bars = bars;
         });
+        $scope.showDetails = function (barId) {
+            $location.path('/find/bar/details/' + barId).replace();
+            $scope.$apply();
+        };
     };
     app.controller('FindBarListCtrl', ['$scope', '$location', 'barService', ctrl]);
 })(angular.module('durschtApp'));

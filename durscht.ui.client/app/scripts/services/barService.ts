@@ -27,8 +27,8 @@
             });
         }
 
-        srv.getBeersFromBar = function (bar:Bar) {
-            return $http.get(serviceHost + '/bar/getBeers/' + bar.id);
+        srv.getBeersFromBar = function (barId: number) {
+            return $http.get(serviceHost + '/bar/getBeers/' + barId);
         }
 
         srv.getAllBeers = function () {
@@ -57,6 +57,10 @@
 
         srv.compareByDistance = function(a:Bar, b:Bar){
             return a.distance - b.distance;
+        }
+
+        srv.getBarDetails = function(barid:number){
+            return $http.get(serviceHost + '/bar/details/' + barid);
         }
 
         return srv;

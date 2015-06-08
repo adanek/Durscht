@@ -1,23 +1,17 @@
 package durscht.core.test;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import durscht.contracts.data.IDataHandler;
 import durscht.contracts.logic.IBeerHandler;
 import durscht.contracts.logic.model.IBeer;
 import durscht.core.config.ServiceLocator;
 import durscht.core.helper.TrieST;
 import durscht.model.Beer;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class BeerHandlerTest {
 
@@ -40,7 +34,6 @@ public class BeerHandlerTest {
 			return beersWithPrefix.toArray(new Beer[beersWithPrefix.size()]);
 		}
 
-		@Override
 		public IBeer[] getAllBeers() {
 			Iterable<String> Keys = beers.keys();
 			if (beers.isEmpty()) {
@@ -66,6 +59,31 @@ public class BeerHandlerTest {
 			 * 
 			 * return beer;
 			 */
+			return null;
+		}
+
+		@Override
+		public IBeer[] getAllBeersVerified() {
+			return new IBeer[0];
+		}
+
+		@Override
+		public IBeer[] getAllBeersNotVerified() {
+			return new IBeer[0];
+		}
+
+		@Override
+		public IBeer verifyBeer(int id) {
+			return null;
+		}
+
+		@Override
+		public void deleteBeer(int id) throws IllegalArgumentException {
+
+		}
+
+
+		public IBeer verifyBeer(IBeer uiBeer) {
 			return null;
 		}
 

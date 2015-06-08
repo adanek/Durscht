@@ -9,7 +9,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class BeerController extends Controller {
@@ -19,14 +21,19 @@ public class BeerController extends Controller {
 
         // Get all beers from BeerHandler
         IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeersVerified();
+        IBeer[] beers2 = ServiceLocator.getBeerHandler().getAllBeersNotVerified();
 
-        JsonNode data = Json.toJson(beers);
-        attachCorsHeaders();
+        List<IBeer> bs = new ArrayList<>();
+        bs.addAll(Arrays.asList(beers));
+        bs.addAll(Arrays.asList(beers2));
+
+        JsonNode data = Json.toJson(bs);
+        CorsController.addCorsHeaders();
         return ok(data);
     }
 
     //POST /beer/create
-    public static Result create(){
+    public static Result create() {
 
         // Extract data from request
         JsonNode body = request().body().asJson();
@@ -38,22 +45,21 @@ public class BeerController extends Controller {
         IBeer beer = ServiceLocator.getBeerHandler().createNewBeer(brand, type, description);
 
         JsonNode data = Json.toJson(beer);
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return created(data);
     }
 
-    public static Result getUsed(){
+    public static Result getUsed() {
 
         IBeer[] beers = ServiceLocator.getBeerHandler().getAllBeersVerified();
+        IBeer[] beers2 = ServiceLocator.getBeerHandler().getAllBeersNotVerified();
 
-        JsonNode data = Json.toJson(beers);
-        attachCorsHeaders();
+        List<IBeer> bs = new ArrayList<>();
+        bs.addAll(Arrays.asList(beers));
+        bs.addAll(Arrays.asList(beers2));
+
+        JsonNode data = Json.toJson(bs);
+        CorsController.addCorsHeaders();
         return ok(data);
-    }
-
-    private static void attachCorsHeaders() {
-
-        String origin = request().getHeader("Origin");
-        CorsController.addCorsHeaders(response(), origin);
     }
 }

@@ -3,7 +3,8 @@
     var controller = function ($scope, $location, posting, barService) {
         $scope.name = posting.bar.name || "TestBar";
         $scope.createBeerText = "Nö, ganz a anders";
-        barService.getBeersFromBar(posting.bar).success(function (data) {
+        $scope.caption = "Soso, " + $scope.name + " also";
+        barService.getBeersFromBar(posting.bar.id).success(function (data) {
             $scope.beers = data;
             posting.bar.beers = data;
             $scope.$apply();

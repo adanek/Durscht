@@ -2,18 +2,11 @@ package controllers;
 
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.mock.Beer;
-import durscht.contracts.data.IDataHandler;
-import durscht.contracts.logic.ILogicFacade;
 import durscht.contracts.logic.IPostHandler;
-
 import durscht.core.config.ServiceLocator;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-
-import java.util.Collection;
 
 public class ShareController extends Controller {
 
@@ -34,13 +27,8 @@ public class ShareController extends Controller {
         IPostHandler postHandler = ServiceLocator.getLogicFacade().getPostHandler();
         postHandler.putPosting(barId, beerId, userId, prize, rating, remark);
 
-        attachCorsHeaders();
+        CorsController.addCorsHeaders();
         return created();
     }
 
-    private static void attachCorsHeaders() {
-
-        String origin = request().getHeader("Origin");
-        CorsController.addCorsHeaders(response(), origin);
-    }
 }
