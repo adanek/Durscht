@@ -38,6 +38,7 @@ interface BeerService {
 	getUsed: () => ng.IHttpPromise<Array<Beer>>;
     setFavorites: (beers:Array<Beer>) => void;
     getFavorites: () => Array<Beer>;
+	getFavoritesIds: () => Array<number>;
 
 	compareByName: (a:Beer, b:Beer) => number;
 }

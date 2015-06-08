@@ -22,6 +22,13 @@
         var getFavorites = function () {
             return favorites;
         };
+        var getFavoritesIds = function () {
+            var ids = [];
+            favorites.forEach(function (beer) {
+                ids.push(beer.id);
+            });
+            return ids;
+        };
         var compareByBrand = function (a, b) {
             if (a.brand < b.brand) {
                 return -1;
@@ -47,6 +54,7 @@
             getUsed: getUsed,
             setFavorites: setFavorites,
             getFavorites: getFavorites,
+            getFavoritesIds: getFavoritesIds,
             compareByName: compareByBrand
         };
     }]);
