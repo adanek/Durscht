@@ -1,14 +1,5 @@
 package durscht.core.test;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import durscht.contracts.data.IBar;
 import durscht.contracts.data.IBeer;
 import durscht.contracts.data.IDataHandler;
@@ -16,6 +7,14 @@ import durscht.core.PostHandler;
 import durscht.data.model.Bar;
 import durscht.data.model.Beer;
 import durscht.data.model.BeerPost;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.junit.Assert.assertEquals;
 
 public class PostHandlerTestNew {
 
@@ -114,22 +113,6 @@ public class PostHandlerTestNew {
 		int actual = postHandler.putPosting(0, 0, 0, 2.0, 2, "test");
 
 		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void testcreateNewBarTest() {
-		Bar bar = new Bar();
-		bar.setId(26);
-		bar.setName("barname");
-
-		IDataHandler dataHandler = Mockito.mock(IDataHandler.class);
-		Mockito.when(dataHandler.createBar("barname", 0, 0, "descr", "www.bar.at")).thenReturn(bar);
-		postHandler.setDataHandler(dataHandler);
-
-		durscht.contracts.logic.model.IBar ibar = postHandler.createNewBar("barname", 0, 0, "descr", "www.bar.at");
-
-		assertEquals(26, ibar.getId());
-		assertEquals("barname", ibar.getName());
 	}
 
 }

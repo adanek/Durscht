@@ -51,7 +51,7 @@ public class BarHandler implements IBarHandler {
 		Collection<Bar> nearBarsList = new ArrayList<Bar>();
 
 		for (IBar ibar : ibars) {
-			nearBarsList.add(convertDBtoUI(ibar));
+			nearBarsList.add(convertDBtoUI(ibar, latitude, longitude));
 		}
 
 		return nearBarsList.toArray(new Bar[nearBarsList.size()]);
@@ -81,24 +81,36 @@ public class BarHandler implements IBarHandler {
 		Collection<Bar> barList = new ArrayList<Bar>();
 
 		for (IBar ibar : ibars) {
-			barList.add(convertDBtoUI(ibar));
+			barList.add(convertDBtoUI(ibar, ibar.getLatitude(), ibar.getLongitude()));
 		}
 
 		return barList.toArray(new Bar[barList.size()]);
 	}
 
-	protected static Bar convertDBtoUI(IBar ibar) {
-		Bar bar = new Bar();
-		bar.setId(ibar.getId());
-		bar.setName(ibar.getName());
-		bar.setDistance(Position.calcDistanceBetweenPoints(ibar.getLatitude(), ibar.getLongitude(), ibar.getLatitude(),
-				ibar.getLongitude()));
-
-		return bar;
-	}
-
 	@Override
 	public void deleteBar(int barID) throws IllegalArgumentException {
 		getDataHandler().deleteBar(barID);
+	}
+
+	@Override
+	public durscht.contracts.logic.model.IBar createNewBar(String name, double latitude, double longitude,
+			String description, String url) throws IllegalStateException {
+		IDataHandler dataHandler = getDataHandler();
+
+		IBar ibar = dataHandler.createBar(name, latitude, longitude, description, url);
+
+		return BarHandler.convertDBtoUI(ibar, latitude, longitude);
+	}
+
+	protected static Bar convertDBtoUI(IBar ibar, double currentLat, double currentLon) {
+		Bar bar = new Bar();
+		bar.setId(ibar.getId());
+		bar.setName(ibar.getName());
+		bar.setLatitude(ibar.getLatitude());
+		bar.setLongitude(ibar.getLongitude());
+		bar.setDistance(Position.calcDistanceBetweenPoints(currentLat, currentLon, ibar.getLatitude(),
+				ibar.getLongitude()));
+
+		return bar;
 	}
 }
