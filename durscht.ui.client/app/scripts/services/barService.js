@@ -15,7 +15,7 @@
                 web: website,
                 remark: remark,
                 longitude: posting.longitude,
-                latitude: posting.latitude
+                latitude: posting.latitude,
             });
         };
         srv.getBeersFromBar = function (barId) {
@@ -47,6 +47,9 @@
         };
         srv.getBarDetails = function (barid) {
             return $http.get(serviceHost + '/bar/details/' + barid);
+        };
+        srv.getPosts = function (barId) {
+            return $http.get(serviceHost + '/bar/posts/' + barId);
         };
         return srv;
     }

@@ -10,14 +10,16 @@
 (function (app) {
     app.service('posting', ['$http', 'serviceHost', function ($http, serviceHost) {
         var posting = this;
-        posting.user = -1;
+        posting.userId = -1;
+        posting.userName = "";
         posting.bar = null;
         posting.beer = null;
         posting.remark = null;
         posting.price = 0.0;
         posting.rating = 0;
         posting.reset = function () {
-            posting.user = -1;
+            posting.userId = -1;
+            posting.userName = "";
             posting.bar = null;
             posting.beer = null;
             posting.remark = null;
@@ -26,7 +28,7 @@
         };
         posting.save = function () {
             return $http.post(serviceHost + '/share/createPost', {
-                user: posting.user,
+                user: posting.userId,
                 bar: posting.bar.id,
                 beer: posting.beer.id,
                 price: posting.price,

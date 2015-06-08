@@ -10,7 +10,7 @@
 
         authService.getId()
             .success(function(data){
-                posting.user = parseInt(data);
+                posting.userId = parseInt(data);
                 authService.setAuthenticated(true);
                 $location.path('/share/location').replace();
             })

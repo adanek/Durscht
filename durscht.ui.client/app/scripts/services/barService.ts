@@ -63,6 +63,10 @@
             return $http.get(serviceHost + '/bar/details/' + barid);
         }
 
+        srv.getPosts = function(barId:number){
+            return $http.get(serviceHost + '/bar/posts/' + barId);
+        }
+
         return srv;
     }
 

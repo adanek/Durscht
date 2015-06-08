@@ -67,8 +67,8 @@
     // heroku
     //app.constant('serviceHost', 'https://durscht-service.herokuapp.com');
     // local
-    app.constant('serviceHost', 'http://192.168.1.11:9000');
-    //app.constant('serviceHost', 'http://localhost:9000');
+    //app.constant('serviceHost', 'http://192.168.1.11:9000');
+    app.constant('serviceHost', 'http://localhost:9000');
     //app.constant('serviceHost', 'http://192.168.229.135:9000');
     app.filter('propsFilter', function () {
         return function (items, props) {
