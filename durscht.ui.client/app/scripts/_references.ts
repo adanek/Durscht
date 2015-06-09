@@ -63,7 +63,7 @@ interface Posting {
 
 interface SearchService {
     bars: Array<Bar>;
-	choosenBar: Bar;
+	chosenBar: Bar;
 	clear: () => void;
 }
 
@@ -71,6 +71,8 @@ interface AuthenticationService {
 	isAuthenticated: () => boolean;
     setAuthenticated: (val : boolean) => void;
 	login: (username:String, password:String) => ng.IHttpPromise<void>;
+	setReferrer: (url:string) => void;
+	getReferrer: () => string;
 	logout: () => ng.IHttpPromise<void>;
     getId: () => ng.IHttpPromise<string>;
 	register: (username:string, email:string, password:string) => ng.IHttpPromise<void>;
@@ -90,4 +92,15 @@ interface Marker {
 interface Coords {
 	latitude: number;
 	longitude: number;
+}
+
+interface Achievement {
+
+	name:string;
+	progress:number;
+	url: string;
+}
+
+interface AchievementService {
+	getAll: () => ng.IHttpPromise<Array<Achievement>>;
 }

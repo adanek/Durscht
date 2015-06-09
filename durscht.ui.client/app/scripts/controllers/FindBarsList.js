@@ -32,7 +32,7 @@
             $scope.bars = bars;
         }
         $scope.showDetails = function (bar) {
-            searchService.choosenBar = bar;
+            searchService.chosenBar = bar;
             $location.path('/find/bar/details');
         };
     };

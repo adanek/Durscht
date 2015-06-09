@@ -7,15 +7,14 @@
     app.service('searchService', [function () {
         var srv:SearchService = this;
         var bars:Array<Bar> = [];
-        var choosenBar:Bar = undefined;
-        srv.barId = barId;
+        var chosenBar:Bar = undefined;
 
         srv.bars = bars;
-        srv.choosenBar = choosenBar;
+        srv.chosenBar = chosenBar;
 
         srv.clear = function () {
-          srv.bars = [];
-            srv.choosenBar = undefined;
+            srv.bars = [];
+            srv.chosenBar = undefined;
         };
     }])
 

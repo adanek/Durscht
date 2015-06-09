@@ -4,8 +4,8 @@
 
 <section>
     <div>
-        <div class="input-group">
-            <ui-select ng-model="beer.selected" theme="bootstrap" class="ui-select">
+        <div class="input-group" ng-disabled="beers.length == 0">
+            <ui-select ng-model="beer.selected" theme="bootstrap" class="ui-select" >
                 <ui-select-match placeholder="Bier suchen">{{ $select.selected.brand }} - {{ $select.selected.type }}
                 </ui-select-match>
                 <ui-select-choices repeat="beer in beers | propsFilter: {brand: $select.search, type: $select.search}">
@@ -13,6 +13,7 @@
                     </div>
                 </ui-select-choices>
             </ui-select>
+
             <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="addBeer()">
                     <span class="glyphicon glyphicon-plus"></span>

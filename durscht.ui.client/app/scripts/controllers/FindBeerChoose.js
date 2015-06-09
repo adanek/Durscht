@@ -1,9 +1,10 @@
 /// <reference path="../_references.ts"/>
 'use strict';
 (function (app) {
-    var ctrl = function ($scope, $location, beerService) {
+    var ctrl = function ($scope, $location, beerService, searchService) {
         $scope.caption = 'Welches Bier hättesch denn gern?';
         $scope.beer = {};
+        searchService.clear();
         var beers = [];
         beerService.getUsed().success(function (data) {
             beers = data;
@@ -41,6 +42,6 @@
             $location.path('/find/bars').replace();
         };
     };
-    app.controller('FindBeerChooseCtrl', ['$scope', '$location', 'beerService', ctrl]);
+    app.controller('FindBeerChooseCtrl', ['$scope', '$location', 'beerService', 'searchService', ctrl]);
 })(angular.module('durschtApp'));
 //# sourceMappingURL=FindBeerChoose.js.map

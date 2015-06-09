@@ -14,9 +14,9 @@
                 authService.setAuthenticated(true);
                 $location.path('/share/location').replace();
             })
-            .error(function(data, status, headers, config){
+            .error(function(data, status){
             if(status == 401){
-                var h = headers;
+                authService.setReferrer('/share/user');
                 $location.path('/login').replace();
             }
         });

@@ -8,8 +8,6 @@
         $scope.username = '';
         $scope.password = '';
 
-
-
         $scope.login = function() {
 
             $scope.$broadcast('show-errors-check-validity');
@@ -18,7 +16,8 @@
 
                 authService.login($scope.username, $scope.password)
                     .success(function () {
-                        $location.path('/share/user').replace();
+                        var destination = authService.getReferrer();
+                        $location.path(destination).replace();
                     })
                     .error(function (data, status, headers, config) {  // jshint ignore:line
                         var msg;

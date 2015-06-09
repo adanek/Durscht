@@ -3,6 +3,7 @@
     var service = function ($rootScope, $http, serviceHost) {
         var srv = this;
         var authenticated = false;
+        var referrer = undefined;
         srv.isAuthenticated = function () {
             return authenticated;
         };
@@ -34,6 +35,12 @@
                 email: email,
                 passwd: password
             });
+        };
+        srv.setReferrer = function (val) {
+            referrer = val;
+        };
+        srv.getReferrer = function () {
+            return referrer;
         };
         return srv;
     };

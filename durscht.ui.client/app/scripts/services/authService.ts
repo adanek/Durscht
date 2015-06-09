@@ -7,6 +7,7 @@
         var srv:AuthenticationService = this;
 
         var authenticated = false;
+        var referrer = undefined;
 
         srv.isAuthenticated = function () {
             return authenticated;
@@ -46,6 +47,14 @@
                 passwd: password
             });
         };
+
+        srv.setReferrer = function(val:string){
+            referrer = val;
+        }
+
+        srv.getReferrer = function(){
+            return referrer;
+        }
 
         return srv;
     };

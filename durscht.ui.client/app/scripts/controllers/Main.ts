@@ -1,14 +1,14 @@
 /// <reference path="../_references.ts"/>
 
-(function (app){
-    var controller = function ($scope, authService : AuthenticationService, $location){
+(function (app) {
+    var controller = function ($scope, authService:AuthenticationService, $location) {
 
         $scope.authBtnText = "";
         setAuthBtnText(authService.isAuthenticated);
 
-        function setAuthBtnText (authenticated){
+        function setAuthBtnText(authenticated) {
 
-            if(authenticated == true){
+            if (authenticated == true) {
 
                 $scope.logedIn = true;
                 $scope.authBtnText = "Logout";
@@ -18,15 +18,15 @@
             }
         }
 
-        $scope.$watch(function(){
+        $scope.$watch(function () {
             return authService.isAuthenticated();
-        }, function(newVal){
+        }, function (newVal) {
             setAuthBtnText(newVal);
         });
 
         $scope.onAuthBtnClick = function () {
-            if(authService.isAuthenticated()){
-                authService.logout().success(function (){
+            if (authService.isAuthenticated()) {
+                authService.logout().success(function () {
                     authService.setAuthenticated(false);
                     $location.path('/').replace();
                     $scope.$apply();
@@ -36,8 +36,8 @@
             }
         }
 
-        $scope.$on('$viewContentLoaded', function() {
-           console.info("adjust body height");
+        $scope.$on('$viewContentLoaded', function () {
+            //console.info("adjust body height");
             setTimeout(adjustBodySize, 100);
         });
 
@@ -51,12 +51,14 @@
             // Set the body height
             $('body').height('auto');
             bh = $('body').height();
-            bh = wh -pf;
-            $('body').height(bh);
 
+            if(bh < wh) {
+                bh = wh - pf;
+                $('body').height(bh);
+            }
 
             // Set the article header height
-            $('body > article > header').css({lineHeight: (Math.round(20 * wh / 100))+'px'});
+            $('body > article > header').css({lineHeight: (Math.round(20 * wh / 100)) + 'px'});
 
             // Calculate the heights of the article parts
             var ahh = $('body > article > header').outerHeight(true); // height of the article header

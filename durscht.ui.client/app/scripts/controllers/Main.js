@@ -31,7 +31,7 @@
             }
         };
         $scope.$on('$viewContentLoaded', function () {
-            console.info("adjust body height");
+            //console.info("adjust body height");
             setTimeout(adjustBodySize, 100);
         });
         function adjustBodySize() {
@@ -42,8 +42,10 @@
             // Set the body height
             $('body').height('auto');
             bh = $('body').height();
-            bh = wh - pf;
-            $('body').height(bh);
+            if (bh < wh) {
+                bh = wh - pf;
+                $('body').height(bh);
+            }
             // Set the article header height
             $('body > article > header').css({ lineHeight: (Math.round(20 * wh / 100)) + 'px' });
             // Calculate the heights of the article parts

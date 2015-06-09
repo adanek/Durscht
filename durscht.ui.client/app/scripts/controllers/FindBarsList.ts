@@ -44,7 +44,7 @@
         }
 
         $scope.showDetails = function (bar:Bar) {
-            searchService.choosenBar = bar;
+            searchService.chosenBar = bar;
             $location.path('/find/bar/details');
         }
     }

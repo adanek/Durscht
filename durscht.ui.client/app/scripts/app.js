@@ -60,9 +60,9 @@
         }).when('/find/bar/details', {
             templateUrl: 'views/find-bar-details.html',
             controller: 'FindBarDetailsCtrl'
-        }).when('/find/bar/posts', {
-            templateUrl: 'views/find-bar-posts.html',
-            controller: 'FindBarPostsCtrl'
+        }).when('/achievements/all', {
+            templateUrl: 'views/achievements.html',
+            controller: 'AchievementsCtrl'
         }).otherwise({
             redirectTo: '/'
         });

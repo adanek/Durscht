@@ -2,6 +2,7 @@ package controllers;
 
 import authentication.MyAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
+import durscht.contracts.logic.model.IAchievement;
 import durscht.contracts.logic.model.IUser;
 import durscht.core.config.ServiceLocator;
 import play.Logger;
@@ -104,6 +105,17 @@ public class AuthenticationController extends Controller {
         session().put("pid", Integer.toString(user.getId()));
 
         return ok(menu.render());
+    }
+
+    @Security.Authenticated(MyAuthenticator.class)
+    public static Result getAchievements(){
+
+        int pid = Integer.parseInt(session().get("pid"));
+        IAchievement[] achievements = ServiceLocator.getPostHandler().getAchievementsByUser(pid);
+
+        JsonNode data = Json.toJson(achievements);
+        CorsController.addCorsHeaders();
+        return ok(data);
     }
 }
 

@@ -9,7 +9,8 @@
             $scope.$broadcast('show-errors-check-validity');
             if ($scope.loginForm.$valid) {
                 authService.login($scope.username, $scope.password).success(function () {
-                    $location.path('/share/user').replace();
+                    var destination = authService.getReferrer();
+                    $location.path(destination).replace();
                 }).error(function (data, status, headers, config) {
                     var msg;
                     switch (status) {

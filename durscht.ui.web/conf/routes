@@ -31,6 +31,7 @@ GET            /user/id                 controllers.AuthenticationController.get
 POST           /user/login              controllers.AuthenticationController.login()
 POST           /user/logout             controllers.AuthenticationController.logout()
 POST           /user/register           controllers.AuthenticationController.register()
+GET            /user/achievements/all   controllers.AuthenticationController.getAchievements()
 
 POST           /share/createPost        controllers.ShareController.createPost()
 
