@@ -23,25 +23,22 @@
             <table class="table">
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Date</th>
+                  <th>Beer</th>
+                  <th>Rating</th>
                   <th>Price</th>
                   <th>Description</th>
                   <th></th>
-                </tr>
-                <tr>
-                  <td>Post</td>
-                  <td> <input type="text" name="name" class="form-control" id="name">
-                  </td>
-                  <td>
-                  </td>
-                  <td></td>
-                  <td> <a class="btn btn-default" href=@("/bars/create" )> search Post</a></td>
                 </tr>
                 <tbody>
                 @for(post <- posts){
                   <tr>
                     <td>@post.getId</td>
                     <td>@post.getUsername</td>
+                    <td>@post.getDate</td>
+                    <td>@post.getBeer</td>
+                    <td>@post.getRating</td>
                     <td>@post.getPrice</td>
                     <td>@post.getDescription</td>
                     <td>  <a class="btn btn-default" href=@("/posts/delete/" + post.getId)> delete</a>

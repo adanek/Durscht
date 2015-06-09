@@ -1288,6 +1288,9 @@ public class DataHandler implements IDataHandler {
 
 		Collection<IBar> bars = getBarsCoordinates(fromLatitude, toLatitude,
 				fromLongitude, toLongitude);
+		if(bars.size() == 0){
+			return new ArrayList<>();
+		}
 
 		// fetching all beers
 		Collection<IBeer> beers = new ArrayList<>();

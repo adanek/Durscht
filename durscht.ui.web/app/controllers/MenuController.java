@@ -1,8 +1,5 @@
 package controllers;
 
-import controllers.mock.Bar;
-import controllers.mock.Beer;
-import controllers.mock.Post;
 import durscht.contracts.data.IBeerPost;
 
 import durscht.core.BeerHandler;
@@ -20,7 +17,7 @@ import java.util.List;
 
 public class MenuController extends Controller{
 
-    public static Result showAllBeers(){
+    public static Result showAllBeers() {
         return ok(choose_beer.render(AdminBeerController.allBeers()));
     }
 

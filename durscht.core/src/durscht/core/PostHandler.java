@@ -69,7 +69,7 @@ public class PostHandler implements IPostHandler {
 		Collection<Bar> nearBarsList = new ArrayList<Bar>();
 
 		for (IBar ibar : nearIBarsList) {
-			nearBarsList.add(BarHandler.convertDBtoUI(ibar));
+			nearBarsList.add(BarHandler.convertDBtoUI(ibar, latitude, longitude));
 			/*
 			 * Bar bar = new Bar(); bar.setName(ibar.getName()); bar.setId(ibar.getId());
 			 * bar.setDistance(calcDistanceBetweenPoints(latitude, longitude, ibar.getLatitude(), ibar.getLongitude()));
