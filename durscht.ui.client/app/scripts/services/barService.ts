@@ -40,7 +40,7 @@
             return $http.post(serviceHost + '/bar/withBeers', {
                 latitude: locationService.latitude,
                 longitude: locationService.longitude,
-                beers: beerService.getFavorites()
+                beers: beerService.getFavoritesIds()
             });
         }
 

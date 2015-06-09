@@ -6,8 +6,17 @@
 
     app.service('searchService', [function () {
         var srv:SearchService = this;
-        var barId:number = 0;
+        var bars:Array<Bar> = [];
+        var choosenBar:Bar = undefined;
         srv.barId = barId;
+
+        srv.bars = bars;
+        srv.choosenBar = choosenBar;
+
+        srv.clear = function () {
+          srv.bars = [];
+            srv.choosenBar = undefined;
+        };
     }])
 
 

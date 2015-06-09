@@ -15,7 +15,7 @@
                 web: website,
                 remark: remark,
                 longitude: posting.longitude,
-                latitude: posting.latitude,
+                latitude: posting.latitude
             });
         };
         srv.getBeersFromBar = function (barId) {
@@ -28,7 +28,7 @@
             return $http.post(serviceHost + '/bar/withBeers', {
                 latitude: locationService.latitude,
                 longitude: locationService.longitude,
-                beers: beerService.getFavorites()
+                beers: beerService.getFavoritesIds()
             });
         };
         srv.compareByName = function (a, b) {

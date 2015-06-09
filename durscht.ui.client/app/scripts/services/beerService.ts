@@ -32,6 +32,16 @@
             return favorites;
         }
 
+        var getFavoritesIds = function() {
+            var ids:Array<number> = [];
+
+            favorites.forEach(function(beer:Beer){
+                ids.push(beer.id);
+            })
+
+            return ids;
+        }
+
         var compareByBrand =  function (a:Beer, b:Beer) {
             if (a.brand < b.brand) {
                 return -1
@@ -56,7 +66,7 @@
             getUsed: getUsed,
             setFavorites: setFavorites,
             getFavorites: getFavorites,
-
+            getFavoritesIds: getFavoritesIds,
             compareByName: compareByBrand
         };
     }]);

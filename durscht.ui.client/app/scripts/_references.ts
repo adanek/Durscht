@@ -38,28 +38,33 @@ interface BeerService {
 	getUsed: () => ng.IHttpPromise<Array<Beer>>;
     setFavorites: (beers:Array<Beer>) => void;
     getFavorites: () => Array<Beer>;
+	getFavoritesIds: () => Array<number>;
 
 	compareByName: (a:Beer, b:Beer) => number;
 }
 
 interface Posting {
-	userId: number;
-    userName: string;
+	id: number;
+    userId: number;
+    username: string;
 	bar: Bar;
 	beer: Beer;
-	remark: string;
+	description: string;
 	price: number;
 	rating: number;
 	longitude: number;
     latitude: number;
-    created: string;
+    date: number;
 
 	reset: () => void;
     save: () => ng.IHttpPromise<void>;
+	compareByDateDsc: (a:Posting, b:Posting) => number;
 }
 
 interface SearchService {
-    barId:number;
+    bars: Array<Bar>;
+	choosenBar: Bar;
+	clear: () => void;
 }
 
 interface AuthenticationService {

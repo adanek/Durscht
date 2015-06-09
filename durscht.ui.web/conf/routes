@@ -42,7 +42,7 @@ POST           /bar/near                controllers.BarController.getNearBars()
 GET            /bar/getBeers/:id        controllers.BarController.getBeersFromBar(id: Integer)
 POST           /bar/withBeers           controllers.BarController.getBarsWithBeers()
 POST           /bar/create              controllers.BarController.createBar()
-GET            /bar/details/:id         controllers.BarController.getDetails(id:Integer)
+GET            /bar/posts/:id           controllers.BarController.getPosts(id:Integer)
 
 # Options for CORS Cross Origin Resource Sharing
 OPTIONS        /                        controllers.CorsController.CorsOptions(url: String ?= "root")

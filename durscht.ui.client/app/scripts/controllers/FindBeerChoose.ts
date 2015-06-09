@@ -3,10 +3,12 @@
 
 (function (app) {
 
-    var ctrl = function ($scope, $location, beerService:BeerService) {
+    var ctrl = function ($scope, $location, beerService:BeerService, searchService:SearchService) {
 
         $scope.caption = 'Welches Bier hättesch denn gern?';
         $scope.beer = {};
+
+        searchService.clear();
 
         var beers : Array<Beer> = [];
         beerService.getUsed().success(function(data){
@@ -57,6 +59,6 @@
         };
     };
 
-    app.controller('FindBeerChooseCtrl', ['$scope', '$location', 'beerService', ctrl]);
+    app.controller('FindBeerChooseCtrl', ['$scope', '$location', 'beerService','searchService', ctrl]);
 
 })(angular.module('durschtApp'));

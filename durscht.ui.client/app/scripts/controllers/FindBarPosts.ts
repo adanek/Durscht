@@ -3,24 +3,27 @@
 
 (function (app) {
 
-    var ctrl = function ($scope, $location, barService:BarService, $routeParams) {
+    var ctrl = function ($scope, $location, barService:BarService, searchService:SearchService, posting:Posting) {
 
-        var barId:number = $routeParams.barId;
-        var bar:Bar;
-        var posts:Array<Posting>;
 
-        barService.getBarDetails(barId).success(function (data) {
-            bar = data;
-            $scope.caption = bar.name;
+        var bar:Bar = searchService.choosenBar;
+        var posts:Array<Posting> = [];
 
-        });
+        $scope.caption = 'Meinungen über ' + bar.name;
+        $scope.posts = posts;
 
-        barService.getPosts(barId).success(function (data) {
-            posts = data;
-            $scope.posts = posts;
-        });
+        // Load posts form server
+        barService.getPosts(searchService.choosenBar.id)
+            .success(function (data) {
+                posts = data;
+                posts.sort(posting.compareByDateDsc);
+
+                $scope.posts = posts;
+            });
+
+
     }
 
-    app.controller('FindBarPostsCtrl', ['$scope', '$location', 'barService', '$routeParams', ctrl]);
+    app.controller('FindBarPostsCtrl', ['$scope', '$location', 'barService', 'searchService', 'posting', ctrl]);
 
 })(angular.module('durschtApp'));

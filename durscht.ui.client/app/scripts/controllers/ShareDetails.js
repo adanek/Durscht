@@ -6,7 +6,7 @@
         $scope.price = 0.0;
         $scope.rating = 0;
         $scope.sentPost = function () {
-            posting.remark = $scope.remark;
+            posting.description = $scope.remark;
             posting.price = $scope.price;
             posting.rating = $scope.rating;
             posting.save().success(function () {
