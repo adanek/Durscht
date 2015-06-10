@@ -39,7 +39,7 @@ public class Position {
 	/**
 	 * Calculates the distance between two points given in longitude/latitude format.
 	 * 
-	 * @see http ://stackoverflow.com/questions/18861728/calculating-distance-between
+	 * @see http://stackoverflow.com/questions/18861728/calculating-distance-between
 	 *      -two-points-represented-by-lat-long-upto-15-feet-acc
 	 * 
 	 * @param lat1 Latitude of point #1

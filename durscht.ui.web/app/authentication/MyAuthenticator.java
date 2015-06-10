@@ -23,7 +23,7 @@ public class MyAuthenticator extends Security.Authenticator {
         String uri = request.uri();
 
         Http.Response response = ctx.response();
-        response.setHeader("Referer", uri);
+        response.setHeader("Referrer", uri);
         String origin = ctx.request().getHeader("Origin");
         CorsController.addCorsHeaders();
         return unauthorized();
