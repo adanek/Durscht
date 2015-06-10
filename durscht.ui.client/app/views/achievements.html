@@ -7,12 +7,12 @@
 <section>
     <div>
 
-        <div class="my-panel">
+        <div class="my-panel" ng-show="achievements.length == 0">
             <p>Lade Errungenschaften...</p>
             <img class="img-loading-dots" src="images/loading.gif"/>
         </div>
 
-        <div class="list-group bordered">
+        <div class="list-group bordered" ng-if="achievements.length > 0">
             <!--<div class="list-group-item text-left">-->
                 <!--<img class="img-achievement" ng-class="{'img-achievement-undone': progress != 100}" src="images/achievement.png" alt="medal"/>-->
                 <!--<div class="list-group-item-heading"> 3 Posts in einer Woche</div>-->

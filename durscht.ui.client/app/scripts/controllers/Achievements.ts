@@ -12,7 +12,7 @@
         //    url: ''
         //}, {name: 'Einen Post erstellt', progress: 100, url: ''}];
 
-        $scope.caption = "Deine Errungenschaften";
+        $scope.caption = "Deine bisherigen Errungenschaften";
         $scope.achievements = achievements;
         $scope.progress = 100;
 
@@ -23,7 +23,7 @@
             }).error(function (data, status) {
                 if (status == 401) {
                     authService.setReferrer('/achievements/all');
-                    $location.path('/login');
+                    $location.path('/login').replace();
                 }
             });
     }

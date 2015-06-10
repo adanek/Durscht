@@ -16,6 +16,7 @@ body {
 
 body > header {
     height: 30px;
+    min-height: 30px;
     float: right;
     font-size: 1.5em;
     margin-right: 1em;

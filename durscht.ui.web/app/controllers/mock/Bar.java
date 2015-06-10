@@ -41,6 +41,11 @@ public class Bar implements IBar {
 	}
 
 	@Override
+	public String getUrl() {
+		return null;
+	}
+
+	@Override
 	public double getDistance() {
 		// TODO Auto-generated method stub
 		return this.distance;

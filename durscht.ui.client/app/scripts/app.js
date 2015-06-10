@@ -73,32 +73,35 @@
     //app.constant('serviceHost', 'http://192.168.1.11:9000');
     //app.constant('serviceHost', 'http://localhost:9000');
     //app.constant('serviceHost', 'http://192.168.229.135:9000');
-    app.filter('propsFilter', function () {
-        return function (items, props) {
-            var out = [];
-            if (angular.isArray(items)) {
-                items.forEach(function (item) {
-                    var itemMatches = false;
-                    var keys = Object.keys(props);
-                    for (var i = 0; i < keys.length; i++) {
-                        var prop = keys[i];
-                        var text = props[prop].toLowerCase();
-                        if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-                            itemMatches = true;
-                            break;
-                        }
-                    }
-                    if (itemMatches) {
-                        out.push(item);
-                    }
-                });
-            }
-            else {
-                // Let the output be the input untouched
-                out = items;
-            }
-            return out;
-        };
-    });
+    //app.filter('propsFilter', function() {
+    //    return function(items, props) {
+    //        var out = [];
+    //
+    //        if (angular.isArray(items)) {
+    //            items.forEach(function(item) {
+    //                var itemMatches = false;
+    //
+    //                var keys = Object.keys(props);
+    //                for (var i = 0; i < keys.length; i++) {
+    //                    var prop = keys[i];
+    //                    var text = props[prop].toLowerCase();
+    //                    if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+    //                        itemMatches = true;
+    //                        break;
+    //                    }
+    //                }
+    //
+    //                if (itemMatches) {
+    //                    out.push(item);
+    //                }
+    //            });
+    //        } else {
+    //            // Let the output be the input untouched
+    //            out = items;
+    //        }
+    //
+    //        return out;
+    //    }
+    //});
 })();
 //# sourceMappingURL=app.js.map

@@ -10,8 +10,8 @@
         var posts:Array<Posting> = [];
 
         $scope.caption = bar.name;
-        $scope.distance = bar.distance;
-        $scope.weblink = "www.tobeimplemented.age"
+        $scope.distance = bar.distance.toFixed(2);
+        $scope.weblink = bar.url ? 'http://' + bar.url: undefined;
         $scope.beers = beers;
         $scope.posts = posts;
 

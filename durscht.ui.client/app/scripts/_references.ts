@@ -14,7 +14,8 @@ interface Bar {
 	distance: number;
 	latitude: number;
 	longitude: number;
-	beers: Array<Beer>;		
+	beers: Array<Beer>;
+	url: string;
 }
 
 interface BarService {

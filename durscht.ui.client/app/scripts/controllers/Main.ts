@@ -48,8 +48,11 @@
             var pf = $('body > footer').outerHeight(true);
             var bh; //body height
 
-            // Set the body height
+            // Reset all heights
             $('body').height('auto');
+            $('body > article').height('auto');
+
+
             bh = $('body').height();
 
             if(bh < wh) {
