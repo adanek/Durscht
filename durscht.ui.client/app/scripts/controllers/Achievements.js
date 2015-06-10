@@ -2,11 +2,12 @@
 'use strict';
 (function (app) {
     var ctrl = function ($scope, $location, achievementService, authService) {
-        var achievements = [{
-            name: '3 Posts in einer Woche',
-            progress: 10,
-            url: ''
-        }, { name: 'Einen Post erstellt', progress: 100, url: '' }];
+        var achievements = [];
+        //[{
+        //    name: '3 Posts in einer Woche',
+        //    progress: 10,
+        //    url: ''
+        //}, {name: 'Einen Post erstellt', progress: 100, url: ''}];
         $scope.caption = "Deine Errungenschaften";
         $scope.achievements = achievements;
         $scope.progress = 100;
