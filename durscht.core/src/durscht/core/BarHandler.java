@@ -15,7 +15,7 @@ import durscht.model.Post;
 
 public class BarHandler implements IBarHandler {
 
-	private final double BAR_SEARCH_RADIUS = 10;
+	private final double BAR_SEARCH_RADIUS = 30;
 
 	private IDataHandler dataHandler;
 
@@ -106,6 +106,7 @@ public class BarHandler implements IBarHandler {
 		Bar bar = new Bar();
 		bar.setId(ibar.getId());
 		bar.setName(ibar.getName());
+		bar.setUrl(ibar.getUrl());
 		bar.setLatitude(ibar.getLatitude());
 		bar.setLongitude(ibar.getLongitude());
 		bar.setDistance(Position.calcDistanceBetweenPoints(currentLat, currentLon, ibar.getLatitude(),
