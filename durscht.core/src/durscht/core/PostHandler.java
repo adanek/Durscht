@@ -144,14 +144,14 @@ public class PostHandler implements IPostHandler {
 		IDataHandler dataHandler = getDataHandler();
 		Collection<IAchievement> allAchievements = dataHandler.getAllAchievements();
 		Collection<IAchievement> userAchievements = dataHandler.getAllAchievementsFromUser(userID);
+		Collection<IBeerPost> userPosts = dataHandler.getAllPostsFromUser(userID);
 
 		Collection<durscht.contracts.logic.model.IAchievement> returnList = new ArrayList<>();
 
 		for (IAchievement achievement : allAchievements) {
 			Achievement newAchievement = new Achievement();
 			newAchievement.setName(achievement.getName());
-			// imageUrl is the achievement-name (where spaces are removed!)
-			// TODO: images!!!
+			// imageUrl is the lowercase achievement-name (where spaces are removed!)
 			newAchievement.setImageUrl("/resources/" + achievement.getName().replace(" ", "").toLowerCase() + ".png");
 
 			if (userAchievements.contains(achievement)) {
@@ -166,13 +166,13 @@ public class PostHandler implements IPostHandler {
 				for (IAchievementCriterion criterion : criteria) {
 					switch (criterion.getType()) {
 					case TOTAL_POSTS:
-						progress += checkTotalPostsAchievement(userID, criterion.getValue());
+						progress += checkTotalPostsAchievement(userID, userPosts.size(), criterion.getValue());
 						break;
 					case WEEK_POSTS:
-						progress += checkPostsByTimeAchievement(userID, criterion.getValue(), 7);
+						progress += checkPostsByTimeAchievement(userID, userPosts, criterion.getValue(), 7);
 						break;
 					case MONTH_POSTS:
-						progress += checkPostsByTimeAchievement(userID, criterion.getValue(), 30);
+						progress += checkPostsByTimeAchievement(userID, userPosts, criterion.getValue(), 30);
 						break;
 					}
 				}
@@ -189,24 +189,19 @@ public class PostHandler implements IPostHandler {
 		return returnList.toArray(new Achievement[returnList.size()]);
 	}
 
-	private int checkTotalPostsAchievement(int userID, int value) throws IllegalArgumentException,
+	private int checkTotalPostsAchievement(int userID, int userPostCount, int value) throws IllegalArgumentException,
 			IllegalStateException {
-		IDataHandler dataHandler = getDataHandler();
-		int userPostCount = dataHandler.getAllPostsFromUser(userID).size();
 		if (userPostCount >= value) {
 			// criterion satisfied!
 			return 100;
 		}
 
 		// criterion not satisfied! Calculate criterion progress
-		return (int) ((double) userPostCount / value);
+		return (100 * userPostCount) / value;
 	}
 
-	private int checkPostsByTimeAchievement(int userID, int value, int days) throws IllegalArgumentException,
-			IllegalStateException {
-		IDataHandler dataHandler = getDataHandler();
-		Collection<IBeerPost> userPosts = dataHandler.getAllPostsFromUser(userID);
-
+	private int checkPostsByTimeAchievement(int userID, Collection<IBeerPost> userPosts, int value, int days)
+			throws IllegalArgumentException, IllegalStateException {
 		// <days> days ago from exactly now
 		final long DAY_IN_MS = 1000 * 60 * 60 * 24;
 		Date startDate = new Date(System.currentTimeMillis() - (days * DAY_IN_MS));
@@ -223,7 +218,7 @@ public class PostHandler implements IPostHandler {
 		}
 
 		// criterion not satisfied! Calculate criterion progress
-		return (int) ((double) postCount / value);
+		return (100 * postCount) / value;
 	}
 
 	@Override
