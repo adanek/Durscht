@@ -520,7 +520,7 @@ public class DataHandler implements IDataHandler {
 	/**
 	 * deletes a achievement from the database
 	 * 
-	 * @param aID
+	 * @param aID the id of the achievement
 	 * @throws IllegalArgumentException
 	 *             deletion or getting achievement from ID failed
 	 */
