@@ -5,11 +5,12 @@
 
     var ctrl = function ($scope, $location, achievementService:AchievementService, authService:AuthenticationService) {
 
-        var achievements:Array<Achievement> = [{
-            name: '3 Posts in einer Woche',
-            progress: 10,
-            url: ''
-        }, {name: 'Einen Post erstellt', progress: 100, url: ''}];
+        var achievements:Array<Achievement> = [];
+        //[{
+        //    name: '3 Posts in einer Woche',
+        //    progress: 10,
+        //    url: ''
+        //}, {name: 'Einen Post erstellt', progress: 100, url: ''}];
 
         $scope.caption = "Deine Errungenschaften";
         $scope.achievements = achievements;

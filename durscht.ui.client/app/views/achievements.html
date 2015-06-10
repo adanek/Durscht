@@ -6,12 +6,18 @@
 
 <section>
     <div>
+
+        <div class="my-panel">
+            <p>Lade Errungenschaften...</p>
+            <img class="img-loading-dots" src="images/loading.gif"/>
+        </div>
+
         <div class="list-group bordered">
-            <div class="list-group-item text-left">
-                <img class="img-achievement" ng-class="{'img-achievement-undone': progress != 100}" src="images/achievement.png" alt="medal"/>
-                <div class="list-group-item-heading"> 3 Posts in einer Woche</div>
-                <progressbar class="progress-striped" value="22">22%</progressbar>
-            </div>
+            <!--<div class="list-group-item text-left">-->
+                <!--<img class="img-achievement" ng-class="{'img-achievement-undone': progress != 100}" src="images/achievement.png" alt="medal"/>-->
+                <!--<div class="list-group-item-heading"> 3 Posts in einer Woche</div>-->
+                <!--<progressbar class="progress-striped" value="22">22%</progressbar>-->
+            <!--</div>-->
             <div class="list-group-item text-left" ng-repeat="achievement in achievements">
                 <img class="img-achievement" ng-class="{'img-achievement-undone': achievement.progress != 100}" src="images/achievement.png" alt="medal"/>
                 <div class="list-group-item-heading"> {{ achievement.name }}</div>
