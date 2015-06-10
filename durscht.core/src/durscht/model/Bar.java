@@ -6,6 +6,7 @@ public class Bar implements IBar {
 
 	private int id;
 	private String name;
+	private String url;
 	private double distance;
 	private double latitude;
 	private double longitude;
@@ -39,11 +40,12 @@ public class Bar implements IBar {
 
 	@Override
 	public double getLatitude() {
-		return 0;
+		return this.latitude;
 	}
 
 	/**
 	 * Set the latitude of the bar to the new value
+	 * 
 	 * @param val the new value of the latitude
 	 */
 	public void setLatitude(double val) {
@@ -52,15 +54,25 @@ public class Bar implements IBar {
 
 	@Override
 	public double getLongitude() {
-		return 0;
+		return this.longitude;
 	}
 
 	/**
 	 * Set the longitude of the bar to the new value
+	 * 
 	 * @param val the new value of the bar
 	 */
-	public void setLongitude(double val){
+	public void setLongitude(double val) {
 		this.longitude = val;
+	}
+
+	@Override
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }
