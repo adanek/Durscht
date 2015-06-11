@@ -38,7 +38,7 @@ public interface IBeerHandler {
 	IBeer[] getAllBeersNotVerified();
 
 	/**
-	 * Verifies a beer
+	 * Verifies a beer and adds it to cached beers
 	 *
 	 * @param id
 	 * @return verified beer
@@ -46,7 +46,7 @@ public interface IBeerHandler {
 	IBeer verifyBeer(int id);
 
 	/**
-	 * Deletes a unverified beer
+	 * Deletes an unverified beer
 	 *
 	 * @param id
 	 * @throws IllegalArgumentException if beer is verified
